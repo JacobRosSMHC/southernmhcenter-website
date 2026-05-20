@@ -1,0 +1,1312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="page-title">Home Details — Southern Mobile Home Center</title>
+  <meta name="description" content="View specs, photos, floor plans, and financing for this manufactured home at Southern Mobile Home Center in Tickfaw, LA.">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="icon" href="../images/smhc-logo.jpg">
+  <!-- Google Maps -->
+  <script>
+    window.GMAPS_KEY = 'AIzaSyAONJyIFXiRuYgAikb-JwS7qHHYTHD6VOc';
+  </script>
+  <style>
+    .detail-page { background: var(--cream); padding-bottom: 80px; }
+    .detail-page-inner { max-width: var(--container); margin: 0 auto; padding: 0 24px; }
+
+    /* Breadcrumb */
+    .detail-breadcrumb {
+      padding: 16px 0;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--gray-200);
+      margin-bottom: 32px;
+      background: var(--white);
+    }
+    .detail-breadcrumb a { color: var(--navy); }
+    .detail-breadcrumb a:hover { color: var(--gold); }
+    .detail-breadcrumb span { margin: 0 6px; color: var(--gray-400); }
+
+    .detail-main { padding-top: 32px; }
+
+    /* ── Price Breakdown Tabs ──────────────────────────────────────── */
+    .pbt-wrap {
+      margin-top: 20px;
+      border: 1.5px solid var(--gray-200);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: var(--white);
+    }
+    .pbt-tabs {
+      display: flex;
+      border-bottom: 2px solid var(--gray-200);
+      background: var(--cream);
+    }
+    .pbt-tab {
+      flex: 1;
+      padding: 10px 12px;
+      font-size: .8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -2px;
+      transition: color .18s, border-color .18s;
+    }
+    .pbt-tab.active {
+      color: var(--navy);
+      border-bottom-color: var(--gold);
+    }
+    .pbt-tab:hover:not(.active) { color: var(--navy); }
+    .pbt-tab-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 17px;
+      height: 17px;
+      padding: 0 4px;
+      background: var(--gold);
+      color: var(--navy);
+      border-radius: 9px;
+      font-size: .68rem;
+      font-weight: 800;
+      margin-left: 4px;
+      transition: opacity .2s;
+    }
+    .pbt-tab-badge[data-count="0"] { opacity: 0; }
+    .pbt-panel {
+      padding: 14px;
+    }
+    .pbt-panel-intro {
+      font-size: .78rem;
+      color: var(--text-muted);
+      margin: 0 0 12px;
+      line-height: 1.45;
+    }
+    /* Included list — compact 2-col grid */
+    .pbt-included-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 12px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5px;
+    }
+    .pbt-included-list li {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 7px 10px;
+      background: #f4faf4;
+      border-radius: var(--radius-sm);
+      border: 1px solid #d4ead4;
+    }
+    .pbt-check {
+      color: #2e7d32;
+      font-size: .88rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .pbt-included-list li strong {
+      font-size: .82rem;
+      color: var(--navy);
+      font-weight: 600;
+      line-height: 1.3;
+    }
+    /* Hide sub-notes — they added clutter */
+    .pbt-inc-note { display: none; }
+    .pbt-notice {
+      background: #fff8e1;
+      border: 1px solid #ffe082;
+      border-radius: var(--radius-sm);
+      padding: 8px 12px;
+      font-size: .77rem;
+      color: #7a5c00;
+      line-height: 1.45;
+    }
+    .pbt-notice a { color: #5a4000; font-weight: 600; }
+    /* Extras checklist */
+    .pbt-extra-group {
+      margin-bottom: 14px;
+    }
+    .pbt-extra-group:last-of-type { margin-bottom: 0; }
+    .pbt-group-label {
+      font-size: .69rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      padding-bottom: 4px;
+      border-bottom: 1px solid var(--gray-200);
+    }
+    .pbt-extra-item {
+      display: block;
+      cursor: pointer;
+      padding: 8px 10px;
+      border-radius: var(--radius-sm);
+      border: 1.5px solid var(--gray-200);
+      margin-bottom: 4px;
+      background: var(--white);
+      transition: border-color .18s, background .18s;
+      user-select: none;
+    }
+    .pbt-extra-item:hover { border-color: var(--navy); background: var(--cream); }
+    .pbt-extra-item input[type=checkbox] { display: none; }
+    .pbt-extra-item:has(input:checked) {
+      border-color: var(--gold);
+      background: #fffbec;
+    }
+    .pbt-extra-body {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .pbt-extra-name {
+      font-size: .83rem;
+      font-weight: 600;
+      color: var(--navy);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .pbt-extra-tag {
+      font-size: .67rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      background: var(--gray-200);
+      color: var(--text-muted);
+      padding: 1px 5px;
+      border-radius: 4px;
+    }
+    .pbt-extra-price {
+      font-size: .83rem;
+      font-weight: 700;
+      color: #b36b00;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    /* Notes hidden by default — appear on hover/check */
+    .pbt-extra-note {
+      font-size: .73rem;
+      color: var(--text-muted);
+      margin-top: 0;
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: max-height .2s ease, opacity .2s ease, margin-top .2s ease;
+      line-height: 1.4;
+    }
+    .pbt-extra-item:hover .pbt-extra-note,
+    .pbt-extra-item.checked .pbt-extra-note,
+    .pbt-extra-item:has(input:checked) .pbt-extra-note {
+      max-height: 60px;
+      opacity: 1;
+      margin-top: 4px;
+    }
+    /* Total box */
+    .pbt-total-box {
+      margin-top: 14px;
+      background: var(--navy);
+      border-radius: var(--radius-lg);
+      padding: 13px 15px;
+      color: #fff;
+    }
+    .pbt-total-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: .84rem;
+      padding: 3px 0;
+      gap: 8px;
+    }
+    .pbt-total-row.grand {
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--gold);
+    }
+    .pbt-total-divider {
+      border: none;
+      border-top: 1px solid rgba(255,255,255,.2);
+      margin: 7px 0;
+    }
+    .pbt-total-disclaimer {
+      margin-top: 8px;
+      font-size: .72rem;
+      color: rgba(255,255,255,.6);
+      line-height: 1.45;
+    }
+    #pbt-items-list {
+      font-size: .73rem;
+      color: rgba(255,255,255,.65);
+      line-height: 1.65;
+    }
+    /* Fallback for browsers without :has() */
+    .pbt-extra-item.checked {
+      border-color: var(--gold) !important;
+      background: #fffbec !important;
+    }
+  </style>
+  <meta property="og:image" content="https://www.southernmhcenter.com/images/hero-1.jpg">
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml">
+  <!-- Facebook Pixel -->
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '1482427083607310');
+  fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=1482427083607310&ev=PageView&noscript=1"
+  /></noscript>
+  <!-- End Facebook Pixel -->
+</head>
+<body>
+
+<div id="nav-placeholder"></div>
+
+<div style="margin-top:var(--nav-h);">
+
+<!-- Breadcrumb -->
+<div class="detail-breadcrumb">
+  <div class="container">
+    <a href="../index.html">Home</a>
+    <span>›</span>
+    <a href="floor-plans.html">Floor Plans</a>
+    <span>›</span>
+    <span id="bc-name">Loading…</span>
+  </div>
+</div>
+
+<!-- Main Content -->
+<div class="detail-page">
+<div class="detail-page-inner">
+<div class="detail-main">
+
+  <div class="detail-layout">
+
+    <!-- ── LEFT MAIN COLUMN ──────────────────────────────────────────── -->
+    <div class="detail-main-col">
+
+      <!-- Gallery -->
+      <div class="trove-gallery-main" id="gallery-wrap">
+        <img id="gallery-main-img" src="../images/home-placeholder.jpg" alt="Home photo" style="width:100%;aspect-ratio:16/9;max-height:460px;object-fit:cover;display:block;">
+        <button class="gallery-nav prev" id="gallery-prev" onclick="galleryNav(-1)" aria-label="Previous photo">&#8249;</button>
+        <button class="gallery-nav next" id="gallery-next" onclick="galleryNav(1)" aria-label="Next photo">&#8250;</button>
+        <span class="gallery-counter" id="gallery-counter">1 / 1</span>
+      </div>
+
+      <!-- Thumbnails -->
+      <div class="trove-thumb-strip" id="thumb-strip"></div>
+
+      <!-- View Tabs -->
+      <div class="view-tabs">
+        <button class="view-tab active" onclick="switchTab('photos',this)">Photos</button>
+        <button class="view-tab" onclick="switchTab('floorplan',this)">Floor Plan</button>
+        <button class="view-tab" onclick="switchTab('tour',this)">Virtual Tour</button>
+      </div>
+
+      <!-- Tab: Photos (duplicate gallery strip) -->
+      <div class="view-tab-content active" id="tab-photos">
+
+      </div>
+
+      <!-- Tab: Floor Plan -->
+      <div class="view-tab-content" id="tab-floorplan">
+        <div class="detail-section">
+          <div class="detail-section-title">Floor Plan</div>
+          <img id="floor-plan-img" src="" alt="Floor plan" class="floor-plan-img" style="display:none;">
+          <p id="floor-plan-none" style="color:var(--text-muted);font-size:.9rem;">Floor plan image not available for this model. Contact us for details.</p>
+        </div>
+      </div>
+
+      <!-- Tab: Virtual Tour -->
+      <div class="view-tab-content" id="tab-tour">
+        <div class="detail-section">
+          <div class="detail-section-title">Virtual Tour</div>
+          <div id="tour-embed"></div>
+          <div id="tour-none" style="background:var(--cream);border-radius:var(--radius-lg);padding:40px;text-align:center;">
+            <p style="color:var(--text-muted);margin-bottom:16px;">Virtual tour not yet available for this model.</p>
+            <a href="contact.html" class="btn btn-navy">Contact Us to Schedule a Visit</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Similar Homes -->
+      <div class="detail-section">
+        <div class="detail-section-title">Similar Homes</div>
+        <div class="similar-homes-row" id="similar-homes-row"></div>
+      </div>
+
+    </div>
+
+    <!-- ── RIGHT SIDEBAR ──────────────────────────────────────────────── -->
+    <div class="detail-sidebar">
+      <div class="detail-sidebar-card">
+        <div class="detail-sidebar-head">
+          <div class="ds-name" id="sb-type">Single-Wide</div>
+          <h2 id="sb-name">Loading…</h2>
+          <div class="ds-mfg" id="sb-mfg"></div>
+          <div class="ds-price" id="sb-price"></div>
+          <div class="ds-mo" id="sb-mo"></div>
+        </div>
+        <div class="detail-sidebar-body">
+          <!-- Status Badge -->
+          <div id="sb-status" style="margin-bottom:14px;"></div>
+
+          <!-- Specs -->
+          <div class="detail-sidebar-specs">
+            <div class="ds-spec">
+              <div class="spec-key">Bedrooms</div>
+              <div class="spec-val" id="sb-beds">–</div>
+            </div>
+            <div class="ds-spec">
+              <div class="spec-key">Bathrooms</div>
+              <div class="spec-val" id="sb-baths">–</div>
+            </div>
+            <div class="ds-spec">
+              <div class="spec-key">Sq. Footage</div>
+              <div class="spec-val" id="sb-sqft">–</div>
+            </div>
+            <div class="ds-spec">
+              <div class="spec-key">Dimensions</div>
+              <div class="spec-val" id="sb-dims">–</div>
+            </div>
+          </div>
+
+          <!-- Financing box -->
+          <div class="financing-box" style="margin-bottom:18px;">
+            <div class="est-label">Est. Monthly Payment</div>
+            <div class="est-val" id="sb-est-mo">–</div>
+            <div class="est-terms">Estimated · 30 yr · 5% down · subject to lender approval</div>
+          </div>
+
+          <!-- ── PRICE BREAKDOWN TABS ──────────────────────────────────────── -->
+          <div class="pbt-wrap">
+
+            <!-- Tab buttons -->
+            <div class="pbt-tabs">
+              <button class="pbt-tab active" onclick="switchPBTab('included',this)">What's Included</button>
+              <button class="pbt-tab" onclick="switchPBTab('extras',this)">Need More? <span class="pbt-tab-badge" id="pbt-badge">0</span></button>
+            </div>
+
+            <!-- TAB 1: WHAT'S INCLUDED -->
+            <div class="pbt-panel" id="pbt-included">
+              <p class="pbt-panel-intro">Every advertised price already includes all of the following at no extra charge:</p>
+              <ul class="pbt-included-list">
+                <li><span class="pbt-check">✔</span><div><strong>Standard Delivery</strong><span class="pbt-inc-note">Within our standard service area (LA &amp; MS)</span></div></li>
+                <li><span class="pbt-check">✔</span><div><strong>Blocking &amp; Leveling</strong><span class="pbt-inc-note">Professional on-site foundation work</span></div></li>
+                <li><span class="pbt-check">✔</span><div><strong>Anchoring / Tie-Down</strong><span class="pbt-inc-note">Per HUD wind zone standards</span></div></li>
+                <li><span class="pbt-check">✔</span><div><strong>Entry Steps</strong><span class="pbt-inc-note">All exterior doors</span></div></li>
+                <li><span class="pbt-check">✔</span><div><strong>Central A/C</strong><span class="pbt-inc-note">Installed &amp; operational</span></div></li>
+                <li><span class="pbt-check">✔</span><div><strong>Skirting</strong><span class="pbt-inc-note">Standard perimeter skirting</span></div></li>
+                <li><span class="pbt-check">✔</span><div><strong>Kitchen Appliances</strong><span class="pbt-inc-note">All appliances shown in the home</span></div></li>
+                <li><span class="pbt-check">✔</span><div><strong>Manufacturer Warranty</strong><span class="pbt-inc-note">Minimum 1 year coverage</span></div></li>
+              </ul>
+              <div class="pbt-notice">
+                <strong>Not included:</strong> Land, land prep, utility connections, permits, optional upgrades &amp; taxes. <a href="#" onclick="switchPBTab('extras', document.querySelectorAll('.pbt-tab')[1]); return false;">See what else you might need →</a>
+              </div>
+            </div>
+
+            <!-- TAB 2: NEED MORE CHECKLIST -->
+            <div class="pbt-panel" id="pbt-extras" style="display:none;">
+              <p class="pbt-panel-intro">Select everything you'll need for your situation. Prices shown are <em>average estimates</em> — your actual costs may vary based on site conditions, distance, and local requirements. Always confirm final pricing with our team.</p>
+
+              <div class="pbt-extra-group">
+                <div class="pbt-group-label">📍 Land &amp; Site Prep</div>
+                <label class="pbt-extra-item">
+                  <input type="checkbox" class="pbt-chk" data-price="3500" data-label="Site Clearing (light)" onchange="updateExtrasTotal()">
+                  <div class="pbt-extra-body">
+                    <span class="pbt-extra-name">Site Clearing <span class="pbt-extra-tag">Light</span></span>
+                    <span class="pbt-extra-price">+$3,500</span>
+                  </div>
+                  <div class="pbt-extra-note">Light brush &amp; vegetation removal. Heavily wooded sites will be more.</div>
+                </label>
+                <label class="pbt-extra-item">
+                  <input type="checkbox" class="pbt-chk" data-price="8000" data-label="Land Clearing (wooded)" onchange="updateExtrasTotal()">
+                  <div class="pbt-extra-body">
+                    <span class="pbt-extra-name">Land Clearing <span class="pbt-extra-tag">Wooded</span></span>
+                    <span class="pbt-extra-price">+$8,000</span>
+                  </div>
+                  <div class="pbt-extra-note">Tree removal, stump grinding, and grading. Varies widely by lot size and density.</div>
+                </label>
+                <label class="pbt-extra-item">
+                  <input type="checkbox" class="pbt-chk" data-price="2500" data-label="Gravel Pad" onchange="updateExtrasTotal()">
+                  <div class="pbt-extra-body">
+                    <span class="pbt-extra-name">Gravel Pad</span>
+                    <span class="pbt-extra-price">+$2,500</span>
+                  </div>
+                  <div class="pbt-extra-note">Compacted gravel base for the home. Size-dependent.</div>
+                </label>
+                <label class="pbt-extra-item">
+                  <input type="checkbox" class="pbt-chk" data-price="4500" data-label="Concrete Runners / Piers" onchange="updateExtrasTotal()">
+                  <div class="pbt-extra-body">
+                    <span class="pbt-extra-name">Concrete Runners / Piers</span>
+                    <span class="pbt-extra-price">+$4,500</span>
+                  </div>
+                  <div class="pbt-extra-note">Permanent concrete foundation option. Increases loan eligibility in some programs.</div>
+                </label>
+              </div>
+
+              <div class="pbt-extra-group">
+                <div class="pbt-group-label">🚰 Utilities &amp; Connections</div>
+                <label class="pbt-extra-item">
+                  <input type="checkbox" class="pbt-chk" data-price="6500" data-label="Septic System" onchange="updateExtrasTotal()">
+                  <div class="pbt-extra-body">
+                    <span class="pbt-extra-name">Septic System</span>
+                    <span class="pbt-extra-price">+$6,500</span>
+                  </div>
+                  <div class="pbt-extra-note">Conventional septic tank &amp; drain field. Costs vary significantly by soil type and local regulations.</div>
+                </label>
+                <label class="pbt-extra-item">
+                  <input type="checkbox" class="pbt-chk" data-price="2000" data-label="Water Well" onchange="updateExtrasTotal()">
+                  <div class="pbt-extra-body">
+                    <span class="pbt-extra-name">Water Well</span>
+                    <span class="pbt-extra-price">+$2,000</span>
+                  </div>
+                  <div class="pbt-extra-note">Shallow well estimate. Depth and local conditions can significantly affect this price.</div>
+                </label>
+                <label class="pbt-extra-item">
+                  <input type="checkbox" class="pbt-chk" data-price="1800" data-label="Electric Hookup (meter base &amp; service)" onchange="updateExtrasTotal()">
+                  <div class="pbt-extra-body">
+                    <span class="pbt-extra-name">Electric Hookup</span>
+                    <span class="pbt-extra-price">+$1,800</span>
+                  </div>
+                  <div class="pbt-extra-note">Meter base, service entrance, and connection. Utility company fees not included.</div>
+                </label>
+                <label class="pbt-extra-item">
+                  <input type="checkbox" class="pbt-chk" data-price="2800" data-label="Light Pole &amp; Meter Loop" onchange="updateExtrasTotal()">
+                  <div class="pbt-extra-body">
+                    <span class="pbt-extra-name">Light Pole &amp; Meter Loop</span>
+                    <span class="pbt-extra-price">+$2,800</span>
+                  </div>
+                  <div class="pbt-extra-note">Temporary or permanent pole with meter loop. Required in many rural locations before power can be connected.</div>
+                </label>
+                <label class="pbt-extra-item">
+                  <input type="checkbox" class="pbt-chk" data-price="1200" data-label="Water &amp; Sewer Hookup (city/municipal)" onchange="updateExtrasTotal()">
+                  <div class="pbt-extra-body">
+                    <span class="pbt-extra-name">City Water &amp; Sewer Hookup</span>
+                    <span class="pbt-extra-price">+$1,200</span>
+                  </div>
+                  <div class="pbt-extra-note">Tap fee and connection to municipal water/sewer line. Fees vary by municipality.</div>
+                </label>
+              </div>
+
+              <div class="pbt-extra-group">
+                <div class="pbt-group-label">🛫 Extended Delivery</div>
+                <label class="pbt-extra-item">
+                  <input type="checkbox" class="pbt-chk" data-price="1500" data-label="Extended Delivery (50–100 miles over standard)" onchange="updateExtrasTotal()">
+                  <div class="pbt-extra-body">
+                    <span class="pbt-extra-name">Extended Delivery</span>
+                    <span class="pbt-extra-price">+$1,500</span>
+                  </div>
+                  <div class="pbt-extra-note">For sites beyond our standard delivery radius. Exact fee confirmed based on your location.</div>
+                </label>
+              </div>
+
+              <div class="pbt-extra-group">
+                <div class="pbt-group-label">🏠 Optional Home Upgrades</div>
+                <label class="pbt-extra-item">
+                  <input type="checkbox" class="pbt-chk" data-price="3500" data-label="Covered Porch / Deck" onchange="updateExtrasTotal()">
+                  <div class="pbt-extra-body">
+                    <span class="pbt-extra-name">Covered Porch / Deck</span>
+                    <span class="pbt-extra-price">+$3,500</span>
+                  </div>
+                  <div class="pbt-extra-note">Basic covered entry porch or wood deck. Size and material choices affect pricing.</div>
+                </label>
+                <label class="pbt-extra-item">
+                  <input type="checkbox" class="pbt-chk" data-price="1500" data-label="Carport" onchange="updateExtrasTotal()">
+                  <div class="pbt-extra-body">
+                    <span class="pbt-extra-name">Carport</span>
+                    <span class="pbt-extra-price">+$1,500</span>
+                  </div>
+                  <div class="pbt-extra-note">Single-car metal carport. Double-car and enclosed options available.</div>
+                </label>
+                <label class="pbt-extra-item">
+                  <input type="checkbox" class="pbt-chk" data-price="2000" data-label="Upgrade Skirting (brick or stone)" onchange="updateExtrasTotal()">
+                  <div class="pbt-extra-body">
+                    <span class="pbt-extra-name">Upgraded Skirting</span>
+                    <span class="pbt-extra-price">+$2,000</span>
+                  </div>
+                  <div class="pbt-extra-note">Brick, stone veneer, or premium skirting instead of standard. Enhances curb appeal significantly.</div>
+                </label>
+                <label class="pbt-extra-item">
+                  <input type="checkbox" class="pbt-chk" data-price="500" data-label="Storm Door(s)" onchange="updateExtrasTotal()">
+                  <div class="pbt-extra-body">
+                    <span class="pbt-extra-name">Storm Door(s)</span>
+                    <span class="pbt-extra-price">+$500</span>
+                  </div>
+                  <div class="pbt-extra-note">Per door estimate for exterior storm/screen door addition.</div>
+                </label>
+              </div>
+
+              <div class="pbt-extra-group">
+                <div class="pbt-group-label">📜 Permits &amp; Inspections</div>
+                <label class="pbt-extra-item">
+                  <input type="checkbox" class="pbt-chk" data-price="800" data-label="Local Building Permits" onchange="updateExtrasTotal()">
+                  <div class="pbt-extra-body">
+                    <span class="pbt-extra-name">Local Building Permits</span>
+                    <span class="pbt-extra-price">+$800</span>
+                  </div>
+                  <div class="pbt-extra-note">Varies by parish/county. Some areas are higher, some exempt rural placements.</div>
+                </label>
+                <label class="pbt-extra-item">
+                  <input type="checkbox" class="pbt-chk" data-price="350" data-label="HUD Installation Inspection" onchange="updateExtrasTotal()">
+                  <div class="pbt-extra-body">
+                    <span class="pbt-extra-name">HUD Installation Inspection</span>
+                    <span class="pbt-extra-price">+$350</span>
+                  </div>
+                  <div class="pbt-extra-note">Required in some loan programs. Verifies proper installation per federal standards.</div>
+                </label>
+              </div>
+
+              <!-- Running total -->
+              <div class="pbt-total-box" id="pbt-total-box">
+                <div class="pbt-total-row">
+                  <span>Home (advertised price)</span>
+                  <span id="pbt-base-price">—</span>
+                </div>
+                <div class="pbt-total-row" id="pbt-extras-row" style="display:none;">
+                  <span>Selected add-ons</span>
+                  <span id="pbt-extras-sum" style="color:#e67e22;">+$0</span>
+                </div>
+                <div class="pbt-total-divider"></div>
+                <div class="pbt-total-row grand">
+                  <span>Estimated Total</span>
+                  <span id="pbt-grand-total">—</span>
+                </div>
+                <div id="pbt-items-list" style="margin-top:8px;"></div>
+                <div class="pbt-total-disclaimer">
+                  ⚠️ All add-on prices are <strong>average estimates only</strong> and can vary significantly based on your specific site conditions, location, soil type, access, and local regulations. This tool is for planning purposes — not a quote. Contact our team for an accurate assessment of your situation.
+                </div>
+              </div>
+
+              <a href="contact.html" class="btn btn-gold" style="width:100%;justify-content:center;margin-top:14px;display:flex;">Get a Real Estimate →</a>
+            </div>
+
+          </div><!-- /pbt-wrap -->
+
+          <!-- CTAs -->
+          <div style="margin-top:18px;">
+            <a id="btn-brochure" href="#" class="btn btn-outline" target="_blank">See Brochure / Floor Plan</a>
+            <a id="btn-design" href="#" class="btn btn-gold" style="margin-top:8px;">Design This Home</a>
+            <a href="contact.html" class="btn btn-navy" style="margin-top:8px;">Contact Us</a>
+          </div>
+
+          <p style="font-size:.72rem;color:var(--text-muted);margin-top:14px;line-height:1.5;">
+            Advertised price includes standard delivery, blocking, anchoring, steps, central A/C, skirting, shown kitchen appliances, and a minimum one-year manufacturer warranty within our standard service area. Price excludes land, land preparation, utility connections, optional upgrades, permits, and applicable taxes. Estimated add-on prices shown are averages only and vary by site. Final purchase price confirmed in writing at time of sale. Financing subject to lender approval; rates and terms vary.
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /detail-layout -->
+
+</div><!-- /detail-main -->
+</div><!-- /detail-page-inner -->
+</div><!-- /detail-page -->
+</div><!-- /margin-top wrapper -->
+
+<!-- ── Place-a-Home Section ──────────────────────────────────────────────── -->
+<section id="place-a-home" style="background:#fff;border-top:3px solid var(--navy);padding:0 0 60px;">
+
+  <style>
+    /* Place-a-Home section styles */
+    .pah-header {
+      background: var(--navy);
+      color: #fff;
+      padding: 28px 0;
+      margin-bottom: 36px;
+    }
+    .pah-header h2 {
+      margin: 0 0 6px;
+      font-size: 1.55rem;
+      font-weight: 700;
+      letter-spacing: -.3px;
+    }
+    .pah-header p {
+      margin: 0;
+      font-size: .92rem;
+      opacity: .82;
+    }
+    .pah-grid {
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 32px;
+      align-items: start;
+    }
+    .pah-label {
+      font-size: .78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+    .pah-input-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    .pah-input-row input {
+      flex: 1;
+      padding: 10px 14px;
+      border: 1.5px solid var(--gray-200);
+      border-radius: var(--radius-sm);
+      font-size: .92rem;
+      font-family: inherit;
+      background: var(--cream);
+      color: var(--text-main);
+      outline: none;
+      transition: border-color .2s;
+    }
+    .pah-input-row input:focus {
+      border-color: var(--navy);
+      background: #fff;
+    }
+    .pah-suggestions {
+      position: absolute;
+      top: calc(100% + 2px);
+      left: 0;
+      right: 0;
+      background: #fff;
+      border: 1.5px solid var(--navy);
+      border-radius: var(--radius-sm);
+      box-shadow: 0 8px 24px rgba(26,39,68,.13);
+      z-index: 9999;
+      max-height: 220px;
+      overflow-y: auto;
+    }
+    .pah-suggestions:empty { display: none; }
+    .pah-suggest-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      font-size: .91rem;
+      color: var(--text-main);
+      cursor: pointer;
+      border-bottom: 1px solid #f0eee9;
+      transition: background .15s;
+    }
+    .pah-suggest-item:last-child { border-bottom: none; }
+    .pah-suggest-item:hover, .pah-suggest-item.active {
+      background: var(--cream);
+      color: var(--navy);
+    }
+    .pah-suggest-icon { font-size: 1rem; flex-shrink: 0; }
+    .pah-btn-search {
+      padding: 10px 18px;
+      background: var(--navy);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-size: .9rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background .2s;
+    }
+    .pah-btn-search:hover { background: var(--gold); color: var(--navy); }
+    .pah-status {
+      font-size: .82rem;
+      color: var(--text-muted);
+      min-height: 18px;
+      margin-bottom: 14px;
+    }
+    .pah-rot-label {
+      font-size: .78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+    .pah-rot-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+    .pah-rot-btn {
+      padding: 7px 14px;
+      background: var(--navy);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-size: .82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background .2s;
+    }
+    .pah-rot-btn:hover { background: var(--gold); color: var(--navy); }
+    .pah-specs-box {
+      background: var(--cream);
+      border-radius: var(--radius-lg);
+      padding: 18px 20px;
+      border: 1.5px solid var(--gray-200);
+    }
+    .pah-specs-box .pah-label { margin-bottom: 12px; }
+    .pah-spec-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: .88rem;
+      padding: 5px 0;
+      border-bottom: 1px solid var(--gray-200);
+    }
+    .pah-spec-row:last-child { border-bottom: none; }
+    .pah-spec-key { color: var(--text-muted); }
+    .pah-spec-val { font-weight: 600; color: var(--navy); }
+    .pah-map-col { position: relative; }
+    #pah-placeholder {
+      height: 500px;
+      background: var(--cream);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 12px;
+      border-radius: var(--radius-lg);
+      border: 2px dashed var(--gray-200);
+    }
+    #pah-map {
+      height: 500px;
+      display: none;
+      border-radius: var(--radius-lg);
+      border: 2px solid var(--navy);
+      overflow: hidden;
+    }
+    .pah-quote-row {
+      margin-top: 28px;
+      text-align: center;
+    }
+    @media (max-width: 800px) {
+      .pah-grid {
+        grid-template-columns: 1fr;
+      }
+      #pah-placeholder, #pah-map {
+        height: 320px;
+      }
+    }
+  </style>
+
+  <!-- Navy header bar -->
+  <div class="pah-header">
+    <div class="container">
+      <h2>📍 Place This Home on Your Property</h2>
+      <p>Type in your address and see how this home fits on your land — to scale.</p>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="pah-grid">
+
+      <!-- Left column: controls -->
+      <div class="pah-left-col">
+
+        <!-- Address search -->
+        <div class="pah-label">Your Property Address</div>
+        <div class="pah-input-row" style="position:relative;">
+          <input type="text" id="pah-addr-input" placeholder="123 Main St, Springfield, LA" autocomplete="off"
+            onkeydown="if(event.key==='Enter'){ document.getElementById('pah-suggestions').innerHTML=''; pahSearch(); }">
+          <button class="pah-btn-search" onclick="pahSearch()">Search</button>
+          <div id="pah-suggestions" class="pah-suggestions"></div>
+        </div>
+        <div class="pah-status" id="pah-status"></div>
+
+        <!-- Rotation controls -->
+        <div class="pah-rot-label">Rotate Home</div>
+        <div class="pah-rot-row">
+          <button class="pah-rot-btn" onclick="pahRotate(-15)" title="Rotate 15° counter-clockwise">↺ −15°</button>
+          <button class="pah-rot-btn" onclick="pahRotate(0, true)" title="Reset rotation">Reset</button>
+          <button class="pah-rot-btn" onclick="pahRotate(15)" title="Rotate 15° clockwise">↻ +15°</button>
+        </div>
+
+        <!-- Home specs reminder -->
+        <div class="pah-specs-box" id="pah-specs-box">
+          <div class="pah-label">Home Footprint</div>
+          <div class="pah-spec-row">
+            <span class="pah-spec-key">Name</span>
+            <span class="pah-spec-val" id="pah-spec-name">—</span>
+          </div>
+          <div class="pah-spec-row">
+            <span class="pah-spec-key">Type</span>
+            <span class="pah-spec-val" id="pah-spec-type">—</span>
+          </div>
+          <div class="pah-spec-row">
+            <span class="pah-spec-key">Dimensions</span>
+            <span class="pah-spec-val" id="pah-spec-dims">—</span>
+          </div>
+          <div class="pah-spec-row">
+            <span class="pah-spec-key">Sq. Footage</span>
+            <span class="pah-spec-val" id="pah-spec-sqft">—</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right column: map -->
+      <div class="pah-map-col">
+        <div id="pah-placeholder">
+          <div style="font-size:2.5rem;">🗺️</div>
+          <p style="color:var(--text-muted);text-align:center;margin:0;">Enter your property address above<br>to see this home placed on your land</p>
+        </div>
+        <div id="pah-map"></div>
+      </div>
+
+    </div><!-- /pah-grid -->
+
+    <!-- CTA below map -->
+    <div class="pah-quote-row">
+      <a id="pah-quote-btn" href="contact.html" class="btn btn-gold" style="font-size:1.05rem;padding:14px 36px;">
+        Request a Quote for This Home
+      </a>
+    </div>
+
+  </div><!-- /container -->
+</section>
+
+<div id="footer-placeholder"></div>
+
+<!-- ── Scripts ───────────────────────────────────────────────────────────────── -->
+<script>var BASE_PATH = '../';</script>
+<script src="../js/homes-data.js"></script>
+<script src="../js/nav.js"></script>
+<script src="../js/main.js"></script>
+<script>
+(function() {
+  const params = new URLSearchParams(location.search);
+  const slug   = params.get('home');
+  if (!slug) { document.getElementById('bc-name').textContent = 'Not Found'; return; }
+
+  const homes = getEffectiveHomes();
+  const home  = homes.find(h => h.slug === slug);
+  if (!home) { document.getElementById('bc-name').textContent = 'Not Found'; return; }
+
+  window._currentHome = home; // expose for Place-a-Home tool
+  window._currentHomePrice = home.price || 0; // expose for price breakdown tab total
+
+  // ── Meta / Title ──────────────────────────────────────────────────────────
+  document.title = home.name + ' — Southern Mobile Home Center';
+  document.getElementById('bc-name').textContent = home.name;
+
+  // ── Sidebar ───────────────────────────────────────────────────────────────
+  document.getElementById('sb-type').textContent  = home.type;
+  document.getElementById('sb-name').textContent  = home.name;
+  document.getElementById('sb-mfg').textContent   = 'by ' + home.manufacturer;
+  document.getElementById('sb-price').textContent = formatPrice(home.price);
+  const mo = estimateMonthly(home.price);
+  document.getElementById('sb-mo').textContent    = '~$' + mo.toLocaleString() + '/mo est.';
+  document.getElementById('sb-beds').textContent  = home.beds + ' Bed';
+  document.getElementById('sb-baths').textContent = home.baths + ' Bath';
+  document.getElementById('sb-sqft').textContent  = home.sqft.toLocaleString() + ' sq ft';
+  document.getElementById('sb-dims').textContent  = home.dimensions || '—';
+  document.getElementById('sb-est-mo').textContent = '$' + mo.toLocaleString() + '/mo';
+  document.getElementById('sb-status').innerHTML  = statusBadgeHTML(home.status || 'available');
+
+  const brochureBtn = document.getElementById('btn-brochure');
+  if (home.floorPlan) {
+    brochureBtn.href = '../' + home.floorPlan;
+  } else {
+    brochureBtn.style.display = 'none';
+  }
+  document.getElementById('btn-design').href = 'design.html?home=' + home.slug;
+
+  // ── Gallery ───────────────────────────────────────────────────────────────
+  const gallery = (home.gallery && home.gallery.length > 0) ? home.gallery : [home.image];
+  let currentIdx = 0;
+
+  const mainImg   = document.getElementById('gallery-main-img');
+  const counter   = document.getElementById('gallery-counter');
+  const thumbStrip = document.getElementById('thumb-strip');
+  const placeholder = '../images/home-placeholder.jpg';
+
+  function showGalleryImg(idx) {
+    currentIdx = Math.max(0, Math.min(idx, gallery.length - 1));
+    mainImg.src = '../' + gallery[currentIdx];
+    mainImg.onerror = () => { mainImg.src = placeholder; };
+    counter.textContent = (currentIdx + 1) + ' / ' + gallery.length;
+    document.querySelectorAll('.trove-thumb').forEach((t, i) => {
+      t.classList.toggle('active', i === currentIdx);
+    });
+  }
+
+  // Build thumbnails
+  thumbStrip.innerHTML = gallery.map((src, i) => {
+    return `<img class="trove-thumb ${i===0?'active':''}" src="../${src}" alt="Photo ${i+1}" onerror="this.src='${placeholder}'" onclick="window._galleryGoTo(${i})">`;
+  }).join('');
+  showGalleryImg(0);
+
+  window.galleryNav = function(dir) { showGalleryImg(currentIdx + dir); };
+  window._galleryGoTo = function(i) { showGalleryImg(i); };
+
+  // Hide nav if only 1 photo
+  if (gallery.length <= 1) {
+    document.getElementById('gallery-prev').style.display = 'none';
+    document.getElementById('gallery-next').style.display = 'none';
+    document.getElementById('gallery-counter').style.display = 'none';
+  }
+
+  // ── Floor Plan Tab ────────────────────────────────────────────────────────
+  const fpImg  = document.getElementById('floor-plan-img');
+  const fpNone = document.getElementById('floor-plan-none');
+  if (home.floorPlan) {
+    fpImg.src = '../' + home.floorPlan;
+    fpImg.style.display = 'block';
+    fpNone.style.display = 'none';
+  } else {
+    fpImg.style.display = 'none';
+    fpNone.style.display = '';
+  }
+
+  // ── Interior Photo Grids ──────────────────────────────────────────────────
+  // ── Similar Homes ─────────────────────────────────────────────────────────
+  const similar = homes.filter(h =>
+    h.slug !== home.slug &&
+    h.type === home.type &&
+    Math.abs(h.price - home.price) < 20000
+  ).slice(0, 3);
+
+  document.getElementById('similar-homes-row').innerHTML = similar.map(h =>
+    homeTroveCardHTML(h, BASE_PATH)
+  ).join('');
+
+  // ── Tab switching ─────────────────────────────────────────────────────────
+  window.switchTab = function(tab, btn) {
+    document.querySelectorAll('.view-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.view-tab-content').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + tab).classList.add('active');
+  };
+
+})();
+</script>
+
+<!-- ── Place-a-Home Tool Scripts ──────────────────────────────────────────── -->
+<script>
+(function() {
+  // NOTE: window._currentHome is set by the detail script above this block.
+  // We do NOT exit early here — we must always define window._pahInitDetail
+  // so that the async Google Maps callback can find it.
+
+  var home = window._currentHome;
+
+  // Set up specs panel (only if home loaded)
+  if (home) {
+    document.getElementById('pah-spec-name').textContent = home.name;
+    document.getElementById('pah-spec-type').textContent = home.type;
+    document.getElementById('pah-spec-dims').textContent = home.dimensions || '—';
+    document.getElementById('pah-spec-sqft').textContent = home.sqft ? home.sqft.toLocaleString() + ' sq ft' : '—';
+    document.getElementById('pah-quote-btn').href = 'contact.html?home=' + home.slug;
+  }
+
+  function parseDims(h) {
+    if (h.dimensions) {
+      var m = h.dimensions.match(/(\d+)'?\s*[x×]\s*(\d+)'?/i);
+      if (m) return { w: parseInt(m[1]), l: parseInt(m[2]) };
+    }
+    return h.type === 'Double-Wide' ? { w: 28, l: Math.round(h.sqft/28) } : { w: 14, l: Math.round(h.sqft/14) };
+  }
+
+  var dims = home ? parseDims(home) : { w: 14, l: 60 };
+  var pahMap = null;
+  var pahPolygon = null;
+  var pahInfoWindow = null;
+  var centerLatLng = null;
+  var rotationDeg = 0;
+  var autocomplete = null;
+  var isDragging = false;
+
+  // ── Feet → lat/lng degrees ────────────────────────────────────────────────
+  function feetToDeg(feet, lat) {
+    var m = feet * 0.3048;
+    return {
+      latDeg: m / 111320,
+      lngDeg: m / (111320 * Math.cos(lat * Math.PI / 180))
+    };
+  }
+
+  // ── Compute rotated rectangle corners ────────────────────────────────────
+  function computeCorners(lat, lng, wFt, lFt, angleDeg) {
+    var wd = feetToDeg(wFt, lat);
+    var ld = feetToDeg(lFt, lat);
+    var hw = wd.lngDeg / 2, hl = ld.latDeg / 2;
+    var rad = angleDeg * Math.PI / 180;
+    var cosA = Math.cos(rad), sinA = Math.sin(rad);
+    return [
+      { dlat: -hl, dlng: -hw }, { dlat: hl, dlng: -hw },
+      { dlat:  hl, dlng:  hw }, { dlat: -hl, dlng:  hw }
+    ].map(function(c) {
+      return {
+        lat: lat + c.dlat * cosA - c.dlng * sinA,
+        lng: lng + c.dlat * sinA + c.dlng * cosA
+      };
+    });
+  }
+
+  // ── Draw / update polygon ─────────────────────────────────────────────────
+  function drawPolygon(lat, lng) {
+    if (!pahMap) return;
+    var corners = computeCorners(lat, lng, dims.w, dims.l, rotationDeg);
+    if (pahPolygon) {
+      pahPolygon.setPath(corners);
+      pahPolygon.setMap(pahMap);
+    } else {
+      pahPolygon = new google.maps.Polygon({
+        paths: corners,
+        strokeColor: '#1a2744',
+        strokeWeight: 2,
+        fillColor: '#c9920a',
+        fillOpacity: 0.40,
+        map: pahMap,
+        draggable: true,
+        zIndex: 10
+      });
+
+      // Update center when dragged
+      google.maps.event.addListener(pahPolygon, 'dragend', function() {
+        var path = pahPolygon.getPath();
+        var sumLat = 0, sumLng = 0, n = path.getLength();
+        for (var i = 0; i < n; i++) {
+          sumLat += path.getAt(i).lat();
+          sumLng += path.getAt(i).lng();
+        }
+        centerLatLng = { lat: sumLat/n, lng: sumLng/n };
+      });
+    }
+
+    // Label
+    if (pahInfoWindow) pahInfoWindow.close();
+    pahInfoWindow = new google.maps.InfoWindow({
+      content: '<div style="background:rgba(26,39,68,.9);color:#fff;padding:4px 10px;border-radius:4px;font-size:.76rem;font-weight:700;white-space:nowrap;">' + dims.w + '\' × ' + dims.l + '\'' + '</div>',
+      position: { lat: lat, lng: lng },
+      disableAutoPan: true
+    });
+    pahInfoWindow.open(pahMap);
+    // Remove the default close button styling via custom overlay approach — hide X
+    google.maps.event.addListenerOnce(pahInfoWindow, 'domready', function() {
+      var closeBtn = document.querySelector('.gm-ui-hover-effect');
+      if (closeBtn) closeBtn.style.display = 'none';
+    });
+  }
+
+  // ── Init map ──────────────────────────────────────────────────────────────
+  function initPahMap(lat, lng) {
+    document.getElementById('pah-placeholder').style.display = 'none';
+    document.getElementById('pah-map').style.display = 'block';
+
+    if (!pahMap) {
+      pahMap = new google.maps.Map(document.getElementById('pah-map'), {
+        center: { lat: lat, lng: lng },
+        zoom: 19,
+        mapTypeId: 'satellite',
+        tilt: 0,
+        mapTypeControl: false,
+        streetViewControl: false,
+        fullscreenControl: true
+      });
+    } else {
+      pahMap.setCenter({ lat: lat, lng: lng });
+      pahMap.setZoom(19);
+    }
+
+    centerLatLng = { lat: lat, lng: lng };
+    rotationDeg = 0;
+    drawPolygon(lat, lng);
+  }
+
+  // ── Google Maps loaded callback ───────────────────────────────────────────
+  window._pahInitDetail = function() {
+    var input = document.getElementById('pah-addr-input');
+
+    autocomplete = new google.maps.places.Autocomplete(input, {
+      types: ['address'],
+      componentRestrictions: { country: 'us' },
+      fields: ['geometry', 'formatted_address']
+    });
+
+    // Hide our old manual suggestions div — Places handles it natively
+    var suggestBox = document.getElementById('pah-suggestions');
+    if (suggestBox) suggestBox.style.display = 'none';
+
+    autocomplete.addListener('place_changed', function() {
+      var place = autocomplete.getPlace();
+      if (!place.geometry || !place.geometry.location) {
+        // User hit Enter without selecting — geocode manually
+        window.pahSearch();
+        return;
+      }
+      var lat = place.geometry.location.lat();
+      var lng = place.geometry.location.lng();
+      var statusEl = document.getElementById('pah-status');
+      statusEl.textContent = '📍 ' + (place.formatted_address || input.value);
+      statusEl.style.color = 'var(--text-muted)';
+      initPahMap(lat, lng);
+    });
+  };
+
+  // ── Manual search (fallback / Enter key) ──────────────────────────────────
+  window.pahSearch = function() {
+    var addr = document.getElementById('pah-addr-input').value.trim();
+    if (!addr) return;
+    var statusEl = document.getElementById('pah-status');
+    statusEl.textContent = 'Searching…';
+
+    var geocoder = new google.maps.Geocoder();
+    geocoder.geocode({ address: addr, region: 'us' }, function(results, status) {
+      if (status === 'OK' && results[0]) {
+        var loc = results[0].geometry.location;
+        statusEl.textContent = '📍 ' + results[0].formatted_address;
+        statusEl.style.color = 'var(--text-muted)';
+        initPahMap(loc.lat(), loc.lng());
+      } else {
+        statusEl.textContent = 'Address not found. Try including city and state.';
+        statusEl.style.color = '#c0392b';
+      }
+    });
+  };
+
+  // ── Rotation ──────────────────────────────────────────────────────────────
+  window.pahRotate = function(deltaDeg, reset) {
+    if (!centerLatLng) return;
+    rotationDeg = reset ? 0 : (rotationDeg + deltaDeg + 360) % 360;
+    if (pahPolygon) pahPolygon.setMap(null);
+    pahPolygon = null;
+    drawPolygon(centerLatLng.lat, centerLatLng.lng);
+  };
+
+})();
+</script>
+<!-- Load Google Maps with Places library -->
+<script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAONJyIFXiRuYgAikb-JwS7qHHYTHD6VOc&libraries=places&callback=_pahInitDetail">
+</script>
+
+<!-- ── Price Breakdown Tabs JS ─────────────────────────────────────── -->
+<script>
+(function() {
+
+  // ── Tab switching ──────────────────────────────────────────────
+  window.switchPBTab = function(tab, btn) {
+    // Deactivate all tabs and panels
+    document.querySelectorAll('.pbt-tab').forEach(function(t) {
+      t.classList.remove('active');
+    });
+    var panels = ['pbt-included', 'pbt-extras'];
+    panels.forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) el.style.display = 'none';
+    });
+
+    // Activate selected
+    if (btn) btn.classList.add('active');
+    var activePanel = document.getElementById('pbt-' + tab);
+    if (activePanel) activePanel.style.display = 'block';
+
+    // If switching to extras, refresh the total display
+    if (tab === 'extras') updateExtrasTotal();
+  };
+
+  // ── Extras total calculator ──────────────────────────────────────
+  window.updateExtrasTotal = function() {
+    var checkboxes = document.querySelectorAll('.pbt-chk');
+    var extrasTotal = 0;
+    var selectedLabels = [];
+    var count = 0;
+
+    checkboxes.forEach(function(cb) {
+      // Toggle .checked class for browsers without :has() support
+      var label = cb.closest('.pbt-extra-item');
+      if (label) {
+        if (cb.checked) {
+          label.classList.add('checked');
+        } else {
+          label.classList.remove('checked');
+        }
+      }
+      if (cb.checked) {
+        var price = parseInt(cb.getAttribute('data-price'), 10) || 0;
+        var lbl   = cb.getAttribute('data-label') || '';
+        extrasTotal += price;
+        selectedLabels.push(lbl + ' (+$' + price.toLocaleString() + ')');
+        count++;
+      }
+    });
+
+    // Update badge
+    var badge = document.getElementById('pbt-badge');
+    if (badge) {
+      badge.textContent = count;
+      badge.setAttribute('data-count', count);
+    }
+
+    // Populate base price from the loaded home
+    var basePrice = window._currentHomePrice || 0;
+    var basePriceEl = document.getElementById('pbt-base-price');
+    if (basePriceEl) {
+      basePriceEl.textContent = basePrice > 0
+        ? '$' + basePrice.toLocaleString()
+        : 'See price on listing';
+    }
+
+    // Show / hide extras row
+    var extrasRow = document.getElementById('pbt-extras-row');
+    var extrasSumEl = document.getElementById('pbt-extras-sum');
+    if (extrasRow && extrasSumEl) {
+      if (extrasTotal > 0) {
+        extrasRow.style.display = 'flex';
+        extrasSumEl.textContent = '+$' + extrasTotal.toLocaleString();
+      } else {
+        extrasRow.style.display = 'none';
+      }
+    }
+
+    // Grand total
+    var grandEl = document.getElementById('pbt-grand-total');
+    if (grandEl) {
+      if (basePrice > 0) {
+        grandEl.textContent = '$' + (basePrice + extrasTotal).toLocaleString();
+      } else {
+        grandEl.textContent = extrasTotal > 0
+          ? 'Base + $' + extrasTotal.toLocaleString() + ' add-ons'
+          : 'Confirm with our team';
+      }
+    }
+
+    // Itemized list
+    var itemsEl = document.getElementById('pbt-items-list');
+    if (itemsEl) {
+      if (selectedLabels.length > 0) {
+        itemsEl.innerHTML = selectedLabels.map(function(l) {
+          return '<div style="padding:1px 0;">&#8226; ' + l + '</div>';
+        }).join('');
+      } else {
+        itemsEl.innerHTML = '';
+      }
+    }
+  };
+
+  // Run once on load to initialize the base price display in the total box
+  // (waits for the detail script to have set window._currentHomePrice)
+  document.addEventListener('DOMContentLoaded', function() {
+    // Small delay to ensure detail page script has finished setting _currentHomePrice
+    setTimeout(updateExtrasTotal, 50);
+  });
+
+})();
+</script>
+
+</body>
+</html>

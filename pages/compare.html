@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compare Homes — Southern Mobile Home Center</title>
+  <meta name="description" content="Compare up to 3 manufactured homes side by side. Price, size, beds, baths, monthly payment and more. Southern Mobile Home Center, Tickfaw, LA.">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="icon" href="../images/smhc-logo.jpg">
+  <style>
+    /* ── Page ── */
+    .cmp-page { padding-top: var(--nav-h); min-height: 100vh; background: var(--cream); }
+
+    /* ── Hero ── */
+    .cmp-hero {
+      background: var(--navy);
+      padding: 52px 24px 44px;
+      text-align: center;
+    }
+    .cmp-hero .eyebrow {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 10px;
+    }
+    .cmp-hero h1 {
+      color: #fff;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      margin-bottom: 10px;
+    }
+    .cmp-hero .sub {
+      color: rgba(255,255,255,.6); font-size: 1rem;
+      max-width: 440px; margin: 0 auto 24px;
+    }
+    .cmp-hero-cta {
+      display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
+    }
+    .cmp-count-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,.1);
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 99px;
+      padding: 8px 18px;
+      font-size: 0.83rem; font-weight: 600; color: rgba(255,255,255,.75);
+    }
+    .cmp-count-badge strong { color: var(--gold); }
+
+    /* ── Scroll wrapper ── */
+    .cmp-scroll-outer {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      padding: 36px 24px 60px;
+    }
+    .cmp-table {
+      min-width: 740px;
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    /* ── Slot Headers ── */
+    .cmp-header-row {
+      display: grid;
+      grid-template-columns: 200px repeat(3, 1fr);
+      gap: 0;
+      position: sticky;
+      top: var(--nav-h);
+      z-index: 10;
+      background: var(--cream);
+      border-bottom: 2px solid var(--gray-200);
+      box-shadow: 0 2px 12px rgba(0,0,0,.06);
+    }
+
+    .cmp-label-col {
+      padding: 16px 20px;
+      background: var(--navy);
+      display: flex; align-items: center;
+      border-radius: var(--radius-lg) 0 0 0;
+      min-height: 1px;
+    }
+    .cmp-label-col span {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: .1em;
+      text-transform: uppercase; color: rgba(255,255,255,.55);
+    }
+
+    .cmp-slot-header {
+      background: var(--navy);
+      border-left: 1px solid rgba(255,255,255,.08);
+      padding: 0;
+      position: relative;
+    }
+    .cmp-slot-header:last-child { border-radius: 0 var(--radius-lg) 0 0; }
+
+    /* Slot selector bar */
+    .cmp-slot-selector {
+      padding: 12px 14px 0;
+    }
+    .cmp-slot-label {
+      font-size: 0.65rem; font-weight: 700; letter-spacing: .1em;
+      text-transform: uppercase; color: rgba(255,255,255,.4);
+      margin-bottom: 6px;
+    }
+    .cmp-slot-select {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1.5px solid rgba(255,255,255,.18);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.07);
+      color: #fff;
+      font-size: 0.82rem; font-weight: 500;
+      cursor: pointer;
+      outline: none;
+      transition: border-color .15s;
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='rgba(255,255,255,.5)' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      padding-right: 28px;
+    }
+    .cmp-slot-select:focus { border-color: var(--gold); }
+    .cmp-slot-select option { background: var(--navy-dark); color: #fff; }
+
+    /* Home photo tile */
+    .cmp-slot-photo {
+      position: relative;
+      margin: 10px 14px 0;
+      border-radius: var(--radius);
+      overflow: hidden;
+      height: 130px;
+      background: rgba(255,255,255,.05);
+    }
+    .cmp-slot-photo img {
+      width: 100%; height: 100%; object-fit: cover;
+      display: block;
+    }
+    .cmp-slot-photo .cmp-slot-empty-msg {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      height: 100%; gap: 8px;
+      font-size: 0.78rem; color: rgba(255,255,255,.3); font-weight: 500;
+    }
+    .cmp-slot-photo .cmp-slot-empty-msg span { font-size: 1.6rem; }
+    .cmp-slot-photo .cmp-status-badge {
+      position: absolute; top: 8px; left: 8px;
+      padding: 3px 8px; border-radius: 99px;
+      font-size: 0.65rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+    }
+    .cmp-status-badge.on-lot   { background: #1a6b3a; color: #fff; }
+    .cmp-status-badge.available { background: #1a6b3a; color: #fff; }
+    .cmp-status-badge.ordered  { background: #c9920a; color: #fff; }
+    .cmp-status-badge.sold     { background: #888; color: #fff; }
+    .cmp-status-badge.coming-soon { background: #1a2744; color: #fff; }
+
+    /* Home name in header */
+    .cmp-slot-name {
+      padding: 8px 14px 12px;
+      font-size: 0.88rem; font-weight: 700; color: #fff;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .cmp-slot-name .cmp-slot-price {
+      font-size: 1.05rem; color: var(--gold); font-weight: 800;
+    }
+    .cmp-slot-name .cmp-slot-mo {
+      font-size: 0.72rem; color: rgba(255,255,255,.45); font-weight: 500;
+    }
+
+    /* Clear button */
+    .cmp-slot-clear {
+      position: absolute; top: 12px; right: 12px;
+      width: 22px; height: 22px; border-radius: 50%;
+      background: rgba(255,255,255,.12); border: none; cursor: pointer;
+      color: rgba(255,255,255,.6); font-size: 0.85rem;
+      display: none; align-items: center; justify-content: center;
+      line-height: 1; transition: background .15s;
+    }
+    .cmp-slot-clear:hover { background: rgba(255,255,255,.22); }
+    .cmp-slot-header.has-home .cmp-slot-clear { display: flex; }
+
+    /* ── Comparison Rows ── */
+    .cmp-rows { margin-top: 0; }
+
+    .cmp-row {
+      display: grid;
+      grid-template-columns: 200px repeat(3, 1fr);
+      border-bottom: 1px solid var(--gray-200);
+    }
+    .cmp-row:nth-child(even) { background: #fff; }
+    .cmp-row:nth-child(odd)  { background: var(--cream); }
+
+    .cmp-row-label {
+      padding: 16px 20px;
+      font-size: 0.8rem; font-weight: 700; color: var(--navy);
+      display: flex; align-items: center;
+      border-right: 1px solid var(--gray-200);
+      letter-spacing: .02em;
+    }
+
+    .cmp-row-cell {
+      padding: 16px 18px;
+      font-size: 0.9rem; color: var(--text-muted);
+      display: flex; align-items: center;
+      border-right: 1px solid var(--gray-200);
+      transition: background .2s;
+    }
+    .cmp-row-cell:last-child { border-right: none; }
+    .cmp-row-cell .cell-val {
+      font-size: 1rem; font-weight: 700; color: var(--navy);
+    }
+    .cmp-row-cell.empty .cell-val { color: var(--gray-400); font-weight: 400; }
+    .cmp-row-cell.winner {
+      background: linear-gradient(135deg, #fdf4e0, #fef9ef) !important;
+      position: relative;
+    }
+    .cmp-row-cell.winner::before {
+      content: '★ Best';
+      position: absolute; top: 6px; right: 10px;
+      font-size: 0.6rem; font-weight: 800; letter-spacing: .08em;
+      text-transform: uppercase; color: var(--gold);
+    }
+
+    /* ── Action row ── */
+    .cmp-action-row {
+      display: grid;
+      grid-template-columns: 200px repeat(3, 1fr);
+      gap: 0;
+      background: var(--navy);
+      border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+    }
+    .cmp-action-row .cmp-action-label {
+      padding: 20px;
+      display: flex; align-items: center;
+      font-size: 0.75rem; font-weight: 700; letter-spacing: .1em;
+      text-transform: uppercase; color: rgba(255,255,255,.35);
+    }
+    .cmp-action-cell {
+      padding: 16px 14px;
+      display: flex; flex-direction: column; gap: 8px;
+      border-left: 1px solid rgba(255,255,255,.08);
+    }
+    .cmp-action-cell a, .cmp-action-cell button {
+      display: flex; justify-content: center; align-items: center;
+      padding: 10px 12px; border-radius: var(--radius);
+      font-size: 0.8rem; font-weight: 600;
+      transition: all .15s; text-align: center;
+      text-decoration: none;
+    }
+    .cmp-btn-detail {
+      background: rgba(255,255,255,.1);
+      border: 1.5px solid rgba(255,255,255,.2);
+      color: #fff;
+    }
+    .cmp-btn-detail:hover { background: rgba(255,255,255,.18); }
+    .cmp-btn-design {
+      background: var(--gold); color: #fff;
+      border: none;
+    }
+    .cmp-btn-design:hover { background: var(--gold-light); transform: translateY(-1px); }
+    .cmp-action-cell.empty-action a,
+    .cmp-action-cell.empty-action button { opacity: 0.25; pointer-events: none; }
+
+    /* ── Empty State ── */
+    .cmp-empty-state {
+      text-align: center; padding: 60px 24px;
+    }
+    .cmp-empty-state .es-icon { font-size: 3rem; margin-bottom: 16px; }
+    .cmp-empty-state h3 { color: var(--navy); margin-bottom: 8px; font-size: 1.2rem; }
+    .cmp-empty-state p { color: var(--text-muted); max-width: 360px; margin: 0 auto 24px; font-size: 0.9rem; }
+
+    /* ── Mobile scroll hint ── */
+    .cmp-scroll-hint {
+      display: none;
+      text-align: center;
+      font-size: 0.78rem; color: var(--text-muted);
+      padding: 12px 24px 0;
+    }
+    @media (max-width: 800px) { .cmp-scroll-hint { display: block; } }
+
+    /* ── Summary cards (above table) ── */
+    .cmp-summary-bar {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
+      padding: 0 0 20px;
+    }
+    .cmp-summary-card {
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      border: 1.5px solid var(--gray-200);
+      opacity: 0.3;
+      transition: opacity .2s;
+    }
+    .cmp-summary-card.active { opacity: 1; }
+    .cmp-summary-card .sc-name { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--text-muted); margin-bottom: 6px; }
+    .cmp-summary-card .sc-title { font-size: 1.05rem; font-weight: 700; color: var(--navy); margin-bottom: 2px; }
+    .cmp-summary-card .sc-price { font-size: 0.85rem; font-weight: 700; color: var(--gold); }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      .cmp-summary-bar { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="nav-placeholder"></div>
+
+<div class="cmp-page">
+
+  <!-- ── Hero ── -->
+  <div class="cmp-hero">
+    <p class="eyebrow">Find Your Perfect Fit</p>
+    <h1 class="display">Compare Homes</h1>
+    <p class="sub">Select up to 3 homes and see them side by side. Specs, price, and payment — all in one view.</p>
+    <div class="cmp-hero-cta">
+      <div class="cmp-count-badge">
+        <strong id="selected-count">0</strong> of 3 homes selected
+      </div>
+      <a href="floor-plans.html" class="btn btn-outline-white btn-sm">← Browse All Homes</a>
+    </div>
+  </div>
+
+  <!-- ── Scroll hint (mobile) ── -->
+  <p class="cmp-scroll-hint">← Scroll horizontally to compare →</p>
+
+  <!-- ── Main comparison area ── -->
+  <div class="cmp-scroll-outer">
+
+    <!-- Summary cards (mini) -->
+    <div class="cmp-summary-bar" id="cmp-summary-bar">
+      <div class="cmp-summary-card" id="sc-0">
+        <div class="sc-name">Slot 1</div>
+        <div class="sc-title">—</div>
+        <div class="sc-price">—</div>
+      </div>
+      <div class="cmp-summary-card" id="sc-1">
+        <div class="sc-name">Slot 2</div>
+        <div class="sc-title">—</div>
+        <div class="sc-price">—</div>
+      </div>
+      <div class="cmp-summary-card" id="sc-2">
+        <div class="sc-name">Slot 3</div>
+        <div class="sc-title">—</div>
+        <div class="sc-price">—</div>
+      </div>
+    </div>
+
+    <div class="cmp-table" id="cmp-table">
+
+      <!-- ── Sticky header row ── -->
+      <div class="cmp-header-row">
+        <div class="cmp-label-col"><span>Home Details</span></div>
+
+        <!-- Slot 0 -->
+        <div class="cmp-slot-header" id="slot-header-0">
+          <div class="cmp-slot-selector">
+            <div class="cmp-slot-label">Slot 1</div>
+            <select class="cmp-slot-select" id="slot-select-0" onchange="selectHome(0, this.value)">
+              <option value="">— Add a Home —</option>
+            </select>
+          </div>
+          <div class="cmp-slot-photo" id="slot-photo-0">
+            <div class="cmp-slot-empty-msg"><span>🏠</span>Select a home</div>
+          </div>
+          <div class="cmp-slot-name" id="slot-name-0">
+            <div style="color:rgba(255,255,255,.3);font-size:.8rem;font-weight:400;">No home selected</div>
+          </div>
+          <button class="cmp-slot-clear" id="slot-clear-0" onclick="clearSlot(0)" title="Clear slot">×</button>
+        </div>
+
+        <!-- Slot 1 -->
+        <div class="cmp-slot-header" id="slot-header-1">
+          <div class="cmp-slot-selector">
+            <div class="cmp-slot-label">Slot 2</div>
+            <select class="cmp-slot-select" id="slot-select-1" onchange="selectHome(1, this.value)">
+              <option value="">— Add a Home —</option>
+            </select>
+          </div>
+          <div class="cmp-slot-photo" id="slot-photo-1">
+            <div class="cmp-slot-empty-msg"><span>🏠</span>Select a home</div>
+          </div>
+          <div class="cmp-slot-name" id="slot-name-1">
+            <div style="color:rgba(255,255,255,.3);font-size:.8rem;font-weight:400;">No home selected</div>
+          </div>
+          <button class="cmp-slot-clear" id="slot-clear-1" onclick="clearSlot(1)" title="Clear slot">×</button>
+        </div>
+
+        <!-- Slot 2 -->
+        <div class="cmp-slot-header" id="slot-header-2">
+          <div class="cmp-slot-selector">
+            <div class="cmp-slot-label">Slot 3</div>
+            <select class="cmp-slot-select" id="slot-select-2" onchange="selectHome(2, this.value)">
+              <option value="">— Add a Home —</option>
+            </select>
+          </div>
+          <div class="cmp-slot-photo" id="slot-photo-2">
+            <div class="cmp-slot-empty-msg"><span>🏠</span>Select a home</div>
+          </div>
+          <div class="cmp-slot-name" id="slot-name-2">
+            <div style="color:rgba(255,255,255,.3);font-size:.8rem;font-weight:400;">No home selected</div>
+          </div>
+          <button class="cmp-slot-clear" id="slot-clear-2" onclick="clearSlot(2)" title="Clear slot">×</button>
+        </div>
+      </div>
+
+      <!-- ── Comparison rows ── -->
+      <div class="cmp-rows" id="cmp-rows">
+        <!-- Rows: Price, Monthly Est., Beds, Baths, Sq Ft, Dimensions, Manufacturer, Status, Type -->
+        <div class="cmp-row" data-field="price">
+          <div class="cmp-row-label">💰 Price</div>
+          <div class="cmp-row-cell empty" id="cell-price-0"><span class="cell-val">—</span></div>
+          <div class="cmp-row-cell empty" id="cell-price-1"><span class="cell-val">—</span></div>
+          <div class="cmp-row-cell empty" id="cell-price-2"><span class="cell-val">—</span></div>
+        </div>
+        <div class="cmp-row" data-field="monthly">
+          <div class="cmp-row-label">📅 Monthly Est.</div>
+          <div class="cmp-row-cell empty" id="cell-monthly-0"><span class="cell-val">—</span></div>
+          <div class="cmp-row-cell empty" id="cell-monthly-1"><span class="cell-val">—</span></div>
+          <div class="cmp-row-cell empty" id="cell-monthly-2"><span class="cell-val">—</span></div>
+        </div>
+        <div class="cmp-row" data-field="beds">
+          <div class="cmp-row-label">🛏 Bedrooms</div>
+          <div class="cmp-row-cell empty" id="cell-beds-0"><span class="cell-val">—</span></div>
+          <div class="cmp-row-cell empty" id="cell-beds-1"><span class="cell-val">—</span></div>
+          <div class="cmp-row-cell empty" id="cell-beds-2"><span class="cell-val">—</span></div>
+        </div>
+        <div class="cmp-row" data-field="baths">
+          <div class="cmp-row-label">🚿 Bathrooms</div>
+          <div class="cmp-row-cell empty" id="cell-baths-0"><span class="cell-val">—</span></div>
+          <div class="cmp-row-cell empty" id="cell-baths-1"><span class="cell-val">—</span></div>
+          <div class="cmp-row-cell empty" id="cell-baths-2"><span class="cell-val">—</span></div>
+        </div>
+        <div class="cmp-row" data-field="sqft">
+          <div class="cmp-row-label">📐 Square Feet</div>
+          <div class="cmp-row-cell empty" id="cell-sqft-0"><span class="cell-val">—</span></div>
+          <div class="cmp-row-cell empty" id="cell-sqft-1"><span class="cell-val">—</span></div>
+          <div class="cmp-row-cell empty" id="cell-sqft-2"><span class="cell-val">—</span></div>
+        </div>
+        <div class="cmp-row" data-field="dimensions">
+          <div class="cmp-row-label">📏 Dimensions</div>
+          <div class="cmp-row-cell empty" id="cell-dimensions-0"><span class="cell-val">—</span></div>
+          <div class="cmp-row-cell empty" id="cell-dimensions-1"><span class="cell-val">—</span></div>
+          <div class="cmp-row-cell empty" id="cell-dimensions-2"><span class="cell-val">—</span></div>
+        </div>
+        <div class="cmp-row" data-field="manufacturer">
+          <div class="cmp-row-label">🏭 Manufacturer</div>
+          <div class="cmp-row-cell empty" id="cell-manufacturer-0"><span class="cell-val">—</span></div>
+          <div class="cmp-row-cell empty" id="cell-manufacturer-1"><span class="cell-val">—</span></div>
+          <div class="cmp-row-cell empty" id="cell-manufacturer-2"><span class="cell-val">—</span></div>
+        </div>
+        <div class="cmp-row" data-field="status">
+          <div class="cmp-row-label">✅ Status</div>
+          <div class="cmp-row-cell empty" id="cell-status-0"><span class="cell-val">—</span></div>
+          <div class="cmp-row-cell empty" id="cell-status-1"><span class="cell-val">—</span></div>
+          <div class="cmp-row-cell empty" id="cell-status-2"><span class="cell-val">—</span></div>
+        </div>
+        <div class="cmp-row" data-field="type">
+          <div class="cmp-row-label">🏠 Type</div>
+          <div class="cmp-row-cell empty" id="cell-type-0"><span class="cell-val">—</span></div>
+          <div class="cmp-row-cell empty" id="cell-type-1"><span class="cell-val">—</span></div>
+          <div class="cmp-row-cell empty" id="cell-type-2"><span class="cell-val">—</span></div>
+        </div>
+      </div>
+
+      <!-- ── Actions row ── -->
+      <div class="cmp-action-row">
+        <div class="cmp-action-label">Actions</div>
+        <div class="cmp-action-cell empty-action" id="action-cell-0">
+          <a href="#" class="cmp-btn-detail" id="action-detail-0">View Details</a>
+          <a href="#" class="cmp-btn-design" id="action-design-0">Design Home</a>
+        </div>
+        <div class="cmp-action-cell empty-action" id="action-cell-1">
+          <a href="#" class="cmp-btn-detail" id="action-detail-1">View Details</a>
+          <a href="#" class="cmp-btn-design" id="action-design-1">Design Home</a>
+        </div>
+        <div class="cmp-action-cell empty-action" id="action-cell-2">
+          <a href="#" class="cmp-btn-detail" id="action-detail-2">View Details</a>
+          <a href="#" class="cmp-btn-design" id="action-design-2">Design Home</a>
+        </div>
+      </div>
+
+    </div><!-- /.cmp-table -->
+  </div><!-- /.cmp-scroll-outer -->
+
+  <!-- ── CTA section ── -->
+  <section style="background:var(--navy);padding:56px 24px;text-align:center;">
+    <p style="font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;">Ready to Move Forward?</p>
+    <h2 class="display" style="color:#fff;margin-bottom:12px;font-size:clamp(1.4rem,3vw,2rem);">Found your perfect home?</h2>
+    <p style="color:rgba(255,255,255,.6);max-width:460px;margin:0 auto 28px;">Get pre-qualified in 5 minutes and find out your estimated monthly payment today.</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+      <a href="prequal.html" class="btn btn-gold btn-lg">Get Pre-Qualified →</a>
+      <a href="contact.html" class="btn btn-outline-white">Talk to a Team Member</a>
+    </div>
+  </section>
+
+</div><!-- /.cmp-page -->
+
+<div id="footer-placeholder"></div>
+
+<script>var BASE_PATH = '../';</script>
+<script src="../js/homes-data.js"></script>
+<script src="../js/main.js"></script>
+<script src="../js/nav.js"></script>
+
+<script>
+// ── State ──────────────────────────────────────────────────────────────────
+const slots = [null, null, null]; // each slot = home object or null
+let allHomes = [];
+
+// ── Init ───────────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', function() {
+  allHomes = (typeof getEffectiveHomes === 'function') ? getEffectiveHomes() : (window.HOMES || []);
+
+  // Populate all 3 dropdowns
+  for (let i = 0; i < 3; i++) {
+    populateDropdown(i);
+  }
+
+  // Check URL params for pre-selected homes
+  const params = new URLSearchParams(window.location.search);
+  const slugs = [params.get('home1'), params.get('home2'), params.get('home3')];
+  slugs.forEach((slug, i) => {
+    if (slug) {
+      const sel = document.getElementById('slot-select-' + i);
+      if (sel) { sel.value = slug; selectHome(i, slug); }
+    }
+  });
+});
+
+function populateDropdown(slotIdx) {
+  const sel = document.getElementById('slot-select-' + slotIdx);
+  if (!sel) return;
+
+  // Group by type
+  const singleWides  = allHomes.filter(h => h.type === 'Single-Wide');
+  const doubleWides  = allHomes.filter(h => h.type === 'Double-Wide');
+
+  function addGroup(label, homes) {
+    if (!homes.length) return;
+    const og = document.createElement('optgroup');
+    og.label = label;
+    homes.forEach(h => {
+      const opt = document.createElement('option');
+      opt.value = h.slug;
+      opt.textContent = h.name + ' — ' + h.beds + 'bd/' + h.baths + 'ba, ' + h.sqft.toLocaleString() + ' sqft — $' + h.price.toLocaleString();
+      og.appendChild(opt);
+    });
+    sel.appendChild(og);
+  }
+
+  addGroup('Single-Wide', singleWides);
+  addGroup('Double-Wide', doubleWides);
+}
+
+// ── Select a home into a slot ──────────────────────────────────────────────
+function selectHome(slotIdx, slug) {
+  if (!slug) { clearSlot(slotIdx); return; }
+
+  const home = allHomes.find(h => h.slug === slug);
+  if (!home) return;
+
+  slots[slotIdx] = home;
+  updateSlotHeader(slotIdx, home);
+  updateRows();
+  updateSummaryBar();
+  updateSelectedCount();
+}
+
+function clearSlot(slotIdx) {
+  slots[slotIdx] = null;
+  const sel = document.getElementById('slot-select-' + slotIdx);
+  if (sel) sel.value = '';
+
+  // Reset header
+  const header = document.getElementById('slot-header-' + slotIdx);
+  if (header) header.classList.remove('has-home');
+
+  const photo = document.getElementById('slot-photo-' + slotIdx);
+  if (photo) photo.innerHTML = '<div class="cmp-slot-empty-msg"><span>🏠</span>Select a home</div>';
+
+  const nameEl = document.getElementById('slot-name-' + slotIdx);
+  if (nameEl) nameEl.innerHTML = '<div style="color:rgba(255,255,255,.3);font-size:.8rem;font-weight:400;">No home selected</div>';
+
+  updateRows();
+  updateSummaryBar();
+  updateSelectedCount();
+}
+
+function updateSlotHeader(slotIdx, home) {
+  const header  = document.getElementById('slot-header-' + slotIdx);
+  const photo   = document.getElementById('slot-photo-' + slotIdx);
+  const nameEl  = document.getElementById('slot-name-' + slotIdx);
+
+  if (!header || !photo || !nameEl) return;
+  header.classList.add('has-home');
+
+  const statusLabelMap = { 'on-lot': 'On Lot', 'available': 'Available', 'ordered': 'Ordered', 'sold': 'Sold', 'coming-soon': 'Coming Soon' };
+  const statusText = statusLabelMap[home.status] || home.status || '';
+  const badgeHtml  = statusText ? `<span class="cmp-status-badge ${home.status}">${statusText}</span>` : '';
+
+  const imgSrc = BASE_PATH + home.image;
+  const placeholder = BASE_PATH + 'images/home-placeholder.jpg';
+  photo.innerHTML = `<img src="${imgSrc}" alt="${home.name}" onerror="this.src='${placeholder}'">${badgeHtml}`;
+
+  const monthly = calcMonthlyLocal(home.price, 0.10);
+  nameEl.innerHTML = `
+    <div class="cmp-slot-price">$${home.price.toLocaleString()}</div>
+    <div style="font-size:.8rem;color:rgba(255,255,255,.8);font-weight:600;margin-top:2px;">${home.name}</div>
+    <div class="cmp-slot-mo">~$${monthly.toLocaleString()}/mo est.</div>
+  `;
+}
+
+// ── Update comparison rows ─────────────────────────────────────────────────
+const ROW_FIELDS = [
+  {
+    key: 'price',
+    format: h => h ? '$' + h.price.toLocaleString() : '—',
+    rawVal: h => h ? h.price : null,
+    winner: 'min',   // lower is better
+  },
+  {
+    key: 'monthly',
+    format: h => h ? '~$' + calcMonthlyLocal(h.price, 0.10).toLocaleString() + '/mo' : '—',
+    rawVal: h => h ? calcMonthlyLocal(h.price, 0.10) : null,
+    winner: 'min',
+  },
+  {
+    key: 'beds',
+    format: h => h ? h.beds + ' Bed' + (h.beds !== 1 ? 's' : '') : '—',
+    rawVal: h => h ? h.beds : null,
+    winner: 'max',   // more is better
+  },
+  {
+    key: 'baths',
+    format: h => h ? h.baths + ' Bath' + (h.baths !== 1 ? 's' : '') : '—',
+    rawVal: h => h ? h.baths : null,
+    winner: 'max',
+  },
+  {
+    key: 'sqft',
+    format: h => h ? h.sqft.toLocaleString() + ' sq ft' : '—',
+    rawVal: h => h ? h.sqft : null,
+    winner: 'max',
+  },
+  {
+    key: 'dimensions',
+    format: h => h ? (h.dimensions || '—') : '—',
+    rawVal: null,
+    winner: null,
+  },
+  {
+    key: 'manufacturer',
+    format: h => h ? (h.manufacturer || '—') : '—',
+    rawVal: null,
+    winner: null,
+  },
+  {
+    key: 'status',
+    format: h => {
+      if (!h) return '—';
+      const map = { 'on-lot': 'On Lot', 'available': 'Available', 'ordered': 'Ordered', 'sold': 'Sold', 'coming-soon': 'Coming Soon' };
+      return map[h.status] || h.status || '—';
+    },
+    rawVal: null,
+    winner: null,
+  },
+  {
+    key: 'type',
+    format: h => h ? (h.type || '—') : '—',
+    rawVal: null,
+    winner: null,
+  },
+];
+
+function updateRows() {
+  ROW_FIELDS.forEach(field => {
+    // Get the best value index (for highlighting)
+    let winnerIdx = -1;
+    if (field.winner && field.rawVal) {
+      const vals = slots.map(h => h ? field.rawVal(h) : null);
+      const present = vals.filter(v => v !== null);
+      if (present.length >= 2) { // only highlight if 2+ homes
+        const best = field.winner === 'min' ? Math.min(...present) : Math.max(...present);
+        // Find first slot with the best value (all ties get highlighted)
+        winnerIdx = vals.findIndex(v => v !== null && v === best);
+      }
+    }
+
+    // Update each cell
+    for (let i = 0; i < 3; i++) {
+      const cell = document.getElementById('cell-' + field.key + '-' + i);
+      if (!cell) continue;
+      const home = slots[i];
+      const txt  = field.format(home);
+      cell.querySelector('.cell-val').textContent = txt;
+      cell.classList.toggle('empty', !home);
+      cell.classList.remove('winner');
+    }
+
+    // Highlight winners (all slots with best value)
+    if (field.winner && field.rawVal) {
+      const vals = slots.map(h => h ? field.rawVal(h) : null);
+      const present = vals.filter(v => v !== null);
+      if (present.length >= 2) {
+        const best = field.winner === 'min' ? Math.min(...present) : Math.max(...present);
+        vals.forEach((v, i) => {
+          if (v !== null && v === best) {
+            const cell = document.getElementById('cell-' + field.key + '-' + i);
+            if (cell) cell.classList.add('winner');
+          }
+        });
+      }
+    }
+  });
+
+  // Update action buttons
+  for (let i = 0; i < 3; i++) {
+    const home       = slots[i];
+    const actionCell = document.getElementById('action-cell-' + i);
+    const detailBtn  = document.getElementById('action-detail-' + i);
+    const designBtn  = document.getElementById('action-design-' + i);
+
+    if (!actionCell || !detailBtn || !designBtn) continue;
+
+    if (home) {
+      actionCell.classList.remove('empty-action');
+      detailBtn.href = 'home-detail.html?home=' + home.slug;
+      designBtn.href = 'design.html?home=' + home.slug;
+    } else {
+      actionCell.classList.add('empty-action');
+      detailBtn.href = '#';
+      designBtn.href = '#';
+    }
+  }
+}
+
+function updateSummaryBar() {
+  for (let i = 0; i < 3; i++) {
+    const card  = document.getElementById('sc-' + i);
+    const home  = slots[i];
+    if (!card) continue;
+    card.classList.toggle('active', !!home);
+    card.querySelector('.sc-title').textContent = home ? home.name : '—';
+    card.querySelector('.sc-price').textContent = home ? '$' + home.price.toLocaleString() : '—';
+  }
+}
+
+function updateSelectedCount() {
+  const count = slots.filter(Boolean).length;
+  const el = document.getElementById('selected-count');
+  if (el) el.textContent = count;
+}
+
+// ── Monthly calc ───────────────────────────────────────────────────────────
+function calcMonthlyLocal(price, downFrac, apr, years) {
+  apr   = apr   || 0.09;
+  years = years || 25;
+  if (typeof window.calcMonthly === 'function') {
+    return window.calcMonthly(price, downFrac, apr, years);
+  }
+  const principal = price * (1 - downFrac);
+  const r = apr / 12;
+  const n = years * 12;
+  return Math.round(principal * r * Math.pow(1+r,n) / (Math.pow(1+r,n) - 1));
+}
+</script>
+
+</body>
+</html>

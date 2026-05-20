@@ -1,0 +1,15 @@
+[
+  {
+    "id": "lh-001",
+    "title": "Example: 3BR/2BA on 1 Acre – Tickfaw, LA",
+    "description": "A move-in ready home already set up on a beautiful 1-acre lot. Includes skirting, steps, and all standard setup.",
+    "bedrooms": 3,
+    "bathrooms": 2,
+    "sqft": 1400,
+    "price": 129900,
+    "location": "Tickfaw, LA",
+    "status": "available",
+    "image": "",
+    "notes": "This is a sample listing. Update or remove from the admin panel."
+  }
+]

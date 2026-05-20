@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Price Manager — Southern MHC Admin</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="icon" href="../images/smhc-logo.jpg">
+  <style>
+    body { background: #f0f2f5; font-family: 'General Sans', system-ui, sans-serif; }
+
+    /* ── Auth ── */
+    #auth-screen {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--navy);
+    }
+    .auth-card {
+      background: #fff; border-radius: 16px;
+      padding: 40px; width: 100%; max-width: 360px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.3);
+    }
+    .auth-card h2 { color: var(--navy); margin-bottom: 6px; font-size: 1.2rem; }
+    .auth-card p  { color: #888; font-size: .85rem; margin-bottom: 28px; }
+    .auth-input {
+      width: 100%; padding: 12px 16px; border: 1.5px solid #ddd;
+      border-radius: 8px; font-size: .95rem; font-family: inherit;
+      box-sizing: border-box; margin-bottom: 12px;
+    }
+    .auth-input:focus { outline: none; border-color: var(--gold); }
+    .auth-btn {
+      width: 100%; padding: 13px; background: var(--navy); color: #fff;
+      border: none; border-radius: 8px; font-size: .95rem; font-weight: 700;
+      cursor: pointer; font-family: inherit; letter-spacing: .02em;
+    }
+    .auth-btn:hover { background: #1a3060; }
+    .auth-err { color: #d32; font-size: .82rem; margin-top: 8px; display: none; }
+
+    /* ── App shell ── */
+    #app { display: none; }
+
+    .pm-header {
+      background: var(--navy); color: #fff;
+      padding: 16px 32px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px; flex-wrap: wrap;
+    }
+    .pm-header-left { display: flex; align-items: center; gap: 14px; }
+    .pm-logo { font-size: .7rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.5); }
+    .pm-title { font-size: 1.1rem; font-weight: 800; color: #fff; }
+    .pm-header-right { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+
+    .btn-sm {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 18px; border-radius: 6px; font-size: .82rem;
+      font-weight: 700; cursor: pointer; border: none; font-family: inherit;
+      letter-spacing: .02em; transition: opacity .15s;
+    }
+    .btn-sm:hover { opacity: .85; }
+    .btn-gold  { background: var(--gold); color: #fff; }
+    .btn-white { background: rgba(255,255,255,.12); color: #fff; border: 1px solid rgba(255,255,255,.25); }
+    .btn-green { background: #1a8f4a; color: #fff; }
+    .btn-red   { background: #c0392b; color: #fff; }
+
+    /* ── Toolbar ── */
+    .pm-toolbar {
+      background: #fff; border-bottom: 1px solid #e0e0e0;
+      padding: 14px 32px;
+      display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+    }
+    .pm-search {
+      flex: 1; min-width: 200px; max-width: 340px;
+      padding: 9px 14px; border: 1.5px solid #ddd; border-radius: 8px;
+      font-size: .9rem; font-family: inherit;
+    }
+    .pm-search:focus { outline: none; border-color: var(--gold); }
+    .filter-chip {
+      padding: 6px 14px; border-radius: 20px; border: 1.5px solid #ddd;
+      font-size: .8rem; font-weight: 600; cursor: pointer; background: #fff;
+      color: var(--navy); transition: all .15s; font-family: inherit;
+    }
+    .filter-chip.active { background: var(--navy); color: #fff; border-color: var(--navy); }
+    .pm-count { margin-left: auto; font-size: .82rem; color: #888; white-space: nowrap; }
+
+    /* ── Save banner ── */
+    #save-banner {
+      display: none;
+      background: #fff8e1; border-bottom: 2px solid var(--gold);
+      padding: 10px 32px;
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    }
+    #save-banner.hidden { display: none !important; }
+    .save-banner-text { font-size: .88rem; color: #7a5800; font-weight: 600; }
+    .save-banner-actions { display: flex; gap: 10px; }
+
+    /* ── Status banner ── */
+    #crm-status {
+      padding: 8px 32px; font-size: .78rem; font-weight: 600;
+      display: flex; align-items: center; gap: 8px;
+    }
+    #crm-status.connected    { background: #e8f5e9; color: #1b5e20; }
+    #crm-status.disconnected { background: #fafafa; color: #999; border-bottom: 1px solid #eee; }
+    .status-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .dot-green  { background: #2e7d32; }
+    .dot-gray   { background: #bbb; }
+
+    /* ── Table ── */
+    .pm-body { padding: 24px 32px; }
+
+    .pm-table-wrap {
+      background: #fff; border-radius: 12px;
+      border: 1px solid #e0e0e0; overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,.04);
+    }
+
+    table { width: 100%; border-collapse: collapse; }
+    th {
+      background: #f8f9fa; text-align: left;
+      padding: 11px 16px; font-size: .75rem; font-weight: 800;
+      color: #666; letter-spacing: .06em; text-transform: uppercase;
+      border-bottom: 1px solid #e8e8e8; white-space: nowrap;
+    }
+    td {
+      padding: 10px 16px; border-bottom: 1px solid #f0f0f0;
+      font-size: .88rem; vertical-align: middle;
+    }
+    tr:last-child td { border-bottom: none; }
+    tr.dirty td:first-child { border-left: 3px solid var(--gold); }
+    tr:hover td { background: #fafafa; }
+
+    .home-thumb {
+      width: 48px; height: 36px; object-fit: cover;
+      border-radius: 5px; display: block;
+    }
+    .home-name { font-weight: 700; color: var(--navy); }
+    .home-meta { font-size: .75rem; color: #888; margin-top: 1px; }
+
+    .badge {
+      display: inline-block; padding: 3px 9px;
+      border-radius: 12px; font-size: .72rem; font-weight: 700;
+      letter-spacing: .02em;
+    }
+    .badge-on-lot   { background: #e8f5e9; color: #1b5e20; }
+    .badge-on-order { background: #e3f2fd; color: #0d47a1; }
+    .badge-available{ background: #f3e5f5; color: #4a148c; }
+    .badge-sold     { background: #ffebee; color: #b71c1c; }
+
+    .price-input {
+      width: 110px; padding: 7px 10px;
+      border: 1.5px solid #ddd; border-radius: 6px;
+      font-size: .9rem; font-weight: 700; color: var(--navy);
+      font-family: inherit; text-align: right;
+    }
+    .price-input:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(201,146,10,.12); }
+    .price-input.changed { border-color: var(--gold); background: #fffde7; }
+
+    .status-select {
+      padding: 6px 10px; border: 1.5px solid #ddd; border-radius: 6px;
+      font-size: .82rem; font-weight: 600; font-family: inherit;
+      color: var(--navy); background: #fff; cursor: pointer;
+    }
+    .status-select:focus { outline: none; border-color: var(--gold); }
+
+    .notes-input {
+      width: 180px; padding: 6px 10px;
+      border: 1.5px solid #ddd; border-radius: 6px;
+      font-size: .82rem; font-family: inherit; color: #555;
+    }
+    .notes-input:focus { outline: none; border-color: var(--gold); }
+
+    .crm-sync-btn {
+      padding: 5px 12px; border-radius: 6px; font-size: .75rem;
+      font-weight: 700; cursor: pointer; border: none;
+      font-family: inherit; transition: opacity .15s;
+    }
+    .crm-sync-btn.pending { background: #fff3e0; color: #e65100; }
+    .crm-sync-btn.synced  { background: #e8f5e9; color: #1b5e20; }
+    .crm-sync-btn.error   { background: #ffebee; color: #b71c1c; }
+
+    /* ── Empty state ── */
+    .pm-empty {
+      text-align: center; padding: 60px 20px;
+      color: #aaa; font-size: .9rem;
+    }
+
+    /* ── Footer ── */
+    .pm-footer {
+      padding: 16px 32px; font-size: .75rem; color: #aaa;
+      text-align: center; border-top: 1px solid #eee;
+      background: #fff; margin-top: 24px;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .pm-header, .pm-toolbar, .pm-body, #save-banner, #crm-status { padding-left: 16px; padding-right: 16px; }
+      th, td { padding: 9px 10px; }
+      .notes-input { width: 120px; }
+    }
+    @media (max-width: 600px) {
+      .col-notes, .col-crm { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── AUTH SCREEN ─────────────────────────── -->
+<div id="auth-screen">
+  <div class="auth-card">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:24px;">
+      <img src="../images/smhc-logo.jpg" style="width:36px;height:36px;border-radius:8px;object-fit:cover;">
+      <div>
+        <div style="font-size:.65rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#888;">Southern MHC</div>
+        <div style="font-size:.95rem;font-weight:800;color:var(--navy);">Price Manager</div>
+      </div>
+    </div>
+    <p>Enter your admin password to continue.</p>
+    <input class="auth-input" type="password" id="auth-pass" placeholder="Password" autocomplete="current-password">
+    <button class="auth-btn" onclick="doLogin()">Sign In →</button>
+    <p class="auth-err" id="auth-err">Incorrect password. Try again.</p>
+  </div>
+</div>
+
+<!-- ── MAIN APP ────────────────────────────── -->
+<div id="app">
+
+  <!-- Header -->
+  <div class="pm-header">
+    <div class="pm-header-left">
+      <img src="../images/smhc-logo.jpg" style="width:32px;height:32px;border-radius:7px;object-fit:cover;">
+      <div>
+        <div class="pm-logo">Southern MHC Admin</div>
+        <div class="pm-title">Price Manager</div>
+      </div>
+    </div>
+    <div class="pm-header-right">
+      <button class="btn-sm btn-white" onclick="exportJSON()" title="Download prices as JSON">⬇ Export JSON</button>
+      <button class="btn-sm btn-white" onclick="exportCSV()"  title="Download prices as CSV">⬇ Export CSV</button>
+      <button class="btn-sm btn-gold"  onclick="saveAll()"    id="header-save-btn">Save All Changes</button>
+      <a href="index.html" class="btn-sm btn-white">← Dashboard</a>
+      <button class="btn-sm btn-white" onclick="doLogout()">Sign Out</button>
+    </div>
+  </div>
+
+  <!-- CRM connection status -->
+  <div id="crm-status" class="disconnected">
+    <span class="status-dot dot-gray" id="crm-dot"></span>
+    <span id="crm-status-text">CRM not connected — changes save locally only. Connect domain to enable live sync.</span>
+  </div>
+
+  <!-- Unsaved changes banner -->
+  <div id="save-banner" class="hidden">
+    <span class="save-banner-text">⚠ You have unsaved changes</span>
+    <div class="save-banner-actions">
+      <button class="btn-sm btn-red"  onclick="revertAll()">Revert All</button>
+      <button class="btn-sm btn-gold" onclick="saveAll()">Save All Changes</button>
+    </div>
+  </div>
+
+  <!-- Toolbar -->
+  <div class="pm-toolbar">
+    <input class="pm-search" type="text" id="search-input" placeholder="Search by name, manufacturer…" oninput="renderTable()">
+    <button class="filter-chip active" data-filter="all"        onclick="setFilter('all',this)">All</button>
+    <button class="filter-chip"        data-filter="Single-Wide" onclick="setFilter('Single-Wide',this)">Single-Wide</button>
+    <button class="filter-chip"        data-filter="Double-Wide" onclick="setFilter('Double-Wide',this)">Double-Wide</button>
+    <button class="filter-chip"        data-filter="on-lot"      onclick="setFilter('on-lot',this)">On Lot</button>
+    <button class="filter-chip"        data-filter="on-order"    onclick="setFilter('on-order',this)">On Order</button>
+    <span class="pm-count" id="pm-count"></span>
+  </div>
+
+  <!-- Table -->
+  <div class="pm-body">
+    <div class="pm-table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:56px;"></th>
+            <th>Home</th>
+            <th>Type</th>
+            <th>Beds/Baths</th>
+            <th>Sq Ft</th>
+            <th>Price ($)</th>
+            <th>Status</th>
+            <th class="col-notes">Notes</th>
+            <th class="col-crm">CRM Sync</th>
+          </tr>
+        </thead>
+        <tbody id="homes-tbody">
+          <tr><td colspan="9" class="pm-empty">Loading…</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="pm-footer">
+    Southern MHC Price Manager &nbsp;·&nbsp; Changes saved locally to browser &nbsp;·&nbsp;
+    Once <strong>southernmhc.com</strong> domain is live, prices will sync directly to the CRM at
+    <a href="https://southern-mhc-crm-production.up.railway.app" target="_blank" style="color:var(--gold);">southern-mhc-crm-production.up.railway.app</a>
+  </div>
+
+</div><!-- /app -->
+
+<script src="../js/homes-data.js"></script>
+<script>
+  /* ── Config ── */
+  const ADMIN_PASS = 'smhc2026';
+  const CRM_BASE   = 'https://southern-mhc-crm-production.up.railway.app';
+  const STORAGE_KEY = 'smhc_price_overrides';
+
+  /* ── State ── */
+  let overrides   = {};   // { slug: { price, status, notes } }
+  let dirtyRows   = new Set();
+  let currentFilter = 'all';
+  let crmConnected  = false;
+
+  /* ── Auth ── */
+  function doLogin() {
+    const val = document.getElementById('auth-pass').value;
+    if (val === ADMIN_PASS) {
+      document.getElementById('auth-screen').style.display = 'none';
+      document.getElementById('app').style.display = 'block';
+      init();
+    } else {
+      document.getElementById('auth-err').style.display = 'block';
+    }
+  }
+  document.getElementById('auth-pass').addEventListener('keydown', e => {
+    if (e.key === 'Enter') doLogin();
+  });
+  function doLogout() {
+    document.getElementById('app').style.display = 'none';
+    document.getElementById('auth-screen').style.display = 'flex';
+    document.getElementById('auth-pass').value = '';
+  }
+
+  /* ── Init ── */
+  async function init() {
+    // Load saved overrides from localStorage
+    try {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (stored) overrides = JSON.parse(stored);
+    } catch(e) {}
+
+    // Try CRM connection
+    await checkCRM();
+    renderTable();
+  }
+
+  async function checkCRM() {
+    try {
+      const r = await fetch(CRM_BASE + '/api/health', { signal: AbortSignal.timeout(3000) });
+      if (r.ok) {
+        crmConnected = true;
+        document.getElementById('crm-status').className = 'connected';
+        document.getElementById('crm-dot').className = 'status-dot dot-green';
+        document.getElementById('crm-status-text').textContent = '✓ CRM connected — prices will sync to southern-mhc-crm-production.up.railway.app';
+      }
+    } catch(e) {
+      crmConnected = false;
+    }
+  }
+
+  /* ── Filter ── */
+  function setFilter(f, el) {
+    currentFilter = f;
+    document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+    el.classList.add('active');
+    renderTable();
+  }
+
+  /* ── Render ── */
+  function renderTable() {
+    const q = document.getElementById('search-input').value.toLowerCase().trim();
+    const tbody = document.getElementById('homes-tbody');
+
+    const filtered = HOMES.filter(h => {
+      const matchSearch = !q ||
+        h.name.toLowerCase().includes(q) ||
+        (h.manufacturer || '').toLowerCase().includes(q) ||
+        (h.type || '').toLowerCase().includes(q);
+      const matchFilter =
+        currentFilter === 'all' ||
+        h.type === currentFilter ||
+        (overrides[h.slug]?.status || h.status) === currentFilter ||
+        h.status === currentFilter;
+      return matchSearch && matchFilter;
+    });
+
+    document.getElementById('pm-count').textContent = `${filtered.length} of ${HOMES.length} homes`;
+
+    if (!filtered.length) {
+      tbody.innerHTML = `<tr><td colspan="9" class="pm-empty">No homes match your search.</td></tr>`;
+      return;
+    }
+
+    tbody.innerHTML = filtered.map(h => {
+      const ov      = overrides[h.slug] || {};
+      const price   = ov.price  !== undefined ? ov.price  : h.price;
+      const status  = ov.status !== undefined ? ov.status : h.status;
+      const notes   = ov.notes  !== undefined ? ov.notes  : '';
+      const isDirty = dirtyRows.has(h.slug);
+      const syncState = ov.crmSynced ? 'synced' : (isDirty ? 'pending' : 'synced');
+      const syncLabel = ov.crmSynced ? '✓ Synced' : (isDirty ? '● Pending' : '✓ Current');
+
+      const badgeClass = {
+        'on-lot': 'badge-on-lot', 'on-order': 'badge-on-order',
+        'available': 'badge-available', 'sold': 'badge-sold'
+      }[status] || 'badge-available';
+
+      const statusLabel = { 'on-lot': 'On Lot', 'on-order': 'On Order', 'available': 'Available', 'sold': 'Sold' }[status] || status;
+
+      return `
+        <tr id="row-${h.slug}" class="${isDirty ? 'dirty' : ''}">
+          <td><img class="home-thumb" src="../${h.image}" onerror="this.style.display='none'" alt="${h.name}"></td>
+          <td>
+            <div class="home-name">${h.name}</div>
+            <div class="home-meta">${h.manufacturer || ''} &nbsp;·&nbsp; ${h.dimensions || ''}</div>
+          </td>
+          <td style="font-size:.82rem;color:#555;">${h.type}</td>
+          <td style="font-size:.82rem;color:#555;">${h.beds}bd / ${h.baths}ba</td>
+          <td style="font-size:.82rem;color:#555;">${(h.sqft||0).toLocaleString()} ft²</td>
+          <td>
+            <input class="price-input ${isDirty && ov.price !== undefined ? 'changed' : ''}"
+              type="number" min="0" step="100"
+              value="${price}"
+              data-slug="${h.slug}"
+              data-original="${h.price}"
+              onchange="onPriceChange(this)"
+              oninput="onPriceInput(this)">
+          </td>
+          <td>
+            <select class="status-select" data-slug="${h.slug}" onchange="onStatusChange(this)">
+              <option value="on-lot"   ${status==='on-lot'   ?'selected':''}>On Lot</option>
+              <option value="on-order" ${status==='on-order' ?'selected':''}>On Order</option>
+              <option value="available"${status==='available'?'selected':''}>Available</option>
+              <option value="sold"     ${status==='sold'     ?'selected':''}>Sold</option>
+            </select>
+          </td>
+          <td class="col-notes">
+            <input class="notes-input" type="text" placeholder="Internal note…"
+              value="${escHtml(notes)}"
+              data-slug="${h.slug}"
+              onchange="onNotesChange(this)">
+          </td>
+          <td class="col-crm">
+            <span class="crm-sync-btn ${syncState}" id="crm-btn-${h.slug}">${syncLabel}</span>
+          </td>
+        </tr>`;
+    }).join('');
+  }
+
+  /* ── Change handlers ── */
+  function onPriceInput(el) {
+    const slug = el.dataset.slug;
+    const orig = parseInt(el.dataset.original);
+    const val  = parseInt(el.value) || 0;
+    el.classList.toggle('changed', val !== orig);
+  }
+
+  function onPriceChange(el) {
+    const slug = el.dataset.slug;
+    const val  = parseInt(el.value) || 0;
+    if (!overrides[slug]) overrides[slug] = {};
+    overrides[slug].price     = val;
+    overrides[slug].crmSynced = false;
+    markDirty(slug);
+  }
+
+  function onStatusChange(el) {
+    const slug = el.dataset.slug;
+    if (!overrides[slug]) overrides[slug] = {};
+    overrides[slug].status    = el.value;
+    overrides[slug].crmSynced = false;
+    markDirty(slug);
+  }
+
+  function onNotesChange(el) {
+    const slug = el.dataset.slug;
+    if (!overrides[slug]) overrides[slug] = {};
+    overrides[slug].notes     = el.value;
+    overrides[slug].crmSynced = false;
+    markDirty(slug);
+  }
+
+  function markDirty(slug) {
+    dirtyRows.add(slug);
+    document.getElementById('save-banner').classList.remove('hidden');
+    const row = document.getElementById(`row-${slug}`);
+    if (row) row.classList.add('dirty');
+  }
+
+  /* ── Save ── */
+  function saveAll() {
+    // Persist to localStorage
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(overrides)); } catch(e) {}
+
+    // If CRM connected, push each changed home
+    if (crmConnected) {
+      syncToCRM();
+    } else {
+      showToast('Prices saved locally. Connect domain to sync to CRM.', 'gold');
+    }
+
+    dirtyRows.clear();
+    document.getElementById('save-banner').classList.add('hidden');
+    renderTable();
+  }
+
+  async function syncToCRM() {
+    // Login to CRM
+    let cookie = '';
+    try {
+      const lr = await fetch(CRM_BASE + '/api/auth/login', {
+        method: 'POST', credentials: 'include',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username: 'admin', password: 'smhc2026' })
+      });
+      const setCookie = lr.headers.get('set-cookie');
+      if (setCookie) cookie = setCookie.split(';')[0];
+    } catch(e) {
+      showToast('CRM sync failed — saved locally.', 'red');
+      return;
+    }
+
+    let synced = 0;
+    // For each override, try to find matching CRM home and update price
+    for (const [slug, ov] of Object.entries(overrides)) {
+      if (!ov.price) continue;
+      try {
+        // Try to find home by name match in CRM
+        const home = HOMES.find(h => h.slug === slug);
+        if (!home) continue;
+        // Search CRM homes by name
+        const searchR = await fetch(`${CRM_BASE}/api/homes?search=${encodeURIComponent(home.name)}`, {
+          credentials: 'include',
+          headers: cookie ? { 'Cookie': cookie } : {}
+        });
+        if (!searchR.ok) continue;
+        const homes = await searchR.json();
+        const crmHome = homes.find(ch => ch.name?.toLowerCase() === home.name.toLowerCase());
+        if (!crmHome) continue;
+        // Update price
+        await fetch(`${CRM_BASE}/api/homes/${crmHome.id}`, {
+          method: 'PATCH', credentials: 'include',
+          headers: { 'Content-Type': 'application/json', ...(cookie ? { 'Cookie': cookie } : {}) },
+          body: JSON.stringify({ price: ov.price, status: ov.status })
+        });
+        overrides[slug].crmSynced = true;
+        synced++;
+      } catch(e) {}
+    }
+
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(overrides)); } catch(e) {}
+    showToast(`Saved. ${synced} homes synced to CRM.`, 'green');
+    renderTable();
+  }
+
+  function revertAll() {
+    if (!confirm('Revert all unsaved changes?')) return;
+    // Re-read from localStorage (last saved state)
+    try {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      overrides = stored ? JSON.parse(stored) : {};
+    } catch(e) { overrides = {}; }
+    dirtyRows.clear();
+    document.getElementById('save-banner').classList.add('hidden');
+    renderTable();
+  }
+
+  /* ── Export ── */
+  function buildExportData() {
+    return HOMES.map(h => {
+      const ov = overrides[h.slug] || {};
+      return {
+        slug:         h.slug,
+        name:         h.name,
+        manufacturer: h.manufacturer,
+        type:         h.type,
+        beds:         h.beds,
+        baths:        h.baths,
+        sqft:         h.sqft,
+        price:        ov.price  !== undefined ? ov.price  : h.price,
+        status:       ov.status !== undefined ? ov.status : h.status,
+        notes:        ov.notes  || '',
+        lastUpdated:  new Date().toISOString().slice(0,10),
+      };
+    });
+  }
+
+  function exportJSON() {
+    const data = buildExportData();
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    dl(blob, 'smhc-prices.json');
+  }
+
+  function exportCSV() {
+    const data = buildExportData();
+    const headers = ['slug','name','manufacturer','type','beds','baths','sqft','price','status','notes','lastUpdated'];
+    const rows = data.map(r => headers.map(k => JSON.stringify(r[k] ?? '')).join(','));
+    const csv = [headers.join(','), ...rows].join('\n');
+    dl(new Blob([csv], { type: 'text/csv' }), 'smhc-prices.csv');
+  }
+
+  function dl(blob, name) {
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = name;
+    a.click();
+  }
+
+  /* ── Toast ── */
+  function showToast(msg, color = 'gold') {
+    const colors = { gold: '#c9920a', green: '#1b5e20', red: '#b71c1c' };
+    const t = document.createElement('div');
+    t.style.cssText = `
+      position:fixed;bottom:24px;right:24px;
+      background:${colors[color]||colors.gold};color:#fff;
+      padding:12px 20px;border-radius:8px;font-size:.88rem;font-weight:700;
+      box-shadow:0 4px 20px rgba(0,0,0,.2);z-index:9999;
+      animation:slideUp .25s ease;
+    `;
+    t.textContent = msg;
+    document.body.appendChild(t);
+    setTimeout(() => t.remove(), 3500);
+  }
+
+  /* ── Helpers ── */
+  function escHtml(s) {
+    return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  /* ── Keyboard shortcut ── */
+  document.addEventListener('keydown', e => {
+    if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+      e.preventDefault();
+      saveAll();
+    }
+  });
+</script>
+<style>
+  @keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to   { transform: translateY(0);    opacity: 1; }
+  }
+</style>
+</body>
+</html>

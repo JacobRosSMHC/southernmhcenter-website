@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Price Calculator — Southern MHC Admin</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="icon" href="../images/smhc-logo.jpg">
+  <style>
+    body { background: #f0f2f5; font-family: 'General Sans', system-ui, sans-serif; margin: 0; }
+
+    /* ── Auth ── */
+    #auth-screen {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--navy);
+    }
+    .auth-card {
+      background: #fff; border-radius: 16px;
+      padding: 40px; width: 100%; max-width: 360px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.3);
+    }
+    .auth-card h2 { color: var(--navy); font-size: 1.15rem; margin-bottom: 6px; }
+    .auth-card p  { color: #888; font-size: .85rem; margin-bottom: 28px; }
+    .auth-input {
+      width: 100%; padding: 12px 16px; border: 1.5px solid #ddd;
+      border-radius: 8px; font-size: .95rem; font-family: inherit;
+      box-sizing: border-box; margin-bottom: 12px;
+    }
+    .auth-input:focus { outline: none; border-color: var(--gold); }
+    .auth-btn {
+      width: 100%; padding: 13px; background: var(--navy); color: #fff;
+      border: none; border-radius: 8px; font-size: .95rem; font-weight: 700;
+      cursor: pointer; font-family: inherit;
+    }
+    .auth-err { color: #d32; font-size: .82rem; margin-top: 8px; display: none; }
+
+    #app { display: none; }
+
+    /* ── Header ── */
+    .pc-header {
+      background: var(--navy); color: #fff;
+      padding: 14px 28px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px; flex-wrap: wrap;
+    }
+    .pc-header-left { display: flex; align-items: center; gap: 16px; }
+    .pc-logo-text { font-size: .65rem; font-weight: 800; text-transform: uppercase; letter-spacing: .12em; color: rgba(255,255,255,.45); }
+    .pc-title { font-size: 1rem; font-weight: 800; color: #fff; }
+    .pc-header-nav { display: flex; gap: 8px; }
+    .pc-nav-link {
+      padding: 7px 14px; border-radius: 6px; font-size: .8rem;
+      font-weight: 600; color: rgba(255,255,255,.7);
+      text-decoration: none; border: 1px solid rgba(255,255,255,.15);
+      transition: all .15s;
+    }
+    .pc-nav-link:hover { background: rgba(255,255,255,.1); color: #fff; }
+
+    /* ── Toolbar ── */
+    .pc-toolbar {
+      background: #fff; border-bottom: 1px solid #e0e0e0;
+      padding: 12px 28px;
+      display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+    }
+    .pc-search {
+      flex: 1; min-width: 200px; max-width: 320px;
+      padding: 9px 14px; border: 1.5px solid #ddd;
+      border-radius: 8px; font-size: .9rem; font-family: inherit;
+    }
+    .pc-search:focus { outline: none; border-color: var(--gold); }
+    .status-filter {
+      display: flex; gap: 6px; flex-wrap: wrap;
+    }
+    .sf-chip {
+      padding: 6px 14px; border-radius: 20px;
+      border: 1.5px solid #ddd; font-size: .78rem;
+      font-weight: 600; cursor: pointer; background: #fff;
+      color: #666; transition: all .15s; font-family: inherit;
+    }
+    .sf-chip.active { border-color: var(--navy); background: var(--navy); color: #fff; }
+    .pc-toolbar-right { margin-left: auto; display: flex; gap: 8px; }
+    .btn-sm {
+      padding: 8px 16px; border-radius: 6px; font-size: .8rem;
+      font-weight: 700; cursor: pointer; border: none; font-family: inherit;
+      display: inline-flex; align-items: center; gap: 6px;
+      transition: opacity .15s;
+    }
+    .btn-sm:hover { opacity: .85; }
+    .btn-gold  { background: var(--gold); color: #fff; }
+    .btn-navy  { background: var(--navy); color: #fff; }
+    .btn-green { background: #1a8f4a; color: #fff; }
+
+    /* ── Info bar ── */
+    .pc-info-bar {
+      background: #fffbeb; border-bottom: 1px solid #fde68a;
+      padding: 10px 28px; font-size: .82rem; color: #92400e;
+      display: flex; align-items: center; gap: 8px;
+    }
+
+    /* ── Table ── */
+    .pc-table-wrap { padding: 20px 28px; overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,.08); }
+    thead tr { background: var(--navy); }
+    thead th {
+      padding: 12px 14px; text-align: left;
+      font-size: .72rem; font-weight: 800;
+      text-transform: uppercase; letter-spacing: .08em;
+      color: rgba(255,255,255,.75); white-space: nowrap;
+    }
+    tbody tr { border-bottom: 1px solid #f0f0f0; transition: background .1s; }
+    tbody tr:hover { background: #fafafa; }
+    tbody tr:last-child { border-bottom: none; }
+    tbody td { padding: 12px 14px; font-size: .88rem; color: #333; vertical-align: middle; }
+
+    /* Inputs inside table */
+    .calc-input {
+      width: 110px; padding: 7px 10px;
+      border: 1.5px solid #e0e0e0; border-radius: 7px;
+      font-size: .88rem; font-family: inherit;
+      text-align: right; transition: border-color .15s;
+    }
+    .calc-input:focus { outline: none; border-color: var(--gold); background: #fffbeb; }
+    .calc-input.has-value { border-color: #c3e6cb; background: #f0fff4; }
+
+    /* Computed price display */
+    .price-display {
+      font-size: 1rem; font-weight: 800;
+      color: var(--navy); white-space: nowrap;
+    }
+    .price-display.zero { color: #bbb; }
+    .price-display.ready { color: #1a8f4a; }
+
+    /* Status badge */
+    .status-badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 3px 10px; border-radius: 12px;
+      font-size: .72rem; font-weight: 700;
+    }
+    .status-badge.available    { background: #dcfce7; color: #166534; }
+    .status-badge.coming_soon  { background: #dbeafe; color: #1d4ed8; }
+    .status-badge.reserved     { background: #fef3c7; color: #92400e; }
+    .status-badge.sold         { background: #fee2e2; color: #991b1b; }
+    .status-badge.order_only   { background: #ede9fe; color: #5b21b6; }
+
+    /* Status select */
+    .status-select {
+      padding: 5px 8px; border: 1.5px solid #e0e0e0;
+      border-radius: 7px; font-size: .8rem; font-family: inherit;
+      cursor: pointer; background: #fff;
+    }
+    .status-select:focus { outline: none; border-color: var(--gold); }
+
+    /* Save indicator */
+    .row-saved { animation: rowFlash .6s ease; }
+    @keyframes rowFlash {
+      0%   { background: #f0fff4; }
+      100% { background: transparent; }
+    }
+
+    /* Home name cell */
+    .home-name { font-weight: 700; color: var(--navy); font-size: .88rem; }
+    .home-mfr  { font-size: .72rem; color: #888; margin-top: 1px; }
+    .home-type-pill {
+      display: inline-block; padding: 2px 8px; border-radius: 10px;
+      font-size: .65rem; font-weight: 700; margin-top: 2px;
+    }
+    .pill-sw { background: #dbeafe; color: #1d4ed8; }
+    .pill-dw { background: #dcfce7; color: #166534; }
+    .pill-tw { background: #ede9fe; color: #5b21b6; }
+
+    /* Formula legend */
+    .formula-bar {
+      background: var(--navy); color: rgba(255,255,255,.8);
+      padding: 10px 28px; font-size: .8rem;
+      display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+    }
+    .formula-bar .f-label { color: rgba(255,255,255,.5); font-weight: 600; text-transform: uppercase; letter-spacing: .08em; font-size: .68rem; }
+    .formula-bar .f-eq { color: var(--gold); font-weight: 800; font-size: .88rem; letter-spacing: .02em; }
+
+    /* Push/sync banner */
+    .sync-banner {
+      display: none;
+      position: fixed; bottom: 24px; right: 24px; z-index: 999;
+      background: var(--navy); color: #fff;
+      border-radius: 12px; padding: 16px 20px;
+      box-shadow: 0 8px 32px rgba(0,0,0,.25);
+      font-size: .88rem; font-weight: 600;
+      display: flex; align-items: center; gap: 12px;
+      animation: slideUp .3s ease;
+    }
+    @keyframes slideUp { from { transform: translateY(20px); opacity:0; } to { transform: translateY(0); opacity:1; } }
+    .sync-btn {
+      padding: 7px 16px; background: var(--gold); color: #fff;
+      border: none; border-radius: 7px; font-size: .8rem;
+      font-weight: 700; cursor: pointer; font-family: inherit; white-space: nowrap;
+    }
+    .sync-dismiss { background: none; border: none; color: rgba(255,255,255,.5); cursor: pointer; font-size: 1.1rem; padding: 0 4px; }
+
+    /* Empty state */
+    .empty-row td { text-align: center; padding: 48px; color: #aaa; font-size: .9rem; }
+  </style>
+</head>
+<body>
+
+<!-- AUTH SCREEN -->
+<div id="auth-screen">
+  <div class="auth-card">
+    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" style="margin-bottom:16px;" aria-hidden="true">
+      <rect width="40" height="40" rx="10" fill="#1e3a5f"/>
+      <path d="M8 28 L20 12 L32 28" stroke="#b8 8e36" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="20" cy="28" r="3" fill="#b88e36"/>
+    </svg>
+    <h2>Price Calculator</h2>
+    <p>Southern MHC Admin — enter password to access</p>
+    <input class="auth-input" type="password" id="auth-pw" placeholder="Password" onkeydown="if(event.key==='Enter')doAuth()">
+    <button class="auth-btn" onclick="doAuth()">Unlock</button>
+    <div class="auth-err" id="auth-err">Incorrect password.</div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+
+  <!-- Header -->
+  <div class="pc-header">
+    <div class="pc-header-left">
+      <div>
+        <div class="pc-logo-text">Southern MHC</div>
+        <div class="pc-title">💲 Price Calculator</div>
+      </div>
+    </div>
+    <div class="pc-header-nav">
+      <a href="prices.html" class="pc-nav-link">Price Manager</a>
+      <a href="index.html"  class="pc-nav-link">← Admin Home</a>
+    </div>
+  </div>
+
+  <!-- Formula bar -->
+  <div class="formula-bar">
+    <span class="f-label">Formula</span>
+    <span class="f-eq">Invoice Cost + Profit Margin + Improvements = Final Advertised Price</span>
+    <span style="color:rgba(255,255,255,.4);font-size:.75rem;">· Changes save automatically to your browser · Click "Push to Website" to publish prices</span>
+  </div>
+
+  <!-- Info bar -->
+  <div class="pc-info-bar">
+    💡 Enter any combination of Invoice, Profit, and Improvements. The price auto-calculates and saves as you type. Hit "Push to Website" to make prices live.
+  </div>
+
+  <!-- Toolbar -->
+  <div class="pc-toolbar">
+    <input class="pc-search" type="text" id="pc-search" placeholder="Search homes…" oninput="renderTable()">
+    <div class="status-filter">
+      <button class="sf-chip active" data-filter="all"       onclick="setFilter('all',this)">All</button>
+      <button class="sf-chip"        data-filter="priced"    onclick="setFilter('priced',this)">Priced ✓</button>
+      <button class="sf-chip"        data-filter="unpriced"  onclick="setFilter('unpriced',this)">Needs Price</button>
+    </div>
+    <div class="pc-toolbar-right">
+      <button class="btn-sm btn-navy" onclick="exportCSV()">📥 Export CSV</button>
+      <button class="btn-sm btn-green" id="push-btn" onclick="pushToWebsite()">🚀 Push to Website</button>
+    </div>
+  </div>
+
+  <!-- Table -->
+  <div class="pc-table-wrap">
+    <table id="pc-table">
+      <thead>
+        <tr>
+          <th style="width:260px;">Home</th>
+          <th>Invoice Cost ($)</th>
+          <th>Profit Margin ($)</th>
+          <th>Improvements ($)</th>
+          <th>= Advertised Price</th>
+          <th>Monthly Est.</th>
+          <th>Status</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody id="pc-tbody"></tbody>
+    </table>
+  </div>
+
+  <!-- Unsaved changes banner -->
+  <div class="sync-banner" id="sync-banner">
+    <span>📋 Prices updated — ready to publish</span>
+    <button class="sync-btn" onclick="pushToWebsite()">Push to Website</button>
+    <button class="sync-dismiss" onclick="document.getElementById('sync-banner').style.display='none'">✕</button>
+  </div>
+
+</div><!-- /app -->
+
+<script src="../js/homes-data.js"></script>
+<script>
+const PASS = 'smhc2026';
+const STORAGE_KEY = 'smhc_price_calc_v2';
+let currentFilter = 'all';
+let calcData = {};  // { homeId: { invoice, profit, improvements, status, notes } }
+
+// ── Auth ──────────────────────────────────────────────────────────────────
+function doAuth() {
+  const pw = document.getElementById('auth-pw').value;
+  if (pw === PASS) {
+    document.getElementById('auth-screen').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+    init();
+  } else {
+    document.getElementById('auth-err').style.display = 'block';
+    document.getElementById('auth-pw').style.borderColor = '#e74c3c';
+  }
+}
+document.addEventListener('keydown', e => {
+  if (e.ctrlKey && e.key === 's') { e.preventDefault(); pushToWebsite(); }
+});
+
+// ── Init ──────────────────────────────────────────────────────────────────
+function init() {
+  // Load saved data
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) calcData = JSON.parse(saved);
+  } catch(e) {}
+  renderTable();
+}
+
+// ── Filtering ─────────────────────────────────────────────────────────────
+function setFilter(f, el) {
+  currentFilter = f;
+  document.querySelectorAll('.sf-chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  renderTable();
+}
+
+// ── Render ────────────────────────────────────────────────────────────────
+function renderTable() {
+  const query = document.getElementById('pc-search').value.toLowerCase();
+  const tbody = document.getElementById('pc-tbody');
+
+  const homes = (typeof HOMES_DATA !== 'undefined' ? HOMES_DATA : []).filter(h => {
+    if (!h.name) return false;
+    const name = (h.name + ' ' + (h.manufacturer || '')).toLowerCase();
+    if (query && !name.includes(query)) return false;
+
+    const d = calcData[h.id] || {};
+    const price = calcPrice(d);
+    if (currentFilter === 'priced'   && !price) return false;
+    if (currentFilter === 'unpriced' && price > 0) return false;
+    return true;
+  });
+
+  if (homes.length === 0) {
+    tbody.innerHTML = '<tr class="empty-row"><td colspan="8">No homes match your filter.</td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = homes.map(h => {
+    const d = calcData[h.id] || {};
+    const price = calcPrice(d);
+    const monthly = price > 0 ? calcMonthly(price) : 0;
+    const typeClass = h.type === 'Single-Wide' ? 'pill-sw' : h.type === 'Triple-Wide' ? 'pill-tw' : 'pill-dw';
+    const typeShort = h.type === 'Single-Wide' ? 'SW' : h.type === 'Triple-Wide' ? 'TW' : 'DW';
+    const status = d.status || (h.status || 'available');
+
+    return `<tr id="row-${h.id}">
+      <td>
+        <div class="home-name">${escHtml(h.name)}</div>
+        <div class="home-mfr">${escHtml(h.manufacturer || '')}</div>
+        <span class="home-type-pill ${typeClass}">${typeShort}</span>
+      </td>
+      <td><input class="calc-input ${d.invoice ? 'has-value' : ''}" type="number" min="0" step="100"
+           value="${d.invoice || ''}" placeholder="0"
+           oninput="updateField('${h.id}','invoice',this.value,this)"
+           title="Your dealer cost / invoice price"></td>
+      <td><input class="calc-input ${d.profit ? 'has-value' : ''}" type="number" min="0" step="100"
+           value="${d.profit || ''}" placeholder="0"
+           oninput="updateField('${h.id}','profit',this.value,this)"
+           title="Your profit markup"></td>
+      <td><input class="calc-input ${d.improvements ? 'has-value' : ''}" type="number" min="0" step="100"
+           value="${d.improvements || ''}" placeholder="0"
+           oninput="updateField('${h.id}','improvements',this.value,this)"
+           title="Setup, delivery, A/C, skirting, steps, etc."></td>
+      <td>
+        <div class="price-display ${price > 0 ? 'ready' : 'zero'}" id="price-${h.id}">
+          ${price > 0 ? '$' + price.toLocaleString() : '—'}
+        </div>
+      </td>
+      <td style="color:#666;font-size:.82rem;" id="mo-${h.id}">
+        ${monthly > 0 ? '~$' + monthly.toLocaleString() + '/mo' : '—'}
+      </td>
+      <td>
+        <select class="status-select" onchange="updateField('${h.id}','status',this.value,this)">
+          ${['available','coming_soon','reserved','sold','order_only'].map(s =>
+            `<option value="${s}" ${status===s?'selected':''}>${statusLabel(s)}</option>`
+          ).join('')}
+        </select>
+      </td>
+      <td>
+        <input class="calc-input" type="text" style="width:140px;text-align:left;"
+               value="${escHtml(d.notes || '')}" placeholder="Optional notes"
+               oninput="updateField('${h.id}','notes',this.value,this)"
+               title="Internal notes — not shown on website">
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+function statusLabel(s) {
+  return { available:'Available', coming_soon:'Coming Soon', reserved:'Reserved', sold:'Sold', order_only:'Order Only' }[s] || s;
+}
+
+// ── Field update (live calculation) ──────────────────────────────────────
+function updateField(homeId, field, val, el) {
+  if (!calcData[homeId]) calcData[homeId] = {};
+  calcData[homeId][field] = (field === 'notes' || field === 'status') ? val : (parseFloat(val) || 0);
+
+  // Mark input styled
+  if (el && el.classList && field !== 'status' && field !== 'notes') {
+    el.classList.toggle('has-value', parseFloat(val) > 0);
+  }
+
+  // Update computed cells
+  const price   = calcPrice(calcData[homeId]);
+  const monthly = price > 0 ? calcMonthly(price) : 0;
+  const priceEl = document.getElementById('price-' + homeId);
+  const moEl    = document.getElementById('mo-'    + homeId);
+  if (priceEl) {
+    priceEl.textContent = price > 0 ? '$' + price.toLocaleString() : '—';
+    priceEl.className   = 'price-display ' + (price > 0 ? 'ready' : 'zero');
+  }
+  if (moEl) moEl.textContent = monthly > 0 ? '~$' + monthly.toLocaleString() + '/mo' : '—';
+
+  // Flash row
+  const row = document.getElementById('row-' + homeId);
+  if (row) { row.classList.remove('row-saved'); void row.offsetWidth; row.classList.add('row-saved'); }
+
+  // Save
+  saveLocal();
+
+  // Show push banner
+  const banner = document.getElementById('sync-banner');
+  if (banner) banner.style.display = 'flex';
+}
+
+// ── Calculation helpers ───────────────────────────────────────────────────
+function calcPrice(d) {
+  if (!d) return 0;
+  const inv  = parseFloat(d.invoice)      || 0;
+  const prof = parseFloat(d.profit)       || 0;
+  const imp  = parseFloat(d.improvements) || 0;
+  return inv + prof + imp;
+}
+
+function calcMonthly(price, downFrac, apr, years) {
+  downFrac = downFrac || 0.05;
+  apr      = apr      || 0.09;
+  years    = years    || 25;
+  const loan  = price * (1 - downFrac);
+  const r     = apr / 12;
+  const n     = years * 12;
+  if (r === 0) return Math.round(loan / n);
+  return Math.round(loan * r * Math.pow(1+r, n) / (Math.pow(1+r, n) - 1));
+}
+
+// ── Save / push ───────────────────────────────────────────────────────────
+function saveLocal() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(calcData)); } catch(e) {}
+}
+
+function pushToWebsite() {
+  // Merge calculated prices into the Price Manager storage (smhc_pm_v2)
+  const PM_KEY = 'smhc_pm_v2';
+  let pmData = {};
+  try { pmData = JSON.parse(localStorage.getItem(PM_KEY) || '{}'); } catch(e) {}
+
+  let updated = 0;
+  Object.entries(calcData).forEach(([homeId, d]) => {
+    const price = calcPrice(d);
+    if (price > 0) {
+      if (!pmData[homeId]) pmData[homeId] = {};
+      pmData[homeId].price   = price;
+      pmData[homeId].status  = d.status  || pmData[homeId].status || 'available';
+      pmData[homeId].notes   = d.notes   || pmData[homeId].notes  || '';
+      pmData[homeId].invoice      = d.invoice      || 0;
+      pmData[homeId].profit       = d.profit       || 0;
+      pmData[homeId].improvements = d.improvements || 0;
+      pmData[homeId].lastCalc     = new Date().toISOString();
+      updated++;
+    }
+  });
+
+  try { localStorage.setItem(PM_KEY, JSON.stringify(pmData)); } catch(e) {}
+
+  // Hide banner, show toast
+  document.getElementById('sync-banner').style.display = 'none';
+  showToast(`✅ ${updated} price${updated !== 1 ? 's' : ''} pushed to website!`);
+}
+
+function showToast(msg) {
+  const t = document.createElement('div');
+  t.style.cssText = 'position:fixed;bottom:24px;right:24px;background:#1a8f4a;color:#fff;padding:14px 20px;border-radius:10px;font-weight:700;font-size:.88rem;z-index:9999;box-shadow:0 8px 32px rgba(0,0,0,.2);animation:slideUp .3s ease;';
+  t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(() => t.remove(), 3000);
+}
+
+// ── Export ────────────────────────────────────────────────────────────────
+function exportCSV() {
+  const homes = typeof HOMES_DATA !== 'undefined' ? HOMES_DATA : [];
+  const rows = [['Home Name','Manufacturer','Type','Invoice','Profit','Improvements','Total Price','Monthly Est.','Status','Notes']];
+  homes.forEach(h => {
+    const d = calcData[h.id] || {};
+    const price = calcPrice(d);
+    rows.push([
+      h.name, h.manufacturer || '', h.type || '',
+      d.invoice || 0, d.profit || 0, d.improvements || 0,
+      price, price > 0 ? calcMonthly(price) : '',
+      d.status || h.status || '', d.notes || ''
+    ]);
+  });
+  const csv = rows.map(r => r.map(v => '"' + String(v).replace(/"/g,'""') + '"').join(',')).join('\n');
+  const a = document.createElement('a');
+  a.href = 'data:text/csv,' + encodeURIComponent(csv);
+  a.download = 'smhc-prices-' + new Date().toISOString().split('T')[0] + '.csv';
+  a.click();
+}
+
+// ── Utils ─────────────────────────────────────────────────────────────────
+function escHtml(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// Summary stats
+function updateStats() {
+  const homes = typeof HOMES_DATA !== 'undefined' ? HOMES_DATA : [];
+  const priced = homes.filter(h => calcPrice(calcData[h.id] || {}) > 0).length;
+}
+</script>
+</body>
+</html>

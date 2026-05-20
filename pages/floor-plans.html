@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Homes & Floor Plans — Southern Mobile Home Center</title>
+  <meta name="description" content="Browse 60+ single-wide and double-wide manufactured homes. Filter by bedrooms, price, and type. Southern Mobile Home Center, Tickfaw, LA.">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="icon" href="../images/smhc-logo.jpg">
+  <style>
+    .page-top {
+      background: var(--white);
+      border-bottom: 1px solid var(--gray-200);
+      padding: 28px 0 0;
+      margin-top: var(--nav-h);
+    }
+    .page-top-inner { max-width: var(--container); margin: 0 auto; padding: 0 24px; }
+    .page-top-inner .eyebrow {
+      font-size: 0.75rem; font-weight: 700; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 6px;
+    }
+    .page-top-inner h1 {
+      font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+      color: var(--navy); margin-bottom: 6px;
+    }
+    .page-top-inner .sub {
+      font-size: 0.95rem; color: var(--text-muted); margin-bottom: 24px;
+    }
+    .filter-bar-trove { margin-bottom: 0; border-radius: 0; border-left: none; border-right: none; border-bottom: none; box-shadow: none; background: var(--cream); }
+  </style>
+  <meta property="og:image" content="https://www.southernmhcenter.com/images/hero-1.jpg">
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml">
+  <!-- Facebook Pixel -->
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '1482427083607310');
+  fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=1482427083607310&ev=PageView&noscript=1"
+  /></noscript>
+  <!-- End Facebook Pixel -->
+</head>
+<body>
+
+<div id="nav-placeholder"></div>
+
+<!-- ── PAGE TOP ─────────────────────────────────────────────────────────────── -->
+<div class="page-top">
+  <div class="page-top-inner">
+    <p class="eyebrow">Browse Inventory</p>
+    <h1 class="display">Our Homes & Floor Plans</h1>
+    <p class="sub">60+ manufactured homes from top builders. Single-wide, double-wide, and triple-wide available on lot or by order.</p>
+  </div>
+
+  <!-- Filter Bar -->
+  <div class="filter-bar-trove">
+    <div style="max-width:var(--container);margin:0 auto;padding:0 24px;display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;padding-top:16px;padding-bottom:16px;">
+      <div class="fbt-group">
+        <label for="filter-type">Type</label>
+        <select id="filter-type">
+          <option value="all">All Types</option>
+          <option value="Single-Wide">Single-Wide</option>
+          <option value="Double-Wide">Double-Wide</option>
+          <option value="Triple-Wide">Triple-Wide</option>
+        </select>
+      </div>
+      <div class="fbt-group">
+        <label for="filter-beds">Bedrooms</label>
+        <select id="filter-beds">
+          <option value="0">Any Beds</option>
+          <option value="2">2+ Beds</option>
+          <option value="3">3+ Beds</option>
+          <option value="4">4+ Beds</option>
+          <option value="5">5+ Beds</option>
+        </select>
+      </div>
+      <div class="fbt-group">
+        <label for="filter-price">Max Price</label>
+        <select id="filter-price">
+          <option value="0">Any Price</option>
+          <option value="80000">Under $80K</option>
+          <option value="100000">Under $100K</option>
+          <option value="130000">Under $130K</option>
+          <option value="175000">Under $175K</option>
+          <option value="250000">Under $250K</option>
+        </select>
+      </div>
+      <div class="fbt-group" style="margin-left:auto;">
+        <label for="filter-sort">Sort By</label>
+        <select id="filter-sort">
+          <option value="price-asc">Price: Low to High</option>
+          <option value="price-desc">Price: High to Low</option>
+          <option value="sqft-desc">Largest First</option>
+          <option value="name">Name A–Z</option>
+        </select>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── CONTENT ───────────────────────────────────────────────────────────────── -->
+<div style="background:var(--cream);min-height:60vh;padding:40px 0 80px;">
+  <div class="container">
+
+    <div class="no-results" id="no-results" style="display:none;text-align:center;padding:60px 20px;color:var(--text-muted);">
+      No homes match your filters. Try adjusting your search.
+    </div>
+
+    <!-- Single-Wide Section -->
+    <div class="homes-type-section" id="section-single">
+      <div class="homes-type-heading">
+        <h2>Single-Wide Homes</h2>
+        <span class="type-count" id="count-single">–</span>
+      </div>
+      <div class="homes-grid-trove" id="grid-single"></div>
+    </div>
+
+    <!-- Double-Wide Section -->
+    <div class="homes-type-section" id="section-double">
+      <div class="homes-type-heading">
+        <h2>Double-Wide Homes</h2>
+        <span class="type-count" id="count-double">–</span>
+      </div>
+      <div class="homes-grid-trove" id="grid-double"></div>
+    </div>
+
+    <!-- Triple-Wide Section -->
+    <div class="homes-type-section" id="section-triple">
+      <div class="homes-type-heading">
+        <h2>Triple-Wide Homes</h2>
+        <span class="type-count" id="count-triple">–</span>
+      </div>
+      <div class="homes-grid-trove" id="grid-triple"></div>
+    </div>
+
+    <!-- Legal Price Disclaimer -->
+    <div style="margin-top:48px;padding:24px 28px;background:#fff;border-radius:12px;border:1px solid var(--cream-dark);border-left:4px solid var(--gold);">
+      <p style="font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--gold);margin-bottom:8px;">Pricing Disclosure</p>
+      <p style="font-size:.85rem;color:var(--text-muted);line-height:1.7;margin:0;">
+        All prices shown include <strong style="color:var(--navy);">standard delivery, setup, central air conditioning, skirting, steps, shown kitchen appliances, and a minimum one-year manufacturer warranty</strong> within our standard service area in Louisiana and Mississippi. Prices are subject to change without notice and may vary based on site conditions, distance, land preparation requirements, local permits, and applicable taxes. Prices shown are for the home and standard package only and do not include land, land development, utility connections, or optional upgrades. Final purchase price will be confirmed in writing at time of sale. Financing is subject to lender approval; terms and rates vary based on creditworthiness and loan program.
+      </p>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── CTA BANNER ────────────────────────────────────────────────────────────── -->
+<div class="cta-banner">
+  <div class="container">
+    <h2 class="display">Can't find exactly what you need?</h2>
+    <p>We work with top manufacturers to order custom configurations. Talk to our team.</p>
+    <div class="btns">
+      <a href="contact.html" class="btn btn-gold btn-lg">Contact Us</a>
+      <a href="tel:9855205012" class="btn btn-outline-white btn-lg">Call (985) 520-5012</a>
+    </div>
+  </div>
+</div>
+
+<div id="footer-placeholder"></div>
+
+<script>var BASE_PATH = '../';</script>
+<script src="../js/homes-data.js"></script>
+<script src="../js/nav.js"></script>
+<script src="../js/main.js"></script>
+<script>
+(function() {
+  const filterType  = document.getElementById('filter-type');
+  const filterBeds  = document.getElementById('filter-beds');
+  const filterPrice = document.getElementById('filter-price');
+  const filterSort  = document.getElementById('filter-sort');
+
+  function renderCards() {
+    const homes = getEffectiveHomes();
+    const typeVal  = filterType.value;
+    const bedsVal  = parseInt(filterBeds.value) || 0;
+    const priceVal = parseInt(filterPrice.value) || 0;
+    const sortVal  = filterSort.value;
+
+    let filtered = homes.filter(h => {
+      if (typeVal !== 'all' && h.type !== typeVal) return false;
+      if (bedsVal > 0 && h.beds < bedsVal) return false;
+      if (priceVal > 0 && h.price > priceVal) return false;
+      return true;
+    });
+
+    // Sort
+    filtered.sort((a, b) => {
+      if (sortVal === 'price-asc')  return (a.price || 0) - (b.price || 0);
+      if (sortVal === 'price-desc') return (b.price || 0) - (a.price || 0);
+      if (sortVal === 'sqft-desc')  return (b.sqft || 0) - (a.sqft || 0);
+      if (sortVal === 'name')       return a.name.localeCompare(b.name);
+      return 0;
+    });
+
+    const singles = filtered.filter(h => h.type === 'Single-Wide');
+    const doubles = filtered.filter(h => h.type === 'Double-Wide');
+    const triples = filtered.filter(h => h.type === 'Triple-Wide');
+
+    document.getElementById('count-single').textContent = singles.length;
+    document.getElementById('count-double').textContent = doubles.length;
+    document.getElementById('count-triple').textContent = triples.length;
+
+    document.getElementById('grid-single').innerHTML = singles.map(h => homeTroveCardHTML(h, BASE_PATH)).join('');
+    document.getElementById('grid-double').innerHTML = doubles.map(h => homeTroveCardHTML(h, BASE_PATH)).join('');
+    document.getElementById('grid-triple').innerHTML = triples.map(h => homeTroveCardHTML(h, BASE_PATH)).join('');
+
+    const hideSingle = typeVal === 'Double-Wide' || typeVal === 'Triple-Wide' || singles.length === 0;
+    const hideDouble = typeVal === 'Single-Wide' || typeVal === 'Triple-Wide' || doubles.length === 0;
+    const hideTriple = typeVal === 'Single-Wide' || typeVal === 'Double-Wide' || triples.length === 0;
+
+    document.getElementById('section-single').style.display = hideSingle ? 'none' : '';
+    document.getElementById('section-double').style.display = hideDouble ? 'none' : '';
+    document.getElementById('section-triple').style.display = hideTriple ? 'none' : '';
+
+    const noResults = filtered.length === 0;
+    document.getElementById('no-results').style.display = noResults ? 'block' : 'none';
+  }
+
+  filterType.addEventListener('change', renderCards);
+  filterBeds.addEventListener('change', renderCards);
+  filterPrice.addEventListener('change', renderCards);
+  filterSort.addEventListener('change', renderCards);
+
+  renderCards();
+})();
+</script>
+
+</body>
+</html>

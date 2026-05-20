@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FAQ — Southern Mobile Home Center</title>
+  <meta name="description" content="Frequently asked questions about buying a manufactured home at Southern Mobile Home Center in Tickfaw, Louisiana. Pricing, financing, delivery, land, and more.">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="icon" href="../images/smhc-logo.jpg">
+  <style>
+    /* ── FAQ Page Styles ─────────────────────────────────────────── */
+
+    .faq-layout {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 64px;
+      align-items: start;
+    }
+    @media (max-width: 860px) {
+      .faq-layout { grid-template-columns: 1fr; gap: 32px; }
+    }
+
+    /* Sticky sidebar nav */
+    .faq-sidebar {
+      position: sticky;
+      top: calc(var(--nav-h) + 24px);
+    }
+    .faq-sidebar h3 {
+      font-size: .72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+    .faq-nav-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: .88rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: background .15s, color .15s;
+      margin-bottom: 2px;
+      cursor: pointer;
+    }
+    .faq-nav-link:hover,
+    .faq-nav-link.active {
+      background: var(--cream);
+      color: var(--navy);
+    }
+    .faq-nav-link.active {
+      font-weight: 700;
+      color: var(--gold);
+    }
+    .faq-nav-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--gold);
+      flex-shrink: 0;
+      opacity: 0;
+      transition: opacity .15s;
+    }
+    .faq-nav-link.active .faq-nav-dot { opacity: 1; }
+    @media (max-width: 860px) {
+      .faq-sidebar { position: static; }
+    }
+
+    /* Category groups */
+    .faq-category {
+      margin-bottom: 64px;
+      scroll-margin-top: calc(var(--nav-h) + 32px);
+    }
+    .faq-category:last-child { margin-bottom: 0; }
+    .faq-category-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 28px;
+      padding-bottom: 16px;
+      border-bottom: 2px solid var(--cream-dark);
+    }
+    .faq-cat-icon {
+      width: 44px; height: 44px;
+      background: var(--navy);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+    .faq-cat-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 2px;
+    }
+    .faq-cat-count {
+      font-size: .78rem;
+      color: var(--text-muted);
+    }
+
+    /* Accordion items */
+    .faq-item {
+      border: 1px solid var(--cream-dark);
+      border-radius: 10px;
+      background: var(--white);
+      margin-bottom: 10px;
+      overflow: hidden;
+      transition: box-shadow .2s;
+    }
+    .faq-item:hover {
+      box-shadow: 0 2px 12px rgba(0,0,0,.06);
+    }
+    .faq-item.open {
+      border-color: var(--gold);
+      box-shadow: 0 2px 16px rgba(184,142,54,.12);
+    }
+    .faq-q {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 18px 20px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-align: left;
+      font-family: inherit;
+    }
+    .faq-q-text {
+      font-size: .97rem;
+      font-weight: 600;
+      color: var(--navy);
+      line-height: 1.4;
+      flex: 1;
+    }
+    .faq-chevron {
+      width: 28px; height: 28px;
+      background: var(--cream);
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      transition: background .2s, transform .3s;
+      font-size: .75rem;
+      color: var(--navy);
+    }
+    .faq-item.open .faq-chevron {
+      transform: rotate(180deg);
+      background: var(--gold);
+      color: #fff;
+    }
+    .faq-a {
+      display: none;
+      padding: 0 20px 20px;
+    }
+    .faq-item.open .faq-a {
+      display: block;
+    }
+    .faq-a p {
+      font-size: .92rem;
+      color: var(--text);
+      line-height: 1.75;
+      margin-bottom: 12px;
+    }
+    .faq-a p:last-child { margin-bottom: 0; }
+    .faq-a ul {
+      margin: 8px 0 12px 20px;
+      list-style: disc;
+    }
+    .faq-a ul li {
+      font-size: .92rem;
+      color: var(--text);
+      line-height: 1.7;
+      margin-bottom: 4px;
+    }
+    .faq-a .faq-callout {
+      background: var(--cream);
+      border-left: 3px solid var(--gold);
+      border-radius: 0 8px 8px 0;
+      padding: 12px 16px;
+      font-size: .88rem;
+      color: var(--navy);
+      font-weight: 600;
+      margin-top: 12px;
+    }
+    .faq-a a {
+      color: var(--gold);
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .faq-a a:hover { text-decoration: underline; }
+
+    /* Still have questions CTA */
+    .faq-still-cta {
+      background: var(--navy);
+      border-radius: var(--radius-lg);
+      padding: 40px 36px;
+      text-align: center;
+      margin-top: 48px;
+    }
+    .faq-still-cta h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    .faq-still-cta p {
+      font-size: .9rem;
+      color: rgba(255,255,255,.65);
+      margin-bottom: 24px;
+    }
+    .faq-still-cta .btns {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+  </style>
+  <meta property="og:image" content="https://www.southernmhcenter.com/images/hero-1.jpg">
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml">
+  <!-- Facebook Pixel -->
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '1482427083607310');
+  fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=1482427083607310&ev=PageView&noscript=1"
+  /></noscript>
+  <!-- End Facebook Pixel -->
+</head>
+<body>
+
+<div id="nav-placeholder"></div>
+
+<!-- ── PAGE HERO ─────────────────────────────────────────────────────────── -->
+<div class="page-hero" style="background-image:url('../images/hero-about.jpg')">
+  <div class="page-hero-overlay"></div>
+  <div class="page-hero-content">
+    <p class="breadcrumb"><a href="../index.html">Home</a> › FAQ</p>
+    <h1 class="display">Frequently Asked Questions</h1>
+    <p style="font-size:1rem;color:rgba(255,255,255,.8);margin-top:10px;max-width:520px;">Everything you need to know about buying a manufactured home with Southern Mobile Home Center.</p>
+  </div>
+</div>
+
+<!-- ── MAIN CONTENT ───────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <div class="faq-layout">
+
+      <!-- Sticky sidebar -->
+      <aside class="faq-sidebar">
+        <h3>Jump To</h3>
+        <a class="faq-nav-link" onclick="scrollTo('cat-pricing')"><span class="faq-nav-dot"></span>Pricing &amp; What's Included</a>
+        <a class="faq-nav-link" onclick="scrollTo('cat-financing')"><span class="faq-nav-dot"></span>Financing</a>
+        <a class="faq-nav-link" onclick="scrollTo('cat-homes')"><span class="faq-nav-dot"></span>Home Types &amp; Models</a>
+        <a class="faq-nav-link" onclick="scrollTo('cat-land')"><span class="faq-nav-dot"></span>Land &amp; Placement</a>
+        <a class="faq-nav-link" onclick="scrollTo('cat-process')"><span class="faq-nav-dot"></span>The Buying Process</a>
+        <a class="faq-nav-link" onclick="scrollTo('cat-delivery')"><span class="faq-nav-dot"></span>Delivery &amp; Setup</a>
+        <a class="faq-nav-link" onclick="scrollTo('cat-service')"><span class="faq-nav-dot"></span>Service Area</a>
+      </aside>
+
+      <!-- FAQ content -->
+      <div>
+
+        <!-- ── PRICING ─────────────────────────────────────────────── -->
+        <div class="faq-category" id="cat-pricing">
+          <div class="faq-category-header">
+            <div class="faq-cat-icon">💰</div>
+            <div>
+              <div class="faq-cat-title">Pricing &amp; What's Included</div>
+              <div class="faq-cat-count">6 questions</div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFAQ(this)">
+              <span class="faq-q-text">What does the advertised price actually include?</span>
+              <span class="faq-chevron">▼</span>
+            </button>
+            <div class="faq-a">
+              <p>Every price listed on our website already includes the following — no hidden add-ons:</p>
+              <ul>
+                <li>Standard delivery to your site within our service area</li>
+                <li>Professional blocking, leveling, and tie-down setup</li>
+                <li>Central air conditioning (installed and operational)</li>
+                <li>Perimeter skirting</li>
+                <li>Entry steps at all exterior doors</li>
+                <li>All kitchen appliances shown in the home</li>
+                <li>A minimum one-year manufacturer warranty</li>
+              </ul>
+              <div class="faq-callout">The final purchase price is always confirmed in writing before you sign anything.</div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFAQ(this)">
+              <span class="faq-q-text">What's NOT included in the listed price?</span>
+              <span class="faq-chevron">▼</span>
+            </button>
+            <div class="faq-a">
+              <p>The listed price does not include:</p>
+              <ul>
+                <li>Land or land purchase</li>
+                <li>Land preparation (clearing, grading, gravel pad, etc.)</li>
+                <li>Utility connections (water, sewer, electric hookups)</li>
+                <li>Local permits and inspection fees</li>
+                <li>Optional upgrades or custom features</li>
+                <li>Sales tax (where applicable)</li>
+              </ul>
+              <p>Delivery pricing applies within our standard service area in Louisiana and Mississippi. Sites outside our standard area or with difficult access conditions may affect final pricing — we'll always discuss this with you upfront.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFAQ(this)">
+              <span class="faq-q-text">Do your prices change? Are they guaranteed?</span>
+              <span class="faq-chevron">▼</span>
+            </button>
+            <div class="faq-a">
+              <p>Manufacturer pricing can change, and the prices on our website are updated regularly but may not always reflect the very latest. Website prices should be treated as accurate estimates — your final purchase price is locked in and confirmed in writing at the time of sale.</p>
+              <p>Once you sign a purchase agreement, your price is guaranteed.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFAQ(this)">
+              <span class="faq-q-text">What are the estimated monthly payments?</span>
+              <span class="faq-chevron">▼</span>
+            </button>
+            <div class="faq-a">
+              <p>The payment estimates shown on individual home pages are rough illustrations based on a 30-year loan term with 5% down. They're meant to give you a ballpark — actual monthly payments will depend on your loan program, interest rate, down payment, credit profile, and whether land is included.</p>
+              <p>The best way to get an accurate number is to <a href="prequal.html">get pre-qualified</a> — it's free, fast, and doesn't affect your credit.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFAQ(this)">
+              <span class="faq-q-text">Is there a down payment required?</span>
+              <span class="faq-chevron">▼</span>
+            </button>
+            <div class="faq-a">
+              <p>It depends on the loan program. Some programs — like USDA Rural Development — offer zero down payment for qualified buyers. Others, like conventional chattel loans, typically require 5%–10% down. VA loans for veterans may also offer no down payment options.</p>
+              <p>Our team will walk you through the programs you qualify for so you can choose the best fit. <a href="contact.html">Contact us</a> or <a href="prequal.html">get pre-qualified</a> to find out exactly what applies to your situation.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFAQ(this)">
+              <span class="faq-q-text">Can I negotiate on the price?</span>
+              <span class="faq-chevron">▼</span>
+            </button>
+            <div class="faq-a">
+              <p>Our prices are set fairly from the start — we don't inflate them to leave room for negotiation. What you see is already a competitive price with everything included. That said, we're always happy to talk through your budget and see what options make the most sense for you.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── FINANCING ───────────────────────────────────────────── -->
+        <div class="faq-category" id="cat-financing">
+          <div class="faq-category-header">
+            <div class="faq-cat-icon">🏦</div>
+            <div>
+              <div class="faq-cat-title">Financing</div>
+              <div class="faq-cat-count">6 questions</div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFAQ(this)">
+              <span class="faq-q-text">What lenders do you work with?</span>
+              <span class="faq-chevron">▼</span>
+            </button>
+            <div class="faq-a">
+              <p>We work with a network of trusted lenders, including Triad Financial Services, Cascade Financial Services, CSL Financial, and others. We also facilitate government-backed loan programs including FHA, VA, and USDA Rural Development.</p>
+              <p>Having multiple lender relationships means we're not locked into one program — we find what works best for your specific situation.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFAQ(this)">
+              <span class="faq-q-text">What credit score do I need to qualify?</span>
+              <span class="faq-chevron">▼</span>
+            </button>
+            <div class="faq-a">
+              <p>It varies by loan program. As a general guide:</p>
+              <ul>
+                <li><strong>Chattel loans (home only):</strong> Some lenders start at 575–600</li>
+                <li><strong>FHA loans:</strong> Typically 580+</li>
+                <li><strong>USDA Rural Development:</strong> Typically 640+</li>
+                <li><strong>VA loans:</strong> Typically 580–620+</li>
+                <li><strong>Conventional:</strong> Generally 680+</li>
+              </ul>
+              <p>Don't let a lower credit score discourage you from asking — we've helped customers get into homes in a wide range of credit situations. <a href="prequal.html">Get pre-qualified</a> and let us see what's available.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFAQ(this)">
+              <span class="faq-q-text">What's the difference between a chattel loan and a land-home loan?</span>
+              <span class="faq-chevron">▼</span>
+            </button>
+            <div class="faq-a">
+              <p>A <strong>chattel loan</strong> finances the home only — treated like personal property (similar to a vehicle loan). These are common when you're placing the home on rented or leased land, or land you already own but don't want to tie to the mortgage. Rates are typically a bit higher, and terms are shorter.</p>
+              <p>A <strong>land-home loan</strong> (sometimes called a real property loan) finances both the home and the land together as real estate. These loans often have lower interest rates and longer terms — similar to a traditional mortgage. They typically require the home to be permanently affixed to the land.</p>
+              <div class="faq-callout">Not sure which is right for you? Our team can walk you through both options based on your land situation.</div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFAQ(this)">
+              <span class="faq-q-text">Can I get financing if I'm self-employed?</span>
+              <span class="faq-chevron">▼</span>
+            </button>
+            <div class="faq-a">
+              <p>Yes — self-employed buyers can qualify for manufactured home loans, though the documentation requirements are different. You'll typically need two years of tax returns, a profit and loss statement, and potentially bank statements. Some lenders are more flexible than others for self-employed buyers, which is another reason we work with multiple lenders.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFAQ(this)">
+              <span class="faq-q-text">Do you offer in-house financing?</span>
+              <span class="faq-chevron">▼</span>
+            </button>
+            <div class="faq-a">
+              <p>We don't offer direct in-house lending, but we work closely with our network of lenders and handle the application process on your behalf — so it feels like one seamless experience. You won't be handed off to a bank and left to figure it out yourself.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFAQ(this)">
+              <span class="faq-q-text">How do I get started with financing?</span>
+              <span class="faq-chevron">▼</span>
+            </button>
+            <div class="faq-a">
+              <p>The easiest way is to fill out our <a href="prequal.html">pre-qualification form</a> — it takes a few minutes and gives our team what we need to identify the best loan options for your situation. From there, we'll reach out and walk you through the next steps.</p>
+              <p>You can also call us at <a href="tel:9855205012">(985) 520-5012</a> and we'll get started over the phone.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── HOME TYPES ──────────────────────────────────────────── -->
+        <div class="faq-category" id="cat-homes">
+          <div class="faq-category-header">
+            <div class="faq-cat-icon">🏠</div>
+            <div>
+              <div class="faq-cat-title">Home Types &amp; Models</div>
+              <div class="faq-cat-count">5 questions</div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFAQ(this)">
+              <span class="faq-q-text">What's the difference between single-wide, double-wide, and triple-wide?</span>
+              <span class="faq-chevron">▼</span>
+            </button>
+            <div class="faq-a">
+              <p><strong>Single-wide homes</strong> are typically 14–18 feet wide and delivered as one unit. They're more affordable, easier to place on tighter lots, and perfect for individuals, couples, or small families.</p>
+              <p><strong>Double-wide homes</strong> are two units joined together on-site — usually 24–32 feet wide. They offer more living space, more floor plan variety, and feel similar in size to a traditional site-built home.</p>
+              <p><strong>Triple-wide homes</strong> are three sections joined together, offering the largest floor plans — ideal for large families who want maximum space. They require a larger lot for delivery and setup.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFAQ(this)">
+              <span class="faq-q-text">What manufacturers do you carry?</span>
+              <span class="faq-chevron">▼</span>
+            </button>
+            <div class="faq-a">
+              <p>We carry homes from four top manufacturers:</p>
+              <ul>
+                <li><strong>Clayton Homes</strong> — One of the largest and most trusted names in manufactured housing</li>
+                <li><strong>Live Oak Homes</strong> — Known for spacious, well-designed floor plans</li>
+                <li><strong>Deer Valley Homebuilders</strong> — Premium craftsmanship and upscale interior options</li>
+                <li><strong>OwnTru (TRU Homes)</strong> — Modern designs at accessible price points</li>
+              </ul>
+              <p>Browse all available models on our <a href="floor-plans.html">Floor Plans page</a>.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFAQ(this)">
+              <span class="faq-q-text">Can I customize a home before ordering?</span>
+              <span class="faq-chevron">▼</span>
+            </button>
+            <div class="faq-a">
+              <p>Yes. Most of our homes can be ordered with custom options — including exterior siding color, roofing, kitchen cabinets and countertops, flooring, interior wall colors, and appliance packages. You can explore design options using our <a href="design.html">Design Your Home</a> tool, or visit us in person to go through the manufacturer's full option sheet.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFAQ(this)">
+              <span class="faq-q-text">What if I don't see the model I want on your website?</span>
+              <span class="faq-chevron">▼</span>
+            </button>
+            <div class="faq-a">
+              <p>Our website shows a snapshot of available inventory and popular models, but we have access to the full catalogs of all four manufacturers. If you have a specific model in mind — or just a specific size and budget — give us a call or <a href="contact.html">contact us</a> and we'll find exactly what you're looking for.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFAQ(this)">
+              <span class="faq-q-text">What is a manufactured home vs. a modular home?</span>
+              <span class="faq-chevron">▼</span>
+            </button>
+            <div class="faq-a">
+              <p><strong>Manufactured homes</strong> are built entirely in a factory to the federal HUD Code and transported to the site on a permanent chassis. They are classified as personal property unless permanently affixed to land.</p>
+              <p><strong>Modular homes</strong> are also factory-built, but they're constructed to local state and building codes (the same codes as site-built homes) and delivered in sections to be assembled on a permanent foundation. They are classified as real property.</p>
+              <p>We primarily carry HUD-code manufactured homes. If you're looking for modular, ask our team — we can discuss what's available.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── LAND ────────────────────────────────────────────────── -->
+        <div class="faq-category" id="cat-land">
+          <div class="faq-category-header">
+            <div class="faq-cat-icon">🌿</div>
+            <div>
+              <div class="faq-cat-title">Land &amp; Placement</div>
+              <div class="faq-cat-count">5 questions</div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFAQ(this)">
+              <span class="faq-q-text">Do I need to own land to buy a home from you?</span>
+              <span class="faq-chevron">▼</span>
+            </button>
+            <div class="faq-a">
+              <p>No. We work with buyers in several land situations:</p>
+              <ul>
+                <li><strong>You already own land</strong> — We'll deliver and set up on your property</li>
+                <li><strong>You need land</strong> — We offer land-home packages and can help you find and finance both together</li>
+                <li><strong>You're placing in a park or community</strong> — We can coordinate with the park management and help with the process</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFAQ(this)">
+              <span class="faq-q-text">What site preparation is needed before delivery?</span>
+              <span class="faq-chevron">▼</span>
+            </button>
+            <div class="faq-a">
+              <p>Your site needs to be ready for the home before delivery day. This typically includes:</p>
+              <ul>
+                <li>Cleared and level ground (our team can advise on required grade)</li>
+                <li>Adequate road access for delivery trucks (width and clearance)</li>
+                <li>A gravel pad, concrete runners, or approved base</li>
+                <li>Utilities stubbed to the site (water, sewer/septic, electric)</li>
+              </ul>
+              <p>We can help you understand what's needed for your specific lot during the planning process. Site prep is typically handled by the buyer or a local contractor — we can recommend local resources if needed.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFAQ(this)">
+              <span class="faq-q-text">What zoning do I need to place a manufactured home?</span>
+              <span class="faq-chevron">▼</span>
+            </button>
+            <div class="faq-a">
+              <p>Zoning requirements vary by parish (Louisiana) or county (Mississippi). In rural areas, most residential-zoned or agricultural properties allow manufactured homes. In more urban areas, there may be restrictions.</p>
+              <p>It's important to verify zoning with your local parish or county planning office before purchasing. Our team is familiar with common requirements across our service area and can help you think through your specific situation.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFAQ(this)">
+              <span class="faq-q-text">Do you offer land-home packages?</span>
+              <span class="faq-chevron">▼</span>
+            </button>
+            <div class="faq-a">
+              <p>Yes — this is one of the things that sets us apart. We offer complete land-home packages, helping you find land and finance both the land and the home together in one process. This simplifies the whole experience and often results in better financing terms. <a href="contact.html">Talk to our team</a> about what's available in the areas you're looking at.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFAQ(this)">
+              <span class="faq-q-text">Can I place a manufactured home in a mobile home park?</span>
+              <span class="faq-chevron">▼</span>
+            </button>
+            <div class="faq-a">
+              <p>Yes. Many of our buyers place homes in existing mobile home parks or manufactured housing communities. Requirements vary by park — typically including home age restrictions, minimum size requirements, and exterior standards. We can coordinate directly with the park on your behalf to make sure the home you choose will be approved.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── PROCESS ─────────────────────────────────────────────── -->
+        <div class="faq-category" id="cat-process">
+          <div class="faq-category-header">
+            <div class="faq-cat-icon">📋</div>
+            <div>
+              <div class="faq-cat-title">The Buying Process</div>
+              <div class="faq-cat-count">5 questions</div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFAQ(this)">
+              <span class="faq-q-text">What are the steps to buying a home with Southern MHC?</span>
+              <span class="faq-chevron">▼</span>
+            </button>
+            <div class="faq-a">
+              <p>The general process looks like this:</p>
+              <ul>
+                <li><strong>1. Browse &amp; Choose</strong> — Explore floor plans online or visit us in person</li>
+                <li><strong>2. Get Pre-Qualified</strong> — Fill out the pre-qualification form or call us</li>
+                <li><strong>3. Select Your Home</strong> — Finalize the model, floor plan, and any custom options</li>
+                <li><strong>4. Secure Financing</strong> — We submit your application to our lenders and work through approval</li>
+                <li><strong>5. Site Preparation</strong> — You prepare your land while the home is manufactured or pulled from inventory</li>
+                <li><strong>6. Delivery &amp; Setup</strong> — We coordinate and handle delivery, setup, and installation</li>
+                <li><strong>7. Move In</strong> — Final walkthrough and you get your keys</li>
+              </ul>
+              <div class="faq-callout">Our team stays with you through every step. You'll always have a direct contact, not an 800 number.</div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFAQ(this)">
+              <span class="faq-q-text">How long does the process take from start to move-in?</span>
+              <span class="faq-chevron">▼</span>
+            </button>
+            <div class="faq-a">
+              <p>It varies depending on your situation:</p>
+              <ul>
+                <li><strong>Inventory home (on lot):</strong> Often 6–12 weeks from financing approval to move-in, depending on site prep</li>
+                <li><strong>Order home (custom build):</strong> Typically 3–5 months from order to delivery, plus site prep time</li>
+                <li><strong>Land-home package:</strong> Allow additional time for land closing and preparation</li>
+              </ul>
+              <p>The biggest variable is usually how quickly your site is prepared and permits are approved. We'll give you a realistic timeline upfront so there are no surprises.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFAQ(this)">
+              <span class="faq-q-text">Do I need to visit in person or can everything be done remotely?</span>
+              <span class="faq-chevron">▼</span>
+            </button>
+            <div class="faq-a">
+              <p>A lot of the process can be handled remotely — browsing floor plans, pre-qualifying, and communicating with our team. However, we strongly encourage at least one in-person visit so you can walk through homes, see the quality firsthand, and make sure the floor plan you're considering truly works for you. It's a big purchase — we want you to feel 100% confident.</p>
+              <p>We're open Monday–Friday 9 AM–5 PM and Saturday 9 AM–4 PM at 50331 US-51, Tickfaw, LA 70466.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFAQ(this)">
+              <span class="faq-q-text">What documents will I need?</span>
+              <span class="faq-chevron">▼</span>
+            </button>
+            <div class="faq-a">
+              <p>For the financing application, you'll typically need:</p>
+              <ul>
+                <li>Government-issued photo ID</li>
+                <li>Last 2 years of W-2s or tax returns (self-employed: tax returns + P&amp;L)</li>
+                <li>30 days of recent pay stubs</li>
+                <li>2–3 months of bank statements</li>
+                <li>Social Security number (for credit pull)</li>
+                <li>Property information (address, deed, or survey) if placing on your land</li>
+              </ul>
+              <p>Your assigned team member will walk you through exactly what's needed for your loan type.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFAQ(this)">
+              <span class="faq-q-text">What happens if my loan is denied?</span>
+              <span class="faq-chevron">▼</span>
+            </button>
+            <div class="faq-a">
+              <p>We'll work with you. If one lender declines, we try other programs in our network. If financing isn't possible right now, we'll be honest with you about why and what steps you could take to improve your eligibility — whether that's credit building, down payment savings, or a different loan program down the road.</p>
+              <p>We'd rather give you the real picture than string you along.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── DELIVERY ────────────────────────────────────────────── -->
+        <div class="faq-category" id="cat-delivery">
+          <div class="faq-category-header">
+            <div class="faq-cat-icon">🚚</div>
+            <div>
+              <div class="faq-cat-title">Delivery &amp; Setup</div>
+              <div class="faq-cat-count">4 questions</div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFAQ(this)">
+              <span class="faq-q-text">Who handles delivery and setup?</span>
+              <span class="faq-chevron">▼</span>
+            </button>
+            <div class="faq-a">
+              <p>We handle delivery and setup in-house. That means fewer middlemen, tighter quality control, and real accountability — if something's not right, you call us directly and we fix it. We don't outsource this to random subcontractors you've never met.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFAQ(this)">
+              <span class="faq-q-text">What does "setup" actually include?</span>
+              <span class="faq-chevron">▼</span>
+            </button>
+            <div class="faq-a">
+              <p>Our standard setup includes:</p>
+              <ul>
+                <li>Transport to your site</li>
+                <li>Blocking and leveling on your prepared pad</li>
+                <li>Permanent tie-down and anchoring per HUD standards</li>
+                <li>Joining sections (for double-wide and triple-wide)</li>
+                <li>Skirting installation around the perimeter</li>
+                <li>Steps at all entry doors</li>
+                <li>A/C unit installation and connection</li>
+              </ul>
+              <p>Utility connections (water, sewer, electric) are typically handled separately by the buyer's contractor, as those require licensed tradespeople.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFAQ(this)">
+              <span class="faq-q-text">What if something is damaged during delivery?</span>
+              <span class="faq-chevron">▼</span>
+            </button>
+            <div class="faq-a">
+              <p>We do a thorough walkthrough with you after setup so any issues are identified immediately. Transit damage that's documented at delivery is covered — we'll coordinate with the manufacturer's warranty or our own team to make it right. We won't hand you keys to a home with open issues.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFAQ(this)">
+              <span class="faq-q-text">How much access does my site need for delivery?</span>
+              <span class="faq-chevron">▼</span>
+            </button>
+            <div class="faq-a">
+              <p>Delivery requires a clear path for a wide-load transport truck. As a general guideline:</p>
+              <ul>
+                <li>At least 14–16 feet of clearance width on the access road</li>
+                <li>Adequate overhead clearance (no low-hanging power lines, tree branches)</li>
+                <li>A turnaround area or through-access on the property</li>
+              </ul>
+              <p>If you're unsure about your site's access, send us your address or some photos and we can evaluate before you commit. It's better to know early.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── SERVICE AREA ────────────────────────────────────────── -->
+        <div class="faq-category" id="cat-service">
+          <div class="faq-category-header">
+            <div class="faq-cat-icon">📍</div>
+            <div>
+              <div class="faq-cat-title">Service Area</div>
+              <div class="faq-cat-count">3 questions</div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFAQ(this)">
+              <span class="faq-q-text">Where do you deliver?</span>
+              <span class="faq-chevron">▼</span>
+            </button>
+            <div class="faq-a">
+              <p>We deliver throughout all of Louisiana and Mississippi. We're based in Tickfaw, Louisiana (Tangipahoa Parish), which puts us centrally located for serving both states.</p>
+              <p>Delivery cost may vary based on distance from our location. Sites beyond our standard service radius may have an additional delivery fee — we'll always quote this clearly upfront.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFAQ(this)">
+              <span class="faq-q-text">Can I visit your lot in person?</span>
+              <span class="faq-chevron">▼</span>
+            </button>
+            <div class="faq-a">
+              <p>Absolutely — we encourage it. Visit us at <strong>50331 US-51, Tickfaw, LA 70466</strong>.</p>
+              <ul>
+                <li>Monday – Friday: 9:00 AM – 5:00 PM</li>
+                <li>Saturday: 9:00 AM – 4:00 PM</li>
+                <li>Sunday: Closed</li>
+              </ul>
+              <p>No appointment needed, though calling ahead helps us make sure the right team member is available for you. Call <a href="tel:9855205012">(985) 520-5012</a>.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFAQ(this)">
+              <span class="faq-q-text">I'm not in Louisiana or Mississippi — can you still help me?</span>
+              <span class="faq-chevron">▼</span>
+            </button>
+            <div class="faq-a">
+              <p>Our current delivery area is Louisiana and Mississippi. If you're just outside those boundaries, reach out and we'll let you know whether we can accommodate your location. We're always willing to have the conversation.</p>
+              <p><a href="contact.html">Contact us here</a> or call <a href="tel:9855205012">(985) 520-5012</a>.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Still have questions -->
+        <div class="faq-still-cta">
+          <h3>Still have a question?</h3>
+          <p>We're happy to answer anything that's not covered here. Call us, email us, or stop by.</p>
+          <div class="btns">
+            <a href="contact.html" class="btn btn-gold btn-lg">Contact Us</a>
+            <a href="tel:9855205012" class="btn btn-outline-white btn-lg">☎ (985) 520-5012</a>
+            <a href="prequal.html" class="btn btn-outline-white btn-sm" style="margin-top:8px;">Check Pre-Qualification →</a>
+          </div>
+        </div>
+
+      </div><!-- /faq content -->
+    </div><!-- /faq layout -->
+  </div>
+</section>
+
+<div id="footer-placeholder"></div>
+
+<script src="../js/main.js"></script>
+<script src="../js/nav.js"></script>
+<script>
+// ── FAQ Accordion ──────────────────────────────────────────────────────
+function toggleFAQ(btn) {
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  // Close all open items
+  document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+  // Open clicked if it wasn't already open
+  if (!isOpen) item.classList.add('open');
+}
+
+// ── Scroll-to for sidebar ──────────────────────────────────────────────
+function scrollTo(id) {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth' });
+  // Update active state
+  document.querySelectorAll('.faq-nav-link').forEach(l => l.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+}
+
+// ── Highlight sidebar based on scroll ─────────────────────────────────
+const categories = document.querySelectorAll('.faq-category');
+const navLinks = document.querySelectorAll('.faq-nav-link');
+
+window.addEventListener('scroll', () => {
+  let current = '';
+  categories.forEach(cat => {
+    const top = cat.getBoundingClientRect().top;
+    if (top <= 120) current = cat.id;
+  });
+  navLinks.forEach((link, i) => {
+    const cats = ['cat-pricing','cat-financing','cat-homes','cat-land','cat-process','cat-delivery','cat-service'];
+    link.classList.toggle('active', cats[i] === current);
+  });
+}, { passive: true });
+
+// Open first FAQ item in each category by default (optional — UX nicety)
+// Commented out — clean closed state on load is standard
+</script>
+</body>
+</html>

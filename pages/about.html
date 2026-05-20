@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us — Southern Mobile Home Center</title>
+  <meta name="description" content="Southern Mobile Home Center in Tickfaw, Louisiana. Nearly 40 years of combined experience — regular people from different walks of life trying to change how this industry treats people.">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="icon" href="../images/smhc-logo.jpg">
+  <style>
+
+    /* ── HERO OVERRIDE — full-bleed, text-left ────────────────────── */
+    .about-hero {
+      min-height: 520px;
+      position: relative;
+      display: flex; align-items: flex-end;
+      background: url('../images/hero-about.jpg') center/cover no-repeat;
+      overflow: hidden;
+    }
+    .about-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(to right, rgba(10,22,46,.88) 48%, rgba(10,22,46,.35));
+    }
+    .about-hero-inner {
+      position: relative; z-index: 2;
+      padding: 80px 0 72px;
+      max-width: 620px;
+    }
+    .about-hero-eyebrow {
+      font-size: .72rem; font-weight: 800;
+      text-transform: uppercase; letter-spacing: .16em;
+      color: var(--gold); margin-bottom: 18px;
+    }
+    .about-hero h1 {
+      font-size: clamp(2rem, 4.5vw, 3.2rem);
+      font-weight: 800; line-height: 1.15;
+      color: #fff; margin-bottom: 20px;
+    }
+    .about-hero h1 em {
+      font-style: normal;
+      color: var(--gold);
+    }
+    .about-hero-sub {
+      font-size: 1.05rem; color: rgba(255,255,255,.75);
+      line-height: 1.65; max-width: 500px;
+    }
+
+    /* ── PULL QUOTE BAND ─────────────────────────────────────────── */
+    .pull-quote-band {
+      background: var(--gold);
+      padding: 36px 0;
+    }
+    .pull-quote-band blockquote {
+      font-size: clamp(1.1rem, 2vw, 1.35rem);
+      font-weight: 700; font-style: italic;
+      color: #fff; text-align: center;
+      max-width: 760px; margin: 0 auto;
+      line-height: 1.5;
+    }
+    .pull-quote-band blockquote::before,
+    .pull-quote-band blockquote::after { content: '"'; opacity: .5; }
+
+    /* ── STORY SECTION ───────────────────────────────────────────── */
+    .story-section { padding: 96px 0; }
+    .story-grid {
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 80px; align-items: start;
+    }
+    @media (max-width: 900px) {
+      .story-grid { grid-template-columns: 1fr; gap: 48px; }
+    }
+    .story-lead {
+      font-size: clamp(1.15rem, 2vw, 1.35rem);
+      font-weight: 700; color: var(--navy);
+      line-height: 1.5; margin-bottom: 28px;
+      border-left: 4px solid var(--gold);
+      padding-left: 20px;
+    }
+    .story-body p {
+      font-size: 1rem; color: var(--text);
+      line-height: 1.85; margin-bottom: 20px;
+    }
+    .story-body p:last-child { margin-bottom: 0; }
+
+    /* Sidebar facts */
+    .story-aside { display: flex; flex-direction: column; gap: 18px; }
+    .fact-card {
+      background: var(--cream); border-radius: 12px;
+      border: 1px solid var(--cream-dark);
+      padding: 24px 22px;
+      position: relative; overflow: hidden;
+    }
+    .fact-card::after {
+      content: '';
+      position: absolute; top: 0; left: 0;
+      width: 3px; height: 100%;
+      background: var(--gold);
+    }
+    .fact-val {
+      font-size: 2rem; font-weight: 900;
+      color: var(--navy); line-height: 1;
+      margin-bottom: 4px;
+    }
+    .fact-label {
+      font-size: .8rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .08em;
+      color: var(--text-muted);
+    }
+    .fact-card.dark { background: var(--navy); border-color: transparent; }
+    .fact-card.dark .fact-val { color: var(--gold); }
+    .fact-card.dark .fact-label { color: rgba(255,255,255,.5); }
+    .fact-card.dark p { color: rgba(255,255,255,.7); font-size: .88rem; line-height: 1.6; margin-top: 8px; }
+
+    /* ── WHERE WE CAME FROM ──────────────────────────────────────── */
+    .bg-deep-navy { background: var(--navy); }
+    .origins-section { padding: 88px 0; }
+    .origins-label {
+      font-size: .72rem; font-weight: 800;
+      text-transform: uppercase; letter-spacing: .14em;
+      color: var(--gold); margin-bottom: 12px; text-align: center;
+    }
+    .origins-heading {
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      font-weight: 800; color: #fff;
+      text-align: center; margin-bottom: 12px;
+    }
+    .origins-sub {
+      text-align: center; color: rgba(255,255,255,.6);
+      font-size: .97rem; max-width: 580px;
+      margin: 0 auto 56px; line-height: 1.65;
+    }
+
+    /* Background grid */
+    .bg-tiles {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 16px;
+    }
+    @media (max-width: 900px) { .bg-tiles { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 500px) { .bg-tiles { grid-template-columns: repeat(2, 1fr); } }
+    .bg-tile {
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 10px;
+      padding: 22px 16px 18px;
+      text-align: center;
+    }
+    .bg-tile-icon { font-size: 1.6rem; margin-bottom: 8px; display: block; }
+    .bg-tile-name { font-size: .8rem; font-weight: 700; color: #fff; margin-bottom: 2px; }
+    .bg-tile-desc { font-size: .7rem; color: rgba(255,255,255,.4); }
+
+    /* ── WHAT CHANGED ────────────────────────────────────────────── */
+    .change-section { padding: 96px 0; background: var(--cream); }
+    .change-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 0; border-radius: 16px; overflow: hidden;
+      border: 1px solid var(--cream-dark);
+    }
+    @media (max-width: 760px) { .change-grid { grid-template-columns: 1fr; } }
+    .change-side {
+      padding: 48px 40px;
+    }
+    .change-side.left {
+      background: #fff;
+      border-right: 1px solid var(--cream-dark);
+    }
+    .change-side.right { background: var(--navy); }
+    .change-tag {
+      display: inline-block;
+      font-size: .68rem; font-weight: 800;
+      text-transform: uppercase; letter-spacing: .14em;
+      padding: 4px 10px; border-radius: 20px;
+      margin-bottom: 20px;
+    }
+    .tag-red  { background: #fee2e2; color: #c0392b; }
+    .tag-gold { background: rgba(184,142,54,.15); color: var(--gold); }
+    .change-side h3 {
+      font-size: 1.15rem; font-weight: 800;
+      margin-bottom: 20px; line-height: 1.3;
+    }
+    .change-side.left h3 { color: var(--navy); }
+    .change-side.right h3 { color: #fff; }
+    .change-list { list-style: none; padding: 0; margin: 0; }
+    .change-list li {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 10px 0; font-size: .9rem; line-height: 1.5;
+      border-bottom: 1px solid var(--cream-dark);
+    }
+    .change-side.right .change-list li { border-color: rgba(255,255,255,.08); }
+    .change-list li:last-child { border-bottom: none; }
+    .change-list li .ci { font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
+    .change-side.left .change-list li { color: var(--text-muted); }
+    .change-side.right .change-list li { color: rgba(255,255,255,.75); }
+
+    /* ── PROMISE SECTION ─────────────────────────────────────────── */
+    .promise-section { padding: 96px 0; }
+    .promise-label {
+      font-size: .72rem; font-weight: 800;
+      text-transform: uppercase; letter-spacing: .14em;
+      color: var(--gold); text-align: center; margin-bottom: 12px;
+    }
+    .promise-heading {
+      font-size: clamp(1.5rem, 3vw, 2.1rem); font-weight: 800;
+      color: var(--navy); text-align: center; margin-bottom: 12px;
+    }
+    .promise-sub {
+      text-align: center; color: var(--text-muted);
+      max-width: 540px; margin: 0 auto 56px;
+      font-size: .97rem; line-height: 1.65;
+    }
+    .promise-row {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    @media (max-width: 640px) { .promise-row { grid-template-columns: 1fr; } }
+    .promise-card {
+      padding: 32px 28px;
+      border-radius: 14px;
+      border: 1px solid var(--cream-dark);
+      background: #fff;
+      position: relative; overflow: hidden;
+    }
+    .promise-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 3px; background: var(--gold);
+    }
+    .promise-num {
+      font-size: .7rem; font-weight: 900;
+      text-transform: uppercase; letter-spacing: .14em;
+      color: var(--gold); margin-bottom: 12px;
+    }
+    .promise-card h3 {
+      font-size: 1rem; font-weight: 800;
+      color: var(--navy); margin-bottom: 10px; line-height: 1.3;
+    }
+    .promise-card p {
+      font-size: .88rem; color: var(--text-muted); line-height: 1.65;
+    }
+
+    /* ── INCLUDED BAND ───────────────────────────────────────────── */
+    .included-band {
+      background: var(--navy); padding: 72px 0;
+    }
+    .included-band h2 {
+      color: #fff; text-align: center;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 800; margin-bottom: 8px;
+    }
+    .included-band .ib-sub {
+      text-align: center; color: rgba(255,255,255,.55);
+      font-size: .92rem; max-width: 520px;
+      margin: 0 auto 48px; line-height: 1.6;
+    }
+    .included-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    @media (max-width: 760px) { .included-grid { grid-template-columns: repeat(2,1fr); } }
+    .inc-tile {
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 10px; padding: 22px 16px;
+      text-align: center;
+    }
+    .inc-icon { font-size: 1.5rem; display: block; margin-bottom: 8px; }
+    .inc-label { font-size: .82rem; font-weight: 700; color: #fff; margin-bottom: 2px; }
+    .inc-note  { font-size: .72rem; color: rgba(255,255,255,.45); line-height: 1.4; }
+    .inc-disclaimer {
+      text-align: center; font-size: .75rem;
+      color: rgba(255,255,255,.35); margin-top: 32px;
+      max-width: 680px; margin-left: auto; margin-right: auto;
+      line-height: 1.6;
+    }
+
+    /* ── SERVICE + HOURS ─────────────────────────────────────────── */
+    .service-section { padding: 88px 0; background: var(--cream); }
+    .service-inner {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 56px; align-items: start;
+    }
+    @media (max-width: 760px) { .service-inner { grid-template-columns: 1fr; } }
+    .service-left h2 {
+      font-size: clamp(1.4rem, 2.5vw, 1.9rem); font-weight: 800;
+      color: var(--navy); margin-bottom: 14px;
+    }
+    .service-left p {
+      font-size: .95rem; color: var(--text-muted);
+      line-height: 1.75; margin-bottom: 20px;
+    }
+    .state-pill {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--navy); color: #fff;
+      border-radius: 24px; padding: 8px 18px;
+      font-size: .85rem; font-weight: 700; margin: 4px 4px 4px 0;
+    }
+    .hours-card {
+      background: #fff; border-radius: 12px;
+      border: 1px solid var(--cream-dark);
+      overflow: hidden;
+    }
+    .hours-card-head {
+      background: var(--navy); padding: 16px 22px;
+      font-size: .72rem; font-weight: 800;
+      text-transform: uppercase; letter-spacing: .1em;
+      color: var(--gold);
+    }
+    .hours-row {
+      display: flex; justify-content: space-between;
+      align-items: center; padding: 12px 22px;
+      border-bottom: 1px solid var(--cream-dark);
+      font-size: .9rem;
+    }
+    .hours-row:last-child { border-bottom: none; }
+    .hours-day { font-weight: 600; color: var(--navy); }
+    .hours-time { color: var(--text-muted); }
+    .hours-time.closed { color: #c0392b; font-weight: 600; }
+
+    .contact-block {
+      background: var(--navy); border-radius: 12px;
+      padding: 24px 22px; margin-top: 18px;
+    }
+    .contact-block-label {
+      font-size: .68rem; font-weight: 800;
+      text-transform: uppercase; letter-spacing: .1em;
+      color: var(--gold); margin-bottom: 14px;
+    }
+    .contact-link {
+      display: flex; align-items: center; gap: 10px;
+      color: rgba(255,255,255,.8); font-size: .88rem;
+      text-decoration: none; margin-bottom: 10px;
+      transition: color .2s;
+    }
+    .contact-link:hover { color: var(--gold); }
+    .contact-link:last-child { margin-bottom: 0; }
+    .cl-icon {
+      width: 32px; height: 32px;
+      background: rgba(255,255,255,.1);
+      border-radius: 7px; display: flex;
+      align-items: center; justify-content: center;
+      font-size: .95rem; flex-shrink: 0;
+    }
+    .map-wrap {
+      border-radius: 12px; overflow: hidden;
+      border: 1px solid var(--cream-dark);
+      margin-top: 18px;
+    }
+    .map-wrap iframe {
+      display: block; width: 100%; height: 240px;
+    }
+
+    /* ── FINAL CTA ───────────────────────────────────────────────── */
+    .about-cta { padding: 80px 0; text-align: center; }
+    .about-cta h2 {
+      font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 800;
+      color: var(--navy); margin-bottom: 14px;
+    }
+    .about-cta p {
+      font-size: .97rem; color: var(--text-muted);
+      max-width: 520px; margin: 0 auto 36px; line-height: 1.7;
+    }
+
+  </style>
+  <meta property="og:image" content="https://www.southernmhcenter.com/images/hero-1.jpg">
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml">
+  <!-- Facebook Pixel -->
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '1482427083607310');
+  fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=1482427083607310&ev=PageView&noscript=1"
+  /></noscript>
+  <!-- End Facebook Pixel -->
+</head>
+<body>
+
+<div id="nav-placeholder"></div>
+
+<!-- ── HERO ──────────────────────────────────────────────────────────────── -->
+<div class="about-hero">
+  <div class="container">
+    <div class="about-hero-inner">
+      <p class="about-hero-eyebrow">About Southern MHC</p>
+      <h1>We got tired of watching people get treated like <em>transactions.</em></h1>
+      <p class="about-hero-sub">So we built something different. A team of regular people from completely different walks of life — united by one belief: that buying a home should feel like a milestone, not a trap.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ── PULL QUOTE ─────────────────────────────────────────────────────────── -->
+<div class="pull-quote-band">
+  <div class="container">
+    <blockquote>When you trust us to guide you through one of the biggest purchases of your life, that's not a commission to us. That's a responsibility.</blockquote>
+  </div>
+</div>
+
+<!-- ── STORY ──────────────────────────────────────────────────────────────── -->
+<section class="story-section">
+  <div class="container">
+    <div class="story-grid fade-up">
+      <div class="story-body">
+        <p class="story-lead">Close to 40 years of combined experience. Not one of us came from the same place.</p>
+
+        <p>Sales floors. Mechanic bays. Manufacturing plants. Restaurant kitchens. We're not the stereotypical "sales team." We're a group of people who grew up working, who know what it means to stretch a dollar, and who ended up in this industry for one reason or another — and eventually had enough of watching it be done the wrong way.</p>
+
+        <p>Here's what we kept seeing at other places: the customer gets treated great right up until the check clears. After that? Good luck getting a callback. Issues get minimized. Promises made during the sale quietly disappear. The people who put their trust — and their life savings — into a home get handed off like they don't matter anymore.</p>
+
+        <p>We all hit the same wall at different times, at different places. And at some point, you either accept it, or you decide to do something about it.</p>
+
+        <p>We decided to do something about it.</p>
+
+        <p>Southern Mobile Home Center exists because we believe this industry can treat people better. That it should. We're not here to move units. We're here to help families get into homes the right way — transparently, honestly, and with someone who actually picks up the phone when you call.</p>
+
+        <div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:40px;">
+          <a href="contact.html" class="btn btn-gold btn-lg">Talk to Our Team</a>
+          <a href="floor-plans.html" class="btn btn-outline btn-lg">Browse Our Homes</a>
+        </div>
+      </div>
+
+      <aside class="story-aside">
+        <div class="fact-card">
+          <div class="fact-val">~40</div>
+          <div class="fact-label">Years Combined Experience</div>
+        </div>
+        <div class="fact-card">
+          <div class="fact-val">4</div>
+          <div class="fact-label">Top Manufacturers</div>
+        </div>
+        <div class="fact-card">
+          <div class="fact-val">2 States</div>
+          <div class="fact-label">Louisiana &amp; Mississippi</div>
+        </div>
+        <div class="fact-card dark">
+          <div class="fact-val">In-House</div>
+          <div class="fact-label">Delivery &amp; Setup</div>
+          <p>We handle it ourselves — fewer middlemen, tighter quality, real accountability.</p>
+        </div>
+        <div class="fact-card" style="background:var(--navy);border-color:transparent;">
+          <div class="fact-val" style="color:var(--gold);font-size:1.1rem;margin-bottom:10px;">"Affordable homes at your fingertips."</div>
+          <div class="fact-label" style="color:rgba(255,255,255,.5);">Our Mission</div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ── WHERE WE CAME FROM ──────────────────────────────────────────────────── -->
+<section class="origins-section bg-deep-navy">
+  <div class="container">
+    <p class="origins-label">Our Backgrounds</p>
+    <h2 class="origins-heading fade-up">We're not a typical sales team.</h2>
+    <p class="origins-sub fade-up">Every person on this team came from somewhere different. That's what makes us who we are — we understand all kinds of people because we've lived all kinds of lives.</p>
+
+    <div class="bg-tiles fade-up">
+      <div class="bg-tile">
+        <span class="bg-tile-icon">🔧</span>
+        <div class="bg-tile-name">Mechanics</div>
+        <div class="bg-tile-desc">Hands-on problem solvers</div>
+      </div>
+      <div class="bg-tile">
+        <span class="bg-tile-icon">🏭</span>
+        <div class="bg-tile-name">Plant Work</div>
+        <div class="bg-tile-desc">Built to work hard, every day</div>
+      </div>
+      <div class="bg-tile">
+        <span class="bg-tile-icon">🤝</span>
+        <div class="bg-tile-name">Sales</div>
+        <div class="bg-tile-desc">Know the game — chose to play it differently</div>
+      </div>
+      <div class="bg-tile">
+        <span class="bg-tile-icon">🏗️</span>
+        <div class="bg-tile-name">Construction</div>
+        <div class="bg-tile-desc">Know what real quality looks like</div>
+      </div>
+      <div class="bg-tile">
+        <span class="bg-tile-icon">🏡</span>
+        <div class="bg-tile-name">Housing &amp; Remodeling</div>
+        <div class="bg-tile-desc">This industry is personal for us</div>
+      </div>
+      <div class="bg-tile">
+        <span class="bg-tile-icon">🎖️</span>
+        <div class="bg-tile-name">Military</div>
+        <div class="bg-tile-desc">Discipline and service in everything we do</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── WHAT CHANGED ────────────────────────────────────────────────────────── -->
+<section class="change-section">
+  <div class="container">
+    <div class="section-header centered fade-up" style="margin-bottom:48px;">
+      <p class="eyebrow">Then vs. Now</p>
+      <h2 class="display">We've seen it done wrong. This is how we do it right.</h2>
+    </div>
+    <div class="change-grid fade-up">
+      <div class="change-side left">
+        <span class="change-tag tag-red">What We Walked Away From</span>
+        <h3>The old playbook at the dealerships we came from.</h3>
+        <ul class="change-list">
+          <li><span class="ci">✗</span> Customers treated great until the deal closes — then ignored</li>
+          <li><span class="ci">✗</span> Promises made during the sale that quietly disappear afterward</li>
+          <li><span class="ci">✗</span> Pricing designed to confuse, not inform</li>
+          <li><span class="ci">✗</span> Buyers pushed toward whatever earns the most commission</li>
+          <li><span class="ci">✗</span> No one picking up the phone post-delivery</li>
+          <li><span class="ci">✗</span> Treating every customer like a number on a board</li>
+        </ul>
+      </div>
+      <div class="change-side right">
+        <span class="change-tag tag-gold">The Southern MHC Way</span>
+        <h3 style="color:#fff;">What we built instead.</h3>
+        <ul class="change-list">
+          <li><span class="ci">✓</span> The relationship doesn't end at closing — we stay accountable</li>
+          <li><span class="ci">✓</span> Everything confirmed in writing, every time</li>
+          <li><span class="ci">✓</span> Pricing that's transparent and explained clearly</li>
+          <li><span class="ci">✓</span> We find the right home for you — not the most convenient one for us</li>
+          <li><span class="ci">✓</span> Direct team contact at every step of the process</li>
+          <li><span class="ci">✓</span> Every customer is a person trusting us with a major life decision</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PROMISES ────────────────────────────────────────────────────────────── -->
+<section class="promise-section">
+  <div class="container">
+    <p class="promise-label">Our Commitment</p>
+    <h2 class="promise-heading fade-up">What we promise every single customer.</h2>
+    <p class="promise-sub fade-up">These aren't marketing lines. They're the standards we hold ourselves to — and the ones we'd want if we were in your shoes.</p>
+    <div class="promise-row fade-up">
+      <div class="promise-card">
+        <p class="promise-num">01</p>
+        <h3>Transparency from the first conversation.</h3>
+        <p>You'll know what things cost, what's included, and what's not — before you ever sign anything. No bait-and-switch. No fine print surprises.</p>
+      </div>
+      <div class="promise-card">
+        <p class="promise-num">02</p>
+        <h3>We put your needs above an easy sale.</h3>
+        <p>If a home doesn't fit your life, we'll tell you. We'd rather lose a deal than send someone into the wrong situation. Our reputation is built on people who are genuinely happy long after move-in day.</p>
+      </div>
+      <div class="promise-card">
+        <p class="promise-num">03</p>
+        <h3>We handle the hard parts — in-house.</h3>
+        <p>Delivery, setup, financing coordination — we manage it ourselves. No handoffs to strangers. One team, start to finish, who knows your name and your situation.</p>
+      </div>
+      <div class="promise-card">
+        <p class="promise-num">04</p>
+        <h3>We're here after the sale. Full stop.</h3>
+        <p>You'll have a direct line to real people on this team — not a corporate 800 number. If something comes up, call us. That's not a slogan. That's the deal.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── WHAT'S INCLUDED ─────────────────────────────────────────────────────── -->
+<div class="included-band">
+  <div class="container">
+    <h2 class="fade-up">No hidden add-ons. Ever.</h2>
+    <p class="ib-sub fade-up">Every price we show already includes all of this. What you see is what you actually get.</p>
+    <div class="included-grid fade-up">
+      <div class="inc-tile"><span class="inc-icon">🚚</span><div class="inc-label">Delivery</div><div class="inc-note">Standard delivery within our service area</div></div>
+      <div class="inc-tile"><span class="inc-icon">🏗️</span><div class="inc-label">Setup</div><div class="inc-note">Blocking, leveling &amp; tie-down</div></div>
+      <div class="inc-tile"><span class="inc-icon">❄️</span><div class="inc-label">Central A/C</div><div class="inc-note">Installed &amp; ready</div></div>
+      <div class="inc-tile"><span class="inc-icon">🪵</span><div class="inc-label">Skirting</div><div class="inc-note">Full perimeter</div></div>
+      <div class="inc-tile"><span class="inc-icon">🪜</span><div class="inc-label">Steps</div><div class="inc-note">All exterior doors</div></div>
+      <div class="inc-tile"><span class="inc-icon">🍳</span><div class="inc-label">Appliances</div><div class="inc-note">All shown kitchen appliances</div></div>
+      <div class="inc-tile"><span class="inc-icon">🛡️</span><div class="inc-label">1-Year Warranty</div><div class="inc-note">Minimum manufacturer warranty</div></div>
+      <div class="inc-tile"><span class="inc-icon">📋</span><div class="inc-label">Written Confirmation</div><div class="inc-note">Final price locked in writing</div></div>
+    </div>
+    <p class="inc-disclaimer">Prices do not include land, land preparation, utility connections, optional upgrades, permits, or applicable taxes. Delivery pricing applies within our standard Louisiana and Mississippi service area. Final purchase price always confirmed in writing before any commitment.</p>
+  </div>
+</div>
+
+<!-- ── SERVICE + HOURS ─────────────────────────────────────────────────────── -->
+<section class="service-section">
+  <div class="container">
+    <div class="service-inner fade-up">
+      <div class="service-left">
+        <p class="eyebrow" style="margin-bottom:10px;">Where We Serve</p>
+        <h2>All of Louisiana &amp; Mississippi.</h2>
+        <p>We're based in Tickfaw, LA — right in the heart of Tangipahoa Parish — and we deliver throughout both states. If you're unsure whether we reach your area, just call. We'll tell you straight.</p>
+        <div style="margin-bottom:24px;">
+          <span class="state-pill">🦐 Louisiana — All Parishes</span>
+          <span class="state-pill">🌲 Mississippi — Statewide</span>
+        </div>
+        <p style="font-size:.88rem;color:var(--text-muted);line-height:1.6;">We also offer complete land-home packages — land and home, financed together in one process. Ask our team about availability in your area.</p>
+
+        <div class="contact-block" style="margin-top:24px;">
+          <p class="contact-block-label">Reach Our Team</p>
+          <a href="tel:9855205012" class="contact-link"><span class="cl-icon">☎</span>(985) 520-5012</a>
+          <a href="mailto:southernmhcenter@gmail.com" class="contact-link"><span class="cl-icon">✉</span>southernmhcenter@gmail.com</a>
+          <a href="https://maps.google.com/?q=50331+US-51+Tickfaw+LA+70466" target="_blank" class="contact-link"><span class="cl-icon">📍</span>50331 US-51, Tickfaw, LA 70466</a>
+        </div>
+
+        <div class="map-wrap">
+          <iframe src="https://maps.google.com/maps?q=50331+US-51,+Tickfaw,+LA+70466&output=embed" allowfullscreen loading="lazy" title="Southern Mobile Home Center"></iframe>
+        </div>
+      </div>
+
+      <div>
+        <div class="hours-card">
+          <div class="hours-card-head">Business Hours</div>
+          <div class="hours-row">
+            <span class="hours-day">Monday – Friday</span>
+            <span class="hours-time">9:00 AM – 5:00 PM</span>
+          </div>
+          <div class="hours-row">
+            <span class="hours-day">Saturday</span>
+            <span class="hours-time">9:00 AM – 4:00 PM</span>
+          </div>
+          <div class="hours-row">
+            <span class="hours-day">Sunday</span>
+            <span class="hours-time closed">Closed</span>
+          </div>
+        </div>
+        <div style="margin-top:28px;">
+          <p style="font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--text-muted);margin-bottom:14px;">Serving Families Across</p>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+            <div style="background:var(--cream);border:1px solid var(--cream-dark);border-radius:9px;padding:14px 16px;">
+              <div style="font-weight:700;color:var(--navy);font-size:.88rem;margin-bottom:2px;">Louisiana</div>
+              <div style="font-size:.78rem;color:var(--text-muted);">All 64 parishes</div>
+            </div>
+            <div style="background:var(--cream);border:1px solid var(--cream-dark);border-radius:9px;padding:14px 16px;">
+              <div style="font-weight:700;color:var(--navy);font-size:.88rem;margin-bottom:2px;">Mississippi</div>
+              <div style="font-size:.78rem;color:var(--text-muted);">All 82 counties</div>
+            </div>
+            <div style="background:var(--navy);border-radius:9px;padding:14px 16px;grid-column:span 2;">
+              <div style="font-weight:700;color:var(--gold);font-size:.88rem;margin-bottom:2px;">Land-Home Packages</div>
+              <div style="font-size:.78rem;color:rgba(255,255,255,.55);">Land + home financed together</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FINAL CTA ───────────────────────────────────────────────────────────── -->
+<section class="about-cta">
+  <div class="container fade-up">
+    <h2>Ready to work with people who actually give a damn?</h2>
+    <p>Come see us in Tickfaw, browse the floor plans online, or just give us a call. No pressure — just a straight conversation about what's possible for your situation.</p>
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+      <a href="floor-plans.html" class="btn btn-gold btn-lg">Browse Our Homes</a>
+      <a href="contact.html" class="btn btn-navy btn-lg">Contact Us</a>
+      <a href="tel:9855205012" class="btn btn-outline btn-sm" style="margin-top:0;">☎ (985) 520-5012</a>
+    </div>
+  </div>
+</section>
+
+<div id="footer-placeholder"></div>
+<script src="../js/main.js"></script>
+<script src="../js/nav.js"></script>
+</body>
+</html>

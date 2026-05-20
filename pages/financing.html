@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apply for Financing — Southern Mobile Home Center</title>
+  <meta name="description" content="Apply for manufactured home financing through Southern Mobile Home Center. We work with multiple trusted lenders to find you the best rate.">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="icon" href="../images/smhc-logo.jpg">
+  <style>
+    /* ── Application Form Styles ── */
+    .app-form-section {
+      padding: 72px 0 80px;
+      background: #fff;
+    }
+
+    .app-form-intro {
+      max-width: 720px;
+      margin-bottom: 48px;
+    }
+
+    .lender-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 28px;
+    }
+
+    .lender-badge {
+      display: inline-block;
+      padding: 6px 16px;
+      border: 1.5px solid var(--gold);
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--navy);
+      letter-spacing: .04em;
+      background: var(--gold-bg, #fdf8ee);
+    }
+
+    /* Form layout */
+    .app-form {
+      background: #fff;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--gray-200, #e8e8e8);
+      overflow: hidden;
+      box-shadow: 0 4px 32px rgba(0,0,0,.06);
+    }
+
+    .form-section {
+      padding: 40px 40px;
+    }
+
+    .form-section:nth-child(even) {
+      background: var(--cream, #faf8f4);
+    }
+
+    .form-section:nth-child(odd) {
+      background: #fff;
+    }
+
+    .form-section-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 28px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--gray-200, #e8e8e8);
+    }
+
+    .form-section-bar {
+      width: 4px;
+      height: 36px;
+      background: var(--gold);
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+
+    .form-section-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--navy);
+      letter-spacing: -.01em;
+      margin: 0;
+    }
+
+    .form-section-subtitle {
+      font-size: 0.8rem;
+      color: var(--text-muted, #888);
+      margin: 0;
+      margin-top: 2px;
+    }
+
+    /* Two-column grid */
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px 28px;
+    }
+
+    .form-grid .full-width {
+      grid-column: 1 / -1;
+    }
+
+    /* Form controls */
+    .app-form .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .app-form label {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--navy);
+      letter-spacing: .03em;
+      text-transform: uppercase;
+    }
+
+    .app-form label .optional {
+      font-weight: 400;
+      text-transform: none;
+      letter-spacing: 0;
+      color: var(--text-muted, #888);
+      font-size: 0.75rem;
+    }
+
+    .app-form input[type="text"],
+    .app-form input[type="tel"],
+    .app-form input[type="email"],
+    .app-form input[type="date"],
+    .app-form input[type="number"],
+    .app-form select,
+    .app-form textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1.5px solid var(--gray-200, #ddd);
+      border-radius: var(--radius-md, 8px);
+      font-size: 0.95rem;
+      color: var(--text, #1a1a1a);
+      background: #fff;
+      transition: border-color .2s, box-shadow .2s;
+      font-family: inherit;
+      box-sizing: border-box;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+
+    .app-form select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 36px;
+    }
+
+    .app-form input:focus,
+    .app-form select:focus,
+    .app-form textarea:focus {
+      outline: none;
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(201,146,10,.12);
+    }
+
+    .app-form textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    /* Radio group */
+    .radio-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 2px;
+    }
+
+    .radio-option {
+      position: relative;
+    }
+
+    .radio-option input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .radio-option label {
+      display: inline-block;
+      padding: 9px 18px;
+      border: 1.5px solid var(--gray-200, #ddd);
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--navy);
+      cursor: pointer;
+      transition: border-color .15s, background .15s, color .15s;
+      text-transform: none;
+      letter-spacing: 0;
+    }
+
+    .radio-option input[type="radio"]:checked + label {
+      border-color: var(--gold);
+      background: var(--gold-bg, #fdf8ee);
+      color: var(--navy);
+    }
+
+    .radio-option label:hover {
+      border-color: var(--gold);
+    }
+
+    /* Co-applicant toggle */
+    #co-applicant-fields {
+      display: none;
+      grid-column: 1 / -1;
+    }
+
+    #co-applicant-fields.visible {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px 28px;
+    }
+
+    /* Land address toggle */
+    #land-address-fields {
+      display: none;
+      grid-column: 1 / -1;
+    }
+
+    #land-address-fields.visible {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px 28px;
+    }
+
+    /* Submit area */
+    .form-submit-area {
+      padding: 40px;
+      background: var(--navy);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .form-submit-area p {
+      color: rgba(255,255,255,.75);
+      font-size: 0.85rem;
+      margin: 0;
+      max-width: 400px;
+      line-height: 1.6;
+    }
+
+    .btn-submit-app {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--gold);
+      color: #fff;
+      font-weight: 800;
+      font-size: 1rem;
+      padding: 16px 40px;
+      border-radius: var(--radius-md, 8px);
+      border: none;
+      cursor: pointer;
+      letter-spacing: .02em;
+      transition: opacity .2s, transform .15s;
+      white-space: nowrap;
+      font-family: inherit;
+    }
+
+    .btn-submit-app:hover {
+      opacity: .9;
+      transform: translateY(-1px);
+    }
+
+    .btn-submit-app:disabled {
+      opacity: .6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* Success message */
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 64px 40px;
+      background: var(--cream, #faf8f4);
+    }
+
+    .form-success.visible {
+      display: block;
+    }
+
+    .success-icon {
+      width: 64px;
+      height: 64px;
+      background: var(--gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      font-size: 1.8rem;
+      color: #fff;
+    }
+
+    .form-success h3 {
+      color: var(--navy);
+      font-size: 1.4rem;
+      margin-bottom: 12px;
+    }
+
+    .form-success p {
+      color: var(--text-muted, #666);
+      max-width: 480px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* Responsive */
+    @media (max-width: 680px) {
+      .form-section {
+        padding: 28px 20px;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .form-grid .full-width {
+        grid-column: 1;
+      }
+
+      #co-applicant-fields.visible,
+      #land-address-fields.visible {
+        grid-template-columns: 1fr;
+      }
+
+      .form-submit-area {
+        padding: 28px 20px;
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .btn-submit-app {
+        justify-content: center;
+      }
+
+      .app-form-intro {
+        max-width: 100%;
+      }
+    }
+
+    /* How it works grid responsive */
+    @media (max-width: 680px) {
+      .hiw-grid {
+        grid-template-columns: 1fr !important;
+      }
+    }
+  </style>
+  <meta property="og:image" content="https://www.southernmhcenter.com/images/hero-1.jpg">
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml">
+  <!-- Facebook Pixel -->
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '1482427083607310');
+  fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=1482427083607310&ev=PageView&noscript=1"
+  /></noscript>
+  <!-- End Facebook Pixel -->
+</head>
+<body>
+
+<div id="nav-placeholder"></div>
+
+<!-- ── PAGE HERO ─────────────────────────────────────────────────────────── -->
+<div class="page-hero" style="background-image:url('../images/hero-financing-new.png')">
+  <div class="page-hero-overlay"></div>
+  <div class="page-hero-content">
+    <p class="breadcrumb"><a href="../index.html">Home</a> › Financing</p>
+    <h1 class="display">Apply for Financing</h1>
+  </div>
+</div>
+
+<!-- ── APPLICATION FORM ───────────────────────────────────────────────────── -->
+<section class="app-form-section">
+  <div class="container">
+
+    <div class="app-form-intro fade-up">
+      <p style="font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;">Simple &amp; Straightforward</p>
+      <h2 class="display" style="color:var(--navy);margin-bottom:16px;">Apply for Financing</h2>
+      <p style="font-size:1rem;line-height:1.8;margin-bottom:8px;">Fill out our application below and our team will review it with our trusted lending partners — including Triad, Cascade, CSL Financial, and more. We work with <strong>all loan types</strong> — so whether you own land, need land, are a veteran, or are a first-time buyer, we have a path to get you home.</p>
+      <div class="lender-badges">
+        <span class="lender-badge">Triad Financial</span>
+        <span class="lender-badge">Cascade</span>
+        <span class="lender-badge">CSL Financial</span>
+        <span class="lender-badge">Chattel Loans</span>
+        <span class="lender-badge">Land-Home Loans</span>
+        <span class="lender-badge">FHA Loans</span>
+        <span class="lender-badge">VA Loans</span>
+        <span class="lender-badge">USDA / RD</span>
+        <span class="lender-badge">Conventional</span>
+      </div>
+    </div>
+
+    <form id="financing-app" class="app-form fade-up" novalidate>
+
+      <!-- SUCCESS STATE -->
+      <div class="form-success" id="form-success">
+        <div class="success-icon">✓</div>
+        <h3>Application Received!</h3>
+        <p>A member of our team will contact you within 1 business day to discuss next steps. We look forward to helping you find the right financing for your new home.</p>
+      </div>
+
+      <!-- SECTION 1: YOUR HOME -->
+      <div class="form-section">
+        <div class="form-section-header">
+          <div class="form-section-bar"></div>
+          <div>
+            <p class="form-section-title">Your Home</p>
+            <p class="form-section-subtitle">Tell us about the home you're interested in</p>
+          </div>
+        </div>
+        <div class="form-grid">
+          <div class="form-group full-width">
+            <label for="home-model">Home Model / Floor Plan <span class="optional">(if known)</span></label>
+            <input type="text" id="home-model" name="home-model" placeholder="e.g. The Madison, 32×76 Double-Wide, or 'Not sure yet'">
+          </div>
+          <div class="form-group">
+            <label>Home Type</label>
+            <div class="radio-group">
+              <div class="radio-option">
+                <input type="radio" name="home-type" id="type-single" value="Single-Wide">
+                <label for="type-single">Single-Wide</label>
+              </div>
+              <div class="radio-option">
+                <input type="radio" name="home-type" id="type-double" value="Double-Wide">
+                <label for="type-double">Double-Wide</label>
+              </div>
+              <div class="radio-option">
+                <input type="radio" name="home-type" id="type-unsure" value="Not Sure" checked>
+                <label for="type-unsure">Not Sure Yet</label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>New or Pre-Owned</label>
+            <div class="radio-group">
+              <div class="radio-option">
+                <input type="radio" name="home-condition" id="cond-new" value="New" checked>
+                <label for="cond-new">New</label>
+              </div>
+              <div class="radio-option">
+                <input type="radio" name="home-condition" id="cond-used" value="Pre-Owned">
+                <label for="cond-used">Pre-Owned</label>
+              </div>
+              <div class="radio-option">
+                <input type="radio" name="home-condition" id="cond-open" value="Open to Either">
+                <label for="cond-open">Open to Either</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 2: PERSONAL INFORMATION -->
+      <div class="form-section">
+        <div class="form-section-header">
+          <div class="form-section-bar"></div>
+          <div>
+            <p class="form-section-title">Personal Information</p>
+            <p class="form-section-subtitle">Your contact details and basic info</p>
+          </div>
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="first-name">First Name <span style="color:var(--gold)">*</span></label>
+            <input type="text" id="first-name" name="first-name" placeholder="Jane" required>
+          </div>
+          <div class="form-group">
+            <label for="last-name">Last Name <span style="color:var(--gold)">*</span></label>
+            <input type="text" id="last-name" name="last-name" placeholder="Smith" required>
+          </div>
+          <div class="form-group">
+            <label for="dob">Date of Birth <span style="color:var(--gold)">*</span></label>
+            <input type="date" id="dob" name="dob" required>
+          </div>
+          <div class="form-group">
+            <label for="ssn">Social Security # <span class="optional">(optional — for pre-qualification only)</span></label>
+            <input type="text" id="ssn" name="ssn" placeholder="XXX-XX-XXXX" maxlength="11" autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone Number <span style="color:var(--gold)">*</span></label>
+            <input type="tel" id="phone" name="phone" placeholder="(225) 555-0100" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address <span style="color:var(--gold)">*</span></label>
+            <input type="email" id="email" name="email" placeholder="jane@email.com" required>
+          </div>
+          <div class="form-group full-width">
+            <label for="current-address">Current Address</label>
+            <input type="text" id="current-address" name="current-address" placeholder="123 Main St, Baton Rouge, LA 70801">
+          </div>
+          <div class="form-group">
+            <label for="time-at-address">How Long at Current Address</label>
+            <select id="time-at-address" name="time-at-address">
+              <option value="">Select...</option>
+              <option>Less than 1 year</option>
+              <option>1–2 years</option>
+              <option>3–5 years</option>
+              <option>5–10 years</option>
+              <option>10+ years</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 3: EMPLOYMENT & INCOME -->
+      <div class="form-section">
+        <div class="form-section-header">
+          <div class="form-section-bar"></div>
+          <div>
+            <p class="form-section-title">Employment &amp; Income</p>
+            <p class="form-section-subtitle">Used to help determine financing options</p>
+          </div>
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Employment Status</label>
+            <div class="radio-group">
+              <div class="radio-option">
+                <input type="radio" name="employment" id="emp-employed" value="Employed" checked>
+                <label for="emp-employed">Employed</label>
+              </div>
+              <div class="radio-option">
+                <input type="radio" name="employment" id="emp-self" value="Self-Employed">
+                <label for="emp-self">Self-Employed</label>
+              </div>
+              <div class="radio-option">
+                <input type="radio" name="employment" id="emp-retired" value="Retired">
+                <label for="emp-retired">Retired</label>
+              </div>
+              <div class="radio-option">
+                <input type="radio" name="employment" id="emp-other" value="Other">
+                <label for="emp-other">Other</label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="employer-name">Employer / Business Name <span class="optional">(if applicable)</span></label>
+            <input type="text" id="employer-name" name="employer-name" placeholder="Acme Corp">
+          </div>
+          <div class="form-group">
+            <label for="monthly-income">Monthly Gross Income</label>
+            <input type="number" id="monthly-income" name="monthly-income" placeholder="4500" min="0" step="100">
+          </div>
+          <div class="form-group">
+            <label for="years-job">Years at Current Job / Income Source</label>
+            <select id="years-job" name="years-job">
+              <option value="">Select...</option>
+              <option>Less than 1 year</option>
+              <option>1–2 years</option>
+              <option>3–5 years</option>
+              <option>5–10 years</option>
+              <option>10+ years</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 4: PROPERTY & LAND -->
+      <div class="form-section">
+        <div class="form-section-header">
+          <div class="form-section-bar"></div>
+          <div>
+            <p class="form-section-title">Property &amp; Land</p>
+            <p class="form-section-subtitle">Where will the home be placed?</p>
+          </div>
+        </div>
+        <div class="form-grid">
+          <div class="form-group full-width">
+            <label>Do you own land to place the home on?</label>
+            <div class="radio-group">
+              <div class="radio-option">
+                <input type="radio" name="owns-land" id="land-yes" value="Yes" onclick="toggleLandFields(true)">
+                <label for="land-yes">Yes, I own land</label>
+              </div>
+              <div class="radio-option">
+                <input type="radio" name="owns-land" id="land-no" value="No" onclick="toggleLandFields(false)" checked>
+                <label for="land-no">No</label>
+              </div>
+              <div class="radio-option">
+                <input type="radio" name="owns-land" id="land-help" value="Need Help Finding Land" onclick="toggleLandFields(false)">
+                <label for="land-help">Need Help Finding Land</label>
+              </div>
+            </div>
+          </div>
+          <div id="land-address-fields">
+            <div class="form-group">
+              <label for="land-address">Land / Property Address</label>
+              <input type="text" id="land-address" name="land-address" placeholder="456 Rural Rd, Denham Springs, LA">
+            </div>
+            <div class="form-group">
+              <label for="land-value">Estimated Land Value <span class="optional">(if known)</span></label>
+              <input type="number" id="land-value" name="land-value" placeholder="25000" min="0" step="1000">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 5: ADDITIONAL -->
+      <div class="form-section">
+        <div class="form-section-header">
+          <div class="form-section-bar"></div>
+          <div>
+            <p class="form-section-title">Additional Information</p>
+            <p class="form-section-subtitle">Just a few more things to help us serve you better</p>
+          </div>
+        </div>
+        <div class="form-grid">
+          <div class="form-group full-width">
+            <label>Are you applying with a co-applicant?</label>
+            <div class="radio-group">
+              <div class="radio-option">
+                <input type="radio" name="co-applicant" id="co-yes" value="Yes" onclick="toggleCoApplicant(true)">
+                <label for="co-yes">Yes</label>
+              </div>
+              <div class="radio-option">
+                <input type="radio" name="co-applicant" id="co-no" value="No" onclick="toggleCoApplicant(false)" checked>
+                <label for="co-no">No</label>
+              </div>
+            </div>
+          </div>
+          <div id="co-applicant-fields">
+            <div class="form-group">
+              <label for="co-name">Co-Applicant Full Name</label>
+              <input type="text" id="co-name" name="co-name" placeholder="John Smith">
+            </div>
+            <div class="form-group">
+              <label for="co-phone">Co-Applicant Phone</label>
+              <input type="tel" id="co-phone" name="co-phone" placeholder="(225) 555-0101">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="heard-via">How did you hear about us?</label>
+            <select id="heard-via" name="heard-via">
+              <option value="">Select...</option>
+              <option>Google</option>
+              <option>Facebook</option>
+              <option>Drive By</option>
+              <option>Referral</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group full-width">
+            <label for="notes">Questions or Notes <span class="optional">(optional)</span></label>
+            <textarea id="notes" name="notes" placeholder="Anything else you'd like us to know — questions about specific floor plans, trade-ins, land, etc."></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUBMIT -->
+      <div class="form-submit-area">
+        <p>By submitting this application, you agree to be contacted by our team. Your information is kept secure and never sold. <span style="color:rgba(255,255,255,.5);">Fields marked with <span style="color:var(--gold);">*</span> are required.</span></p>
+        <button type="submit" class="btn-submit-app" id="submit-btn">
+          Submit Application →
+        </button>
+      </div>
+
+    </form><!-- /financing-app -->
+
+  </div>
+</section>
+
+<!-- ── PAYMENT ESTIMATOR ──────────────────────────────────────────────────── -->
+<section class="section bg-cream">
+  <div class="container">
+    <div class="section-header centered fade-up">
+      <p class="eyebrow">Estimate Your Payment</p>
+      <h2 class="display">Monthly Payment Calculator</h2>
+      <p>Get a rough idea of your monthly payment. Actual rates depend on credit score and down payment.</p>
+    </div>
+    <div style="max-width:560px;margin:0 auto;" class="fade-up">
+      <div class="contact-form-wrap">
+        <div class="form-group">
+          <label>Home Price: <strong id="price-display">$100,000</strong></label>
+          <input type="range" id="calc-price" min="50000" max="300000" step="5000" value="100000" style="width:100%;accent-color:var(--gold);">
+        </div>
+        <div class="form-group">
+          <label>Down Payment: <strong id="down-display">10% — $10,000</strong></label>
+          <input type="range" id="calc-down" min="5" max="30" step="5" value="10" style="width:100%;accent-color:var(--gold);">
+        </div>
+        <div class="form-group">
+          <label>Loan Term</label>
+          <select id="calc-years">
+            <option value="15">15 years</option>
+            <option value="20">20 years</option>
+            <option value="25" selected>25 years</option>
+          </select>
+        </div>
+        <div style="background:var(--gold-bg);border:1px solid rgba(201,146,10,.25);border-radius:var(--radius-lg);padding:24px;text-align:center;margin-top:8px;">
+          <p style="font-size:.75rem;text-transform:uppercase;letter-spacing:.1em;color:var(--gold);margin-bottom:4px;">Estimated Monthly Payment</p>
+          <div id="calc-result" style="font-size:2.5rem;font-weight:900;color:var(--navy);line-height:1;">$648</div>
+          <p style="font-size:.75rem;color:var(--text-muted);margin-top:6px;">9% APR estimate · <a href="prequal.html" style="color:var(--gold);">Get a pre-qualification estimate →</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── LOAN TYPES ─────────────────────────────────────────────────────────── -->
+<section class="section" style="background:var(--cream);">
+  <div class="container">
+    <div class="section-header centered fade-up">
+      <p class="eyebrow">Every Situation Covered</p>
+      <h2 class="display">We Do All Types of Loans</h2>
+      <p>We don't just work with one lender or one loan type — we shop your application across all our lending partners to find the best fit for your situation.</p>
+    </div>
+    <div class="fade-up" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-top:40px;">
+
+      <div style="background:#fff;border-radius:var(--radius-lg);border:1px solid var(--cream-dark);padding:28px;">
+        <div style="font-size:1.5rem;margin-bottom:12px;">🏠</div>
+        <h3 style="color:var(--navy);font-size:1rem;margin-bottom:8px;">Chattel Loans</h3>
+        <p style="font-size:.9rem;color:var(--text-muted);line-height:1.7;">The most common loan for manufactured homes. The home itself is the collateral — great if you're placing on leased land or a family lot. Fast approval, competitive rates.</p>
+      </div>
+
+      <div style="background:#fff;border-radius:var(--radius-lg);border:1px solid var(--cream-dark);padding:28px;">
+        <div style="font-size:1.5rem;margin-bottom:12px;">🏡</div>
+        <h3 style="color:var(--navy);font-size:1rem;margin-bottom:8px;">Land-Home Loans</h3>
+        <p style="font-size:.9rem;color:var(--text-muted);line-height:1.7;">Finance your home and land together in one loan. Ideal if you're buying land or already own it. Typically lower rates and longer terms than chattel.</p>
+      </div>
+
+      <div style="background:#fff;border-radius:var(--radius-lg);border:1px solid var(--cream-dark);padding:28px;">
+        <div style="font-size:1.5rem;margin-bottom:12px;">🏛️</div>
+        <h3 style="color:var(--navy);font-size:1rem;margin-bottom:8px;">FHA Loans</h3>
+        <p style="font-size:.9rem;color:var(--text-muted);line-height:1.7;">Government-backed loan with as little as 3.5% down. Easier credit requirements make this a great option for first-time buyers or those rebuilding credit.</p>
+      </div>
+
+      <div style="background:#fff;border-radius:var(--radius-lg);border:1px solid var(--cream-dark);padding:28px;">
+        <div style="font-size:1.5rem;margin-bottom:12px;">🎖️</div>
+        <h3 style="color:var(--navy);font-size:1rem;margin-bottom:8px;">VA Loans</h3>
+        <p style="font-size:.9rem;color:var(--text-muted);line-height:1.7;">Exclusively for veterans, active-duty service members, and surviving spouses. Often $0 down with no PMI. We are proud to serve those who served.</p>
+      </div>
+
+      <div style="background:#fff;border-radius:var(--radius-lg);border:1px solid var(--cream-dark);padding:28px;">
+        <div style="font-size:1.5rem;margin-bottom:12px;">🌾</div>
+        <h3 style="color:var(--navy);font-size:1rem;margin-bottom:8px;">USDA / Rural Development</h3>
+        <p style="font-size:.9rem;color:var(--text-muted);line-height:1.7;">$0 down financing for eligible rural and suburban buyers through USDA's Rural Development program. Much of Louisiana qualifies — ask us if your address is eligible.</p>
+      </div>
+
+      <div style="background:#fff;border-radius:var(--radius-lg);border:1px solid var(--cream-dark);padding:28px;">
+        <div style="font-size:1.5rem;margin-bottom:12px;">📋</div>
+        <h3 style="color:var(--navy);font-size:1rem;margin-bottom:8px;">Conventional Loans</h3>
+        <p style="font-size:.9rem;color:var(--text-muted);line-height:1.7;">Traditional financing for buyers with strong credit and solid down payment. Can offer the best long-term rates when the home is titled as real property.</p>
+      </div>
+
+    </div>
+    <p style="text-align:center;font-size:.8rem;color:var(--text-muted);margin-top:28px;">Not sure which loan type fits your situation? Fill out the application above and we'll figure it out together.</p>
+  </div>
+</section>
+
+<!-- ── HOW IT WORKS ───────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <div class="section-header centered fade-up">
+      <p class="eyebrow">The Process</p>
+      <h2 class="display">How Financing Works</h2>
+    </div>
+    <div class="hiw-grid fade-up" style="display:grid;grid-template-columns:repeat(3,1fr);gap:32px;">
+      <div style="text-align:center;padding:32px 24px;background:var(--cream);border-radius:var(--radius-lg);border:1px solid var(--cream-dark);">
+        <div style="width:56px;height:56px;background:var(--navy);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:1.2rem;color:#fff;font-weight:800;">1</div>
+        <h3 style="color:var(--navy);margin-bottom:10px;">Browse &amp; Choose</h3>
+        <p>Pick a floor plan from our inventory. Single-wide starting at $64K, double-wide up to $209K.</p>
+      </div>
+      <div style="text-align:center;padding:32px 24px;background:var(--cream);border-radius:var(--radius-lg);border:1px solid var(--cream-dark);">
+        <div style="width:56px;height:56px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:1.2rem;color:#fff;font-weight:800;">2</div>
+        <h3 style="color:var(--navy);margin-bottom:10px;">Submit Your Application</h3>
+        <p>Submit your application here and our team reviews it with our trusted lending partners — including Triad, Cascade, CSL Financial, and more.</p>
+      </div>
+      <div style="text-align:center;padding:32px 24px;background:var(--cream);border-radius:var(--radius-lg);border:1px solid var(--cream-dark);">
+        <div style="width:56px;height:56px;background:var(--navy);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:1.2rem;color:#fff;font-weight:800;">3</div>
+        <h3 style="color:var(--navy);margin-bottom:10px;">Move In</h3>
+        <p>Close on your home and we handle delivery and setup. Our team is with you through the whole process.</p>
+      </div>
+    </div>
+    <p style="text-align:center;font-size:.8rem;color:var(--text-muted);margin-top:32px;">*Estimated payments are for illustrative purposes only. Actual payments depend on approved APR, term, and down payment. Contact us for accurate figures.</p>
+  </div>
+</section>
+
+<!-- ── PRE-QUAL CTA ─────────────────────────────────────────────────────────── -->
+<section class="cta-banner">
+  <div class="container fade-up">
+    <h2 class="display">Just want a quick estimate?</h2>
+    <p>Answer 5 quick questions and find out if you pre-qualify — no credit pull, no commitment.</p>
+    <div class="btns">
+      <a href="prequal.html" class="btn btn-gold btn-lg">Get Pre-Qualified →</a>
+      <a href="contact.html" class="btn btn-outline-white btn-lg">Talk to Our Team</a>
+    </div>
+  </div>
+</section>
+
+<div id="footer-placeholder"></div>
+
+<script src="../js/homes-data.js"></script>
+<script src="../js/main.js"></script>
+<script src="../js/nav.js"></script>
+<script>
+  /* ── Payment Calculator ── */
+  function fmt(n) { return '$' + Math.round(n).toLocaleString(); }
+
+  function updateCalc() {
+    const price = parseInt(document.getElementById('calc-price').value) || 100000;
+    const downPct = parseInt(document.getElementById('calc-down').value);
+    const down = downPct / 100;
+    const years = parseInt(document.getElementById('calc-years').value);
+
+    document.getElementById('price-display').textContent = fmt(price);
+    document.getElementById('down-display').textContent = downPct + '% — ' + fmt(price * down);
+
+    const mo = calcMonthly(price, down, 0.09, years);
+    document.getElementById('calc-result').textContent = '$' + mo.toLocaleString();
+  }
+
+  ['calc-price','calc-down','calc-years'].forEach(id => {
+    document.getElementById(id).addEventListener('input', updateCalc);
+    document.getElementById(id).addEventListener('change', updateCalc);
+  });
+  updateCalc();
+
+  /* ── Toggle helpers ── */
+  function toggleCoApplicant(show) {
+    const el = document.getElementById('co-applicant-fields');
+    el.classList.toggle('visible', show);
+  }
+
+  function toggleLandFields(show) {
+    const el = document.getElementById('land-address-fields');
+    el.classList.toggle('visible', show);
+  }
+
+  /* ── SSN auto-format ── */
+  document.getElementById('ssn').addEventListener('input', function() {
+    let v = this.value.replace(/\D/g,'');
+    if (v.length > 3 && v.length <= 5) v = v.slice(0,3) + '-' + v.slice(3);
+    else if (v.length > 5) v = v.slice(0,3) + '-' + v.slice(3,5) + '-' + v.slice(5,9);
+    this.value = v;
+  });
+
+  /* ── CRM Submission ── */
+  async function submitApplication(data) {
+    const CRM = 'https://southern-mhc-crm-production.up.railway.app';
+    try {
+      await fetch(CRM + '/api/leads/public', {
+        method: 'POST',
+        mode: 'cors',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify(data)
+      });
+    } catch(e) { console.warn('CRM submit failed', e); }
+  }
+
+  /* ── Form Submit ── */
+  document.getElementById('financing-app').addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const firstName = document.getElementById('first-name').value.trim();
+    const lastName  = document.getElementById('last-name').value.trim();
+    const phone     = document.getElementById('phone').value.trim();
+    const email     = document.getElementById('email').value.trim();
+
+    // Basic required field validation
+    if (!firstName || !lastName || !phone || !email) {
+      const missingFields = [];
+      if (!firstName) missingFields.push('First Name');
+      if (!lastName)  missingFields.push('Last Name');
+      if (!phone)     missingFields.push('Phone Number');
+      if (!email)     missingFields.push('Email Address');
+      alert('Please fill in the required fields: ' + missingFields.join(', '));
+      return;
+    }
+
+    const dob          = document.getElementById('dob').value;
+    const homeModel    = document.getElementById('home-model').value.trim();
+    const homeType     = document.querySelector('input[name="home-type"]:checked')?.value || '';
+    const homeCondition= document.querySelector('input[name="home-condition"]:checked')?.value || '';
+    const employment   = document.querySelector('input[name="employment"]:checked')?.value || '';
+    const employerName = document.getElementById('employer-name').value.trim();
+    const income       = document.getElementById('monthly-income').value.trim();
+    const yearsJob     = document.getElementById('years-job').value;
+    const ownsLand     = document.querySelector('input[name="owns-land"]:checked')?.value || '';
+    const landAddress  = document.getElementById('land-address').value.trim();
+    const landValue    = document.getElementById('land-value').value.trim();
+    const coApplicant  = document.querySelector('input[name="co-applicant"]:checked')?.value || 'No';
+    const coName       = document.getElementById('co-name').value.trim();
+    const coPhone      = document.getElementById('co-phone').value.trim();
+    const heardVia     = document.getElementById('heard-via').value;
+    const notes        = document.getElementById('notes').value.trim();
+    const address      = document.getElementById('current-address').value.trim();
+    const timeAtAddr   = document.getElementById('time-at-address').value;
+
+    // Build structured notes from the detailed form fields
+    const detailNotes = [
+      dob           ? `DOB: ${dob}` : '',
+      homeModel     ? `Home of Interest: ${homeModel}` : '',
+      homeType      ? `Home Type: ${homeType}${homeCondition ? ' — ' + homeCondition : ''}` : '',
+      employment    ? `Employment: ${employment}${employerName ? ' at ' + employerName : ''}` : '',
+      income        ? `Monthly Income: $${parseInt(income).toLocaleString()}` : '',
+      yearsJob      ? `Years at Job: ${yearsJob}` : '',
+      ownsLand      ? `Owns Land: ${ownsLand}${landAddress ? ' — ' + landAddress : ''}` : '',
+      landValue     ? `Land Value Est: $${parseInt(landValue).toLocaleString()}` : '',
+      coApplicant === 'Yes' ? `Co-Applicant: ${coName}${coPhone ? ' — ' + coPhone : ''}` : '',
+      address       ? `Current Address: ${address}${timeAtAddr ? ' (' + timeAtAddr + ')' : ''}` : '',
+      notes         ? `Customer Notes: ${notes}` : '',
+    ].filter(Boolean).join('\n');
+
+    // Map heard-via to CRM source values
+    const sourceMap = {
+      'Facebook': 'facebook', 'Instagram': 'facebook', 'Google': 'website',
+      'Website': 'website', 'Referral': 'referral', 'Sign': 'sign',
+      'Walk-In': 'walk_in', 'Other': 'other'
+    };
+
+    const leadData = {
+      firstName,
+      lastName,
+      phone,
+      email: email || null,
+      source: sourceMap[heardVia] || 'website',
+      homeTypeInterest: homeType || null,
+      address: address || null,
+      initialNotes: detailNotes || null,
+      temperature: 'warm',
+    };
+
+    // Disable button, show loading state
+    const btn = document.getElementById('submit-btn');
+    btn.disabled = true;
+    btn.textContent = 'Submitting…';
+
+    await submitApplication(leadData);
+
+    // Show success, hide form sections
+    const sections = document.querySelectorAll('.form-section, .form-submit-area');
+    sections.forEach(s => s.style.display = 'none');
+    document.getElementById('form-success').classList.add('visible');
+
+    // Scroll to success
+    document.getElementById('form-success').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+</script>
+</body>
+</html>

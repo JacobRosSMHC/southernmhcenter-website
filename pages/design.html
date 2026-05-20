@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Design Your Home — Southern Mobile Home Center</title>
+  <meta name="description" content="Customize your manufactured home with exterior colors, cabinet finishes, flooring, and more. Get a live price estimate.">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="icon" href="../images/smhc-logo.jpg">
+  <style>
+    .design-page {
+      background: var(--cream);
+      min-height: calc(100vh - var(--nav-h));
+      padding: 32px 0 80px;
+    }
+    .design-page-header {
+      background: var(--white);
+      border-bottom: 1px solid var(--gray-200);
+      padding: 20px 0;
+      margin-top: var(--nav-h);
+      margin-bottom: 32px;
+    }
+    .design-page-header .container { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+    .design-page-header h1 { font-size: 1.4rem; color: var(--navy); }
+    .design-page-header .base-price { font-size: 1.2rem; font-weight: 800; color: var(--gold); }
+
+    .design-options-panel {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--gray-200);
+      overflow: hidden;
+    }
+    .design-section-block {
+      border-bottom: 1px solid var(--gray-200);
+      padding: 24px;
+    }
+    .design-section-block:last-child { border-bottom: none; }
+    .design-sub-label {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 10px;
+      margin-top: 16px;
+    }
+    .design-sub-label:first-child { margin-top: 0; }
+
+    /* Image-based swatches (manufacturer photos) */
+    .opt-swatch-img {
+      display: block;
+      width: 100%;
+      height: 72px;
+      object-fit: cover;
+      border-radius: 6px 6px 0 0;
+      margin-bottom: 6px;
+    }
+    .design-option:has(.opt-swatch-img) {
+      padding: 0 0 8px;
+      overflow: hidden;
+    }
+    .design-option:has(.opt-swatch-img) .opt-name,
+    .design-option:has(.opt-swatch-img) .opt-price {
+      padding: 0 8px;
+    }
+    /* Wider cards when showing photo swatches */
+    .design-options-row:has(.opt-swatch-img) {
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    }
+
+    @media print {
+      .nav, #nav-placeholder, #footer-placeholder, .design-summary .btn { display: none !important; }
+      .design-layout { grid-template-columns: 1fr !important; }
+      .design-summary { position: static !important; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="nav-placeholder"></div>
+
+<!-- Page Header -->
+<div class="design-page-header">
+  <div class="container">
+    <div>
+      <div style="font-size:.75rem;color:var(--text-muted);margin-bottom:4px;">
+        <a href="../index.html" style="color:var(--navy);">Home</a>
+        <span style="margin:0 6px;color:var(--gray-400);">›</span>
+        <a href="floor-plans.html" style="color:var(--navy);">Floor Plans</a>
+        <span style="margin:0 6px;color:var(--gray-400);">›</span>
+        <span id="header-home-name">Design Your Home</span>
+      </div>
+      <h1 class="display" id="header-title">Design Your Home</h1>
+    </div>
+    <div style="text-align:right;">
+      <div style="font-size:.75rem;color:var(--text-muted);">Starting at</div>
+      <div class="base-price" id="header-base-price">$67,700</div>
+    </div>
+  </div>
+</div>
+
+<!-- Design Page Body -->
+<div class="design-page">
+<div class="container">
+<div class="design-layout">
+
+  <!-- ── LEFT: Options ─────────────────────────────────────────────────────── -->
+  <div>
+
+    <!-- EXTERIOR -->
+    <div class="design-options-panel" style="margin-bottom:20px;">
+      <div class="design-section-block">
+        <div class="design-section-title">Exterior</div>
+
+        <div class="design-sub-label">Siding Color</div>
+        <div class="design-options-row" id="opts-siding"></div>
+
+        <div class="design-sub-label">Roof Color</div>
+        <div class="design-options-row" id="opts-roof"></div>
+      </div>
+    </div>
+
+    <!-- KITCHEN -->
+    <div class="design-options-panel" style="margin-bottom:20px;">
+      <div class="design-section-block">
+        <div class="design-section-title">Kitchen</div>
+
+        <div class="design-sub-label">Cabinet Color</div>
+        <div class="design-options-row" id="opts-cabinets"></div>
+
+        <div class="design-sub-label">Countertop</div>
+        <div class="design-options-row" id="opts-countertop"></div>
+
+        <div class="design-sub-label">Appliances</div>
+        <div class="design-options-row" id="opts-appliances"></div>
+      </div>
+    </div>
+
+    <!-- FLOORING -->
+    <div class="design-options-panel" style="margin-bottom:20px;">
+      <div class="design-section-block">
+        <div class="design-section-title">Flooring</div>
+
+        <div class="design-sub-label">Kitchen &amp; Bath Flooring</div>
+        <div class="design-options-row" id="opts-floor-kb"></div>
+
+        <div class="design-sub-label">Bedroom &amp; Living Area</div>
+        <div class="design-options-row" id="opts-floor-bed"></div>
+      </div>
+    </div>
+
+    <!-- INTERIOR -->
+    <div class="design-options-panel">
+      <div class="design-section-block">
+        <div class="design-section-title">Interior</div>
+
+        <div class="design-sub-label">Wall Color</div>
+        <div class="design-options-row" id="opts-wall"></div>
+
+        <div class="design-sub-label">Trim Color</div>
+        <div class="design-options-row" id="opts-trim"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── RIGHT: Summary Sidebar ────────────────────────────────────────────── -->
+  <div class="design-summary">
+    <img id="summary-photo" src="../images/home-placeholder.jpg" alt="Home" class="design-summary-photo">
+    <div class="design-summary-body">
+      <div class="design-summary-name" id="summary-name">Loading…</div>
+      <div class="design-summary-specs" id="summary-specs"></div>
+
+      <!-- Selections list -->
+      <div class="design-selections">
+        <h4>Your Selections</h4>
+        <div id="selections-list">
+          <div class="design-sel-row"><span class="design-sel-label">Siding Color</span><span class="design-sel-val" id="sel-siding">—</span></div>
+          <div class="design-sel-row"><span class="design-sel-label">Roof Color</span><span class="design-sel-val" id="sel-roof">—</span></div>
+          <div class="design-sel-row"><span class="design-sel-label">Cabinets</span><span class="design-sel-val" id="sel-cabinets">—</span></div>
+          <div class="design-sel-row"><span class="design-sel-label">Countertop</span><span class="design-sel-val" id="sel-countertop">—</span></div>
+          <div class="design-sel-row"><span class="design-sel-label">Appliances</span><span class="design-sel-val" id="sel-appliances">—</span></div>
+          <div class="design-sel-row"><span class="design-sel-label">Kitchen/Bath Floor</span><span class="design-sel-val" id="sel-floor-kb">—</span></div>
+          <div class="design-sel-row"><span class="design-sel-label">Bedroom Floor</span><span class="design-sel-val" id="sel-floor-bed">—</span></div>
+          <div class="design-sel-row"><span class="design-sel-label">Wall Color</span><span class="design-sel-val" id="sel-wall">—</span></div>
+          <div class="design-sel-row"><span class="design-sel-label">Trim Color</span><span class="design-sel-val" id="sel-trim">—</span></div>
+        </div>
+      </div>
+
+      <!-- Price Breakdown -->
+      <div class="design-price-breakdown">
+        <div class="design-price-row">
+          <span>Unit Base</span>
+          <span id="price-base">$67,700</span>
+        </div>
+        <div class="design-price-row">
+          <span>Upgrades</span>
+          <span id="price-upgrades">+$0</span>
+        </div>
+        <div class="design-price-row total">
+          <span>Unit Total</span>
+          <span id="price-total">$67,700</span>
+        </div>
+      </div>
+
+      <!-- Monthly -->
+      <div class="design-monthly">
+        <div class="mo-label">Est. Monthly</div>
+        <div class="mo-val" id="price-monthly">$—</div>
+      </div>
+
+      <!-- CTAs -->
+      <a id="btn-get-quote" href="contact.html" class="btn btn-gold">Get a Quote</a>
+      <button class="btn btn-outline" onclick="window.print()" style="margin-top:8px;">Save / Print</button>
+    </div>
+  </div>
+
+</div><!-- /design-layout -->
+</div><!-- /container -->
+</div><!-- /design-page -->
+
+<div id="footer-placeholder"></div>
+
+<script>var BASE_PATH = '../';</script>
+<script src="../js/homes-data.js"></script>
+<script src="../js/nav.js"></script>
+<script src="../js/main.js"></script>
+<script>
+(function() {
+  const params = new URLSearchParams(location.search);
+  const slug   = params.get('home') || 'spirit';
+  const homes  = getEffectiveHomes();
+  const home   = homes.find(h => h.slug === slug) || homes[0];
+
+  // ── Populate Home Info ────────────────────────────────────────────────────
+  document.title = 'Design ' + home.name + ' — Southern Mobile Home Center';
+  document.getElementById('header-home-name').textContent = home.name;
+  document.getElementById('header-title').textContent = 'Design Your ' + home.name;
+  document.getElementById('header-base-price').textContent = formatPrice(home.price);
+  document.getElementById('summary-name').textContent = home.name;
+  document.getElementById('summary-specs').textContent =
+    home.beds + ' Bed | ' + home.baths + ' Bath | ' + (home.sqft ? home.sqft.toLocaleString() + ' Sq. Ft.' : 'Contact for Sq. Ft.') +
+    (home.dimensions ? ' | ' + home.dimensions : '');
+  document.getElementById('summary-photo').src = '../' + home.image;
+  document.getElementById('summary-photo').onerror = function() { this.src = '../images/home-placeholder.jpg'; };
+
+  // ── Selections State ──────────────────────────────────────────────────────
+  // Default to first option in each category
+  const DO_init = home.designOptions || DEFAULT_DESIGN_OPTIONS;
+  const sels = {
+    siding:     { name: DO_init.exterior.sidingColor[0].name,   price: 0 },
+    roof:       { name: DO_init.exterior.roofColor[0].name,     price: 0 },
+    cabinets:   { name: DO_init.kitchen.cabinetColor[0].name,   price: 0 },
+    countertop: { name: DO_init.kitchen.countertop[0].name,     price: 0 },
+    appliances: { name: DO_init.kitchen.appliances[0].name,     price: 0 },
+    'floor-kb': { name: DO_init.flooring.kitchenBath[0].name,   price: 0 },
+    'floor-bed':{ name: DO_init.flooring.bedroomLiving[0].name, price: 0 },
+    wall:       { name: DO_init.interior.wallColor[0].name,     price: 0 },
+    trim:       { name: DO_init.interior.trimColor[0].name,     price: 0 },
+  };
+
+  function updatePricing() {
+    const upgrades = Object.values(sels).reduce((s, v) => s + (v.price || 0), 0);
+    const total = home.price + upgrades;
+    document.getElementById('price-base').textContent    = formatPrice(home.price);
+    document.getElementById('price-upgrades').textContent = (upgrades > 0 ? '+' : '') + formatPrice(upgrades);
+    document.getElementById('price-total').textContent   = formatPrice(total);
+    document.getElementById('price-monthly').textContent = '$' + estimateMonthly(total).toLocaleString() + '/mo';
+
+    // Update selections display
+    document.getElementById('sel-siding').textContent     = sels.siding.name;
+    document.getElementById('sel-roof').textContent       = sels.roof.name;
+    document.getElementById('sel-cabinets').textContent   = sels.cabinets.name;
+    document.getElementById('sel-countertop').textContent = sels.countertop.name;
+    document.getElementById('sel-appliances').textContent = sels.appliances.name + (sels.appliances.price > 0 ? ' (+$'+sels.appliances.price+')' : '');
+    document.getElementById('sel-floor-kb').textContent   = sels['floor-kb'].name;
+    document.getElementById('sel-floor-bed').textContent  = sels['floor-bed'].name;
+    document.getElementById('sel-wall').textContent       = sels.wall.name;
+    document.getElementById('sel-trim').textContent       = sels.trim.name;
+
+    // Update quote link
+    const selStr = Object.entries(sels).map(([k, v]) => k + '=' + encodeURIComponent(v.name)).join('&');
+    document.getElementById('btn-get-quote').href = 'contact.html?home=' + encodeURIComponent(home.name) + '&selections=' + encodeURIComponent(selStr);
+  }
+
+  // ── Option Builder ────────────────────────────────────────────────────────
+  function makeColorSwatch(opt, key, defaultFirst) {
+    const hasImg   = !!opt.img;
+    const isColor  = !!opt.color;
+    const price    = opt.price || 0;
+    const priceLabel = price > 0 ? '+$' + price.toLocaleString() : 'Included';
+    const colorStyle = isColor ? `style="background:${opt.color};border-color:rgba(0,0,0,${opt.color==='#ffffff'?'.2':'.1'});"` : '';
+
+    return `<div class="design-option${sels[key].name === opt.name ? ' selected' : ''}" onclick="selectOpt('${key}', this, '${opt.name.replace(/'/g,"\\'")}', ${price})">
+      ${hasImg  ? `<img class="opt-swatch-img" src="${opt.img}" alt="${opt.name}" loading="lazy">` : ''}
+      ${isColor ? `<span class="opt-swatch" ${colorStyle}></span>` : ''}
+      <span class="opt-name">${opt.name}</span>
+      <span class="opt-price">${priceLabel}</span>
+    </div>`;
+  }
+
+  window.selectOpt = function(key, el, name, price) {
+    const container = el.parentElement;
+    container.querySelectorAll('.design-option').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    sels[key] = { name, price };
+    updatePricing();
+  };
+
+  function buildOpts(containerId, key, opts) {
+    const el = document.getElementById(containerId);
+    if (!el) return;
+    el.innerHTML = opts.map(opt => makeColorSwatch(opt, key)).join('');
+  }
+
+  const DO = home.designOptions || DEFAULT_DESIGN_OPTIONS;
+
+  // Exterior
+  buildOpts('opts-siding', 'siding', DO.exterior.sidingColor);
+  buildOpts('opts-roof',   'roof',   DO.exterior.roofColor);
+
+  // Kitchen
+  buildOpts('opts-cabinets',   'cabinets',   DO.kitchen.cabinetColor);
+  buildOpts('opts-countertop', 'countertop', DO.kitchen.countertop);
+  buildOpts('opts-appliances', 'appliances', DO.kitchen.appliances);
+
+  // Flooring
+  buildOpts('opts-floor-kb',  'floor-kb',  DO.flooring.kitchenBath);
+  buildOpts('opts-floor-bed', 'floor-bed', DO.flooring.bedroomLiving);
+
+  // Interior
+  buildOpts('opts-wall', 'wall', DO.interior.wallColor);
+  buildOpts('opts-trim', 'trim', DO.interior.trimColor);
+
+  // Initial pricing
+  updatePricing();
+
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Place Your Home — Southern Mobile Home Center</title>
+  <meta name="description" content="Visualize your manufactured home on your property. Select a model, enter your address, and see the home's footprint overlaid on a satellite map of your land.">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="icon" href="../images/smhc-logo.jpg">
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+  <!-- Leaflet Rotated Marker plugin for overlay rotation support -->
+  <style>
+    /* ── Page Hero ──────────────────────────────────────────────────────────── */
+    .pah-hero {
+      background: var(--navy);
+      color: #fff;
+      padding: 56px 0 44px;
+      margin-top: var(--nav-h);
+      text-align: center;
+    }
+    .pah-hero .eyebrow {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+    .pah-hero h1 {
+      color: #fff;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      margin-bottom: 12px;
+    }
+    .pah-hero .sub {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,.72);
+      max-width: 620px;
+      margin: 0 auto;
+    }
+
+    /* ── Main Layout ────────────────────────────────────────────────────────── */
+    .pah-body {
+      background: var(--cream);
+      min-height: 60vh;
+      padding: 48px 0 80px;
+    }
+    .pah-container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ── Step Cards ─────────────────────────────────────────────────────────── */
+    .step-card {
+      background: #fff;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      padding: 28px 32px;
+      margin-bottom: 24px;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+    .step-badge {
+      width: 40px;
+      height: 40px;
+      min-width: 40px;
+      background: var(--gold);
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      font-weight: 800;
+      margin-top: 2px;
+    }
+    .step-content { flex: 1; }
+    .step-content h2 {
+      font-size: 1.15rem;
+      color: var(--navy);
+      margin-bottom: 4px;
+    }
+    .step-content p.step-desc {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    /* ── Home Select ────────────────────────────────────────────────────────── */
+    .home-select-row {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+    .home-select-row select {
+      flex: 1;
+      min-width: 220px;
+      padding: 10px 14px;
+      border: 1.5px solid var(--gray-200);
+      border-radius: var(--radius);
+      font-size: 0.95rem;
+      color: var(--navy);
+      background: #fff;
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%231a2744' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='4 6 8 10 12 6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      padding-right: 36px;
+    }
+    .home-select-row select:focus {
+      outline: none;
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(201,146,10,.15);
+    }
+    .home-thumb-wrap {
+      width: 120px;
+      min-width: 120px;
+      height: 80px;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 2px solid var(--gray-200);
+      background: var(--gray-100);
+      flex-shrink: 0;
+    }
+    .home-thumb-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* ── Address Input ──────────────────────────────────────────────────────── */
+    .addr-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .addr-row input {
+      flex: 1;
+      min-width: 240px;
+      padding: 10px 16px;
+      border: 1.5px solid var(--gray-200);
+      border-radius: var(--radius);
+      font-size: 0.95rem;
+      color: var(--navy);
+    }
+    .addr-row input:focus {
+      outline: none;
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(201,146,10,.15);
+    }
+    .addr-row button {
+      padding: 10px 22px;
+      background: var(--navy);
+      color: #fff;
+      border-radius: var(--radius);
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: background .2s;
+    }
+    .addr-row button:hover { background: var(--navy-light); }
+    .addr-row button:disabled { opacity: .5; cursor: not-allowed; }
+    .addr-suggestions {
+      position: absolute;
+      top: calc(100% + 2px);
+      left: 0;
+      right: 0;
+      background: #fff;
+      border: 1.5px solid var(--navy);
+      border-radius: var(--radius);
+      box-shadow: 0 8px 24px rgba(26,39,68,.13);
+      z-index: 9999;
+      max-height: 220px;
+      overflow-y: auto;
+    }
+    .addr-suggestions:empty { display: none; }
+    .addr-suggest-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      font-size: .91rem;
+      color: var(--navy);
+      cursor: pointer;
+      border-bottom: 1px solid #f0eee9;
+      transition: background .15s;
+    }
+    .addr-suggest-item:last-child { border-bottom: none; }
+    .addr-suggest-item:hover, .addr-suggest-item.active {
+      background: var(--cream, #f8f5f0);
+    }
+    .addr-suggest-icon { font-size: 1rem; flex-shrink: 0; }
+
+    /* ── Status Message ─────────────────────────────────────────────────────── */
+    .status-msg {
+      font-size: 0.85rem;
+      margin-top: 8px;
+      min-height: 20px;
+      color: var(--text-muted);
+    }
+    .status-msg.error { color: #c0392b; }
+    .status-msg.success { color: #2a7a2a; }
+
+    /* ── Map Wrapper ────────────────────────────────────────────────────────── */
+    .map-section {
+      background: #fff;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      margin-bottom: 24px;
+      border: 2px solid var(--navy);
+      position: relative;
+    }
+    .map-header {
+      background: var(--navy);
+      color: #fff;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .map-header-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: rgba(255,255,255,.85);
+    }
+    .map-controls {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .map-ctrl-btn {
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.25);
+      color: #fff;
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background .2s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .map-ctrl-btn:hover { background: rgba(255,255,255,.22); }
+    .map-ctrl-btn:disabled { opacity: .35; cursor: not-allowed; }
+    .rotation-display {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,.65);
+      font-weight: 500;
+    }
+    #map {
+      width: 100%;
+      height: 500px;
+      background: #222;
+    }
+    .map-hint {
+      text-align: center;
+      padding: 60px 20px;
+      color: rgba(255,255,255,.35);
+      font-size: 0.9rem;
+    }
+    .map-hint svg {
+      display: block;
+      margin: 0 auto 12px;
+      opacity: .35;
+    }
+
+    /* ── Leaflet override: draggable rectangle ──────────────────────────────── */
+    .home-overlay-rect {
+      cursor: grab !important;
+    }
+    .home-overlay-rect:active {
+      cursor: grabbing !important;
+    }
+
+    /* ── Footprint label ────────────────────────────────────────────────────── */
+    .footprint-label {
+      background: rgba(26,39,68,.85);
+      color: #fff;
+      border: none;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      white-space: nowrap;
+      pointer-events: none;
+    }
+
+    /* ── Step 3 — Specs Card ────────────────────────────────────────────────── */
+    .specs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 12px;
+      margin: 16px 0 20px;
+    }
+    .spec-chip {
+      background: var(--cream);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius);
+      padding: 12px 16px;
+      text-align: center;
+    }
+    .spec-chip .spec-val {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--navy);
+      display: block;
+    }
+    .spec-chip .spec-lbl {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+    .footprint-statement {
+      background: var(--gold-bg);
+      border: 1.5px solid var(--gold);
+      border-radius: var(--radius);
+      padding: 14px 18px;
+      color: var(--navy);
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+    .cta-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .btn-lg {
+      padding: 14px 28px;
+      font-size: 1rem;
+    }
+
+    /* ── Help Section ───────────────────────────────────────────────────────── */
+    .help-section {
+      background: var(--navy);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      color: #fff;
+      margin-top: 8px;
+    }
+    .help-section h3 {
+      color: var(--gold);
+      font-size: 1.05rem;
+      margin-bottom: 16px;
+    }
+    .help-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+    }
+    .help-step {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+    .help-step-num {
+      background: rgba(201,146,10,.25);
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      width: 28px;
+      height: 28px;
+      min-width: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+    .help-step-text {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,.75);
+      line-height: 1.5;
+    }
+    .help-step-text strong { color: #fff; }
+
+    /* ── Placeholder state (no home/address selected) ───────────────────────── */
+    .placeholder-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 500px;
+      background: #1a1a2e;
+      color: rgba(255,255,255,.4);
+      font-size: 0.95rem;
+      gap: 12px;
+    }
+    .placeholder-state svg { opacity: .3; }
+
+    /* ── Mobile ─────────────────────────────────────────────────────────────── */
+    @media (max-width: 600px) {
+      .step-card { flex-direction: column; gap: 12px; }
+      .home-select-row { flex-direction: column; }
+      .home-thumb-wrap { width: 100%; height: 120px; }
+      .addr-row { flex-direction: column; }
+      .addr-row input { min-width: 0; width: 100%; }
+      .map-controls { gap: 6px; }
+      .map-ctrl-btn { padding: 5px 10px; font-size: 0.75rem; }
+      .cta-row { flex-direction: column; }
+      .cta-row .btn { width: 100%; justify-content: center; }
+      .pah-hero { padding: 40px 0 32px; }
+    }
+  </style>
+  <meta property="og:image" content="https://www.southernmhcenter.com/images/hero-1.jpg">
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml">
+  <!-- Facebook Pixel -->
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '1482427083607310');
+  fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=1482427083607310&ev=PageView&noscript=1"
+  /></noscript>
+  <!-- End Facebook Pixel -->
+</head>
+<body>
+
+<div id="nav-placeholder"></div>
+
+<!-- ── HERO ─────────────────────────────────────────────────────────────────── -->
+<div class="pah-hero">
+  <div class="container">
+    <p class="eyebrow">Interactive Planning Tool</p>
+    <h1 class="display">Place Your Home</h1>
+    <p class="sub">See exactly how any of our manufactured homes fits on your property — overlaid on a real satellite map, to scale.</p>
+  </div>
+</div>
+
+<!-- ── BODY ─────────────────────────────────────────────────────────────────── -->
+<div class="pah-body">
+  <div class="pah-container">
+
+    <!-- Step 1: Choose Home -->
+    <div class="step-card">
+      <div class="step-badge">1</div>
+      <div class="step-content">
+        <h2>Choose Your Home</h2>
+        <p class="step-desc">Select a model to see its footprint drawn to scale on your property.</p>
+        <div class="home-select-row">
+          <select id="home-select" aria-label="Select a home model">
+            <option value="">— Select a home model —</option>
+          </select>
+          <div class="home-thumb-wrap" id="home-thumb-wrap">
+            <img id="home-thumb" src="../images/home-placeholder.jpg" alt="Home preview">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 2: Enter Address -->
+    <div class="step-card">
+      <div class="step-badge">2</div>
+      <div class="step-content">
+        <h2>Enter Your Property Address</h2>
+        <p class="step-desc">Type your property address and click Search. The satellite map will center on your land.</p>
+        <div class="addr-row" style="position:relative;">
+          <input type="text" id="addr-input" placeholder="e.g. 123 Magnolia Lane, Tickfaw, LA" autocomplete="off">
+          <button id="addr-search-btn">Search</button>
+          <div id="addr-suggestions" class="addr-suggestions"></div>
+        </div>
+        <div class="status-msg" id="addr-status"></div>
+      </div>
+    </div>
+
+    <!-- Map -->
+    <div class="map-section">
+      <div class="map-header">
+        <span class="map-header-title" id="map-location-label">Satellite Map — Enter an address to begin</span>
+        <div class="map-controls">
+          <span class="rotation-display" id="rotation-display">Rotation: 0°</span>
+          <button class="map-ctrl-btn" id="btn-rot-ccw" title="Rotate counter-clockwise 15°" disabled>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+            −15°
+          </button>
+          <button class="map-ctrl-btn" id="btn-rot-cw" title="Rotate clockwise 15°" disabled>
+            +15°
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/></svg>
+          </button>
+          <button class="map-ctrl-btn" id="btn-rot-reset" title="Reset rotation" disabled>Reset ↺</button>
+          <button class="map-ctrl-btn" id="btn-center-overlay" title="Re-center overlay on map" disabled>Re-center</button>
+        </div>
+      </div>
+      <div id="map">
+        <div class="placeholder-state" id="map-placeholder">
+          <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <polyline points="21 15 16 10 5 21"/>
+          </svg>
+          Select a home and enter an address to see the footprint overlay
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 3: Specs + CTA -->
+    <div class="step-card" id="specs-card">
+      <div class="step-badge">3</div>
+      <div class="step-content">
+        <h2>Home Details &amp; Next Steps</h2>
+        <p class="step-desc" id="specs-name-line">Select a home above to see specifications.</p>
+
+        <div class="specs-grid" id="specs-grid" style="display:none">
+          <div class="spec-chip">
+            <span class="spec-val" id="spec-beds">—</span>
+            <span class="spec-lbl">Bedrooms</span>
+          </div>
+          <div class="spec-chip">
+            <span class="spec-val" id="spec-baths">—</span>
+            <span class="spec-lbl">Bathrooms</span>
+          </div>
+          <div class="spec-chip">
+            <span class="spec-val" id="spec-sqft">—</span>
+            <span class="spec-lbl">Sq Ft</span>
+          </div>
+          <div class="spec-chip">
+            <span class="spec-val" id="spec-price">—</span>
+            <span class="spec-lbl">Starting Price</span>
+          </div>
+        </div>
+
+        <div class="footprint-statement" id="footprint-statement" style="display:none"></div>
+
+        <div class="cta-row" id="cta-row" style="display:none">
+          <a href="contact.html" id="quote-btn" class="btn btn-gold btn-lg">Request a Quote for This Home</a>
+          <a href="floor-plans.html" class="btn btn-outline btn-lg">Browse All Homes</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- How to Use -->
+    <div class="help-section">
+      <h3>How to Use This Tool</h3>
+      <div class="help-steps">
+        <div class="help-step">
+          <div class="help-step-num">1</div>
+          <div class="help-step-text"><strong>Pick a model</strong> from the dropdown. A gold rectangle will appear showing its exact footprint.</div>
+        </div>
+        <div class="help-step">
+          <div class="help-step-num">2</div>
+          <div class="help-step-text"><strong>Enter your address</strong> and click Search. The satellite map zooms to your property.</div>
+        </div>
+        <div class="help-step">
+          <div class="help-step-num">3</div>
+          <div class="help-step-text"><strong>Drag the rectangle</strong> to position the home anywhere on your lot.</div>
+        </div>
+        <div class="help-step">
+          <div class="help-step-num">4</div>
+          <div class="help-step-text"><strong>Rotate in 15° increments</strong> using the buttons above the map to try different orientations.</div>
+        </div>
+        <div class="help-step">
+          <div class="help-step-num">5</div>
+          <div class="help-step-text"><strong>Happy with the fit?</strong> Click "Request a Quote" and our team will reach out within one business day.</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /pah-container -->
+</div><!-- /pah-body -->
+
+<div id="footer-placeholder"></div>
+
+<!-- ── Scripts ────────────────────────────────────────────────────────────── -->
+<script>var BASE_PATH = '../';</script>
+<script src="../js/homes-data.js"></script>
+<script src="../js/nav.js"></script>
+<script src="../js/main.js"></script>
+
+
+<script>
+(function () {
+  'use strict';
+
+  var FEET_TO_METERS = 0.3048;
+
+  function parseDimensions(home) {
+    if (home.dimensions) {
+      var m = home.dimensions.match(/(\d+)'?\s*[x×]\s*(\d+)'?/i);
+      if (m) return { w: parseInt(m[1]), l: parseInt(m[2]) };
+    }
+    var w = home.type === 'Double-Wide' ? 28 : 14;
+    return { w: w, l: Math.round(home.sqft / w) };
+  }
+
+  function computeCorners(lat, lng, widthFt, lengthFt, rotationDeg) {
+    var R = 6378137;
+    var dLat = (lengthFt * FEET_TO_METERS / 2) / R * (180 / Math.PI);
+    var dLng = (widthFt * FEET_TO_METERS / 2) / R * (180 / Math.PI) / Math.cos(lat * Math.PI / 180);
+    var angle = rotationDeg * Math.PI / 180;
+    var corners = [
+      { dx:  dLng, dy:  dLat }, { dx:  dLng, dy: -dLat },
+      { dx: -dLng, dy: -dLat }, { dx: -dLng, dy:  dLat }
+    ];
+    return corners.map(function(c) {
+      return {
+        lat: lat + c.dx * Math.sin(angle) + c.dy * Math.cos(angle),
+        lng: lng + c.dx * Math.cos(angle) - c.dy * Math.sin(angle)
+      };
+    });
+  }
+
+  var gmap = null;
+  var mapReady = false;
+  var overlayPolygon = null;
+  var overlayInfoWindow = null;
+  var centerLat = null;
+  var centerLng = null;
+  var rotation = 0;
+  var selectedHome = null;
+  var autocomplete = null;
+
+  var homeSelect      = document.getElementById('home-select');
+  var homeThumb       = document.getElementById('home-thumb');
+  var addrInput       = document.getElementById('addr-input');
+  var addrSearchBtn   = document.getElementById('addr-search-btn');
+  var addrStatus      = document.getElementById('addr-status');
+  var mapLocationLbl  = document.getElementById('map-location-label');
+  var mapPlaceholder  = document.getElementById('map-placeholder');
+  var rotationDisplay = document.getElementById('rotation-display');
+  var btnRotCCW       = document.getElementById('btn-rot-ccw');
+  var btnRotCW        = document.getElementById('btn-rot-cw');
+  var btnRotReset     = document.getElementById('btn-rot-reset');
+  var btnCenter       = document.getElementById('btn-center-overlay');
+  var specsGrid          = document.getElementById('specs-grid');
+  var specsNameLine      = document.getElementById('specs-name-line');
+  var footprintStatement = document.getElementById('footprint-statement');
+  var ctaRow             = document.getElementById('cta-row');
+  var specBeds           = document.getElementById('spec-beds');
+  var specBaths          = document.getElementById('spec-baths');
+  var specSqft           = document.getElementById('spec-sqft');
+  var specPrice          = document.getElementById('spec-price');
+  var quoteBtn           = document.getElementById('quote-btn');
+
+  /* ── Populate home dropdown ─────────────────────────────────────────────── */
+  (function populateDropdown() {
+    var homes = getEffectiveHomes();
+    var singles = homes.filter(function(h){ return h.type === 'Single-Wide'; });
+    var doubles = homes.filter(function(h){ return h.type === 'Double-Wide'; });
+
+    function addGroup(label, group) {
+      if (!group.length) return;
+      var og = document.createElement('optgroup');
+      og.label = label;
+      group.forEach(function(h) {
+        var dim = parseDimensions(h);
+        var opt = document.createElement('option');
+        opt.value = h.slug;
+        opt.textContent = h.name + ' — ' + dim.w + '\' × ' + dim.l + '\' — ' + h.sqft.toLocaleString() + ' sq ft';
+        og.appendChild(opt);
+      });
+      homeSelect.appendChild(og);
+    }
+
+    addGroup('Single-Wide Homes', singles);
+    addGroup('Double-Wide Homes', doubles);
+  })();
+
+  /* ── Init Google Map (lazy) ─────────────────────────────────────────────── */
+  function initMap(lat, lng) {
+    mapPlaceholder.style.display = 'none';
+
+    if (!mapReady) {
+      gmap = new google.maps.Map(document.getElementById('map'), {
+        center: { lat: lat, lng: lng },
+        zoom: 19,
+        mapTypeId: 'satellite',
+        tilt: 0,
+        mapTypeControl: false,
+        streetViewControl: false,
+        fullscreenControl: true
+      });
+      mapReady = true;
+    } else {
+      gmap.setCenter({ lat: lat, lng: lng });
+      gmap.setZoom(19);
+    }
+
+    centerLat = lat;
+    centerLng = lng;
+    rotation = 0;
+    rotationDisplay.textContent = 'Rotation: 0°';
+
+    btnRotCCW.disabled = false;
+    btnRotCW.disabled  = false;
+    btnRotReset.disabled = false;
+    btnCenter.disabled   = false;
+
+    if (selectedHome) drawOverlay();
+  }
+
+  /* ── Draw / update the footprint overlay ────────────────────────────────── */
+  function drawOverlay() {
+    if (!mapReady || !selectedHome || centerLat === null) return;
+
+    var dim = parseDimensions(selectedHome);
+    var corners = computeCorners(centerLat, centerLng, dim.w, dim.l, rotation);
+
+    if (overlayPolygon) {
+      overlayPolygon.setPath(corners);
+      overlayPolygon.setMap(gmap);
+    } else {
+      overlayPolygon = new google.maps.Polygon({
+        paths: corners,
+        strokeColor: '#1a2744',
+        strokeWeight: 2.5,
+        fillColor: '#c9920a',
+        fillOpacity: 0.40,
+        map: gmap,
+        draggable: true,
+        zIndex: 10
+      });
+
+      google.maps.event.addListener(overlayPolygon, 'dragend', function() {
+        var path = overlayPolygon.getPath();
+        var sumLat = 0, sumLng = 0, n = path.getLength();
+        for (var i = 0; i < n; i++) { sumLat += path.getAt(i).lat(); sumLng += path.getAt(i).lng(); }
+        centerLat = sumLat / n;
+        centerLng = sumLng / n;
+      });
+    }
+
+    if (overlayInfoWindow) overlayInfoWindow.close();
+    overlayInfoWindow = new google.maps.InfoWindow({
+      content: '<div class="footprint-label">' + dim.w + '\' × ' + dim.l + '\'' + '</div>',
+      position: { lat: centerLat, lng: centerLng },
+      disableAutoPan: true
+    });
+    overlayInfoWindow.open(gmap);
+    google.maps.event.addListenerOnce(overlayInfoWindow, 'domready', function() {
+      var x = document.querySelector('.gm-ui-hover-effect');
+      if (x) x.style.display = 'none';
+    });
+  }
+
+  /* ── Rotation controls ───────────────────────────────────────────────────── */
+  btnRotCCW.addEventListener('click', function () {
+    rotation = (rotation - 15 + 360) % 360;
+    rotationDisplay.textContent = 'Rotation: ' + rotation + '°';
+    if (overlayPolygon) { overlayPolygon.setMap(null); overlayPolygon = null; }
+    drawOverlay();
+  });
+  btnRotCW.addEventListener('click', function () {
+    rotation = (rotation + 15) % 360;
+    rotationDisplay.textContent = 'Rotation: ' + rotation + '°';
+    if (overlayPolygon) { overlayPolygon.setMap(null); overlayPolygon = null; }
+    drawOverlay();
+  });
+  btnRotReset.addEventListener('click', function () {
+    rotation = 0;
+    rotationDisplay.textContent = 'Rotation: 0°';
+    if (overlayPolygon) { overlayPolygon.setMap(null); overlayPolygon = null; }
+    drawOverlay();
+  });
+  btnCenter.addEventListener('click', function () {
+    if (!mapReady || !gmap) return;
+    var c = gmap.getCenter();
+    centerLat = c.lat();
+    centerLng = c.lng();
+    drawOverlay();
+  });
+
+  /* ── Home selection ──────────────────────────────────────────────────────── */
+  homeSelect.addEventListener('change', function () {
+    var slug = homeSelect.value;
+    if (!slug) { selectedHome = null; homeThumb.src = '../images/home-placeholder.jpg'; updateSpecsCard(null); return; }
+    var homes = getEffectiveHomes();
+    selectedHome = homes.find(function(h){ return h.slug === slug; }) || null;
+    if (selectedHome) {
+      homeThumb.src = BASE_PATH + selectedHome.image;
+      homeThumb.onerror = function() { this.src = '../images/home-placeholder.jpg'; };
+      updateSpecsCard(selectedHome);
+      if (mapReady) drawOverlay();
+    }
+  });
+
+  function updateSpecsCard(home) {
+    if (!home) {
+      specsNameLine.textContent = 'Select a home above to see specifications.';
+      specsGrid.style.display = 'none'; footprintStatement.style.display = 'none'; ctaRow.style.display = 'none';
+      return;
+    }
+    var dim = parseDimensions(home);
+    specsNameLine.textContent = home.name + ' — ' + home.manufacturer;
+    specBeds.textContent = home.beds; specBaths.textContent = home.baths;
+    specSqft.textContent = home.sqft.toLocaleString() + ' sq ft';
+    specPrice.textContent = formatPrice(home.price);
+    footprintStatement.textContent = 'This home is ' + dim.w + '\' × ' + dim.l + '\' — ' + home.sqft.toLocaleString() + ' sq ft of living space.';
+    specsGrid.style.display = 'grid'; footprintStatement.style.display = 'block'; ctaRow.style.display = 'flex';
+    quoteBtn.href = 'contact.html?home=' + encodeURIComponent(home.slug);
+  }
+
+  function setStatus(msg, type) {
+    addrStatus.textContent = msg;
+    addrStatus.className = 'status-msg' + (type ? ' ' + type : '');
+  }
+
+  function doSearch(address) {
+    setStatus('Searching…', '');
+    addrSearchBtn.disabled = true;
+    var geocoder = new google.maps.Geocoder();
+    geocoder.geocode({ address: address, region: 'us' }, function(results, status) {
+      addrSearchBtn.disabled = false;
+      if (status === 'OK' && results[0]) {
+        var loc = results[0].geometry.location;
+        var display = results[0].formatted_address;
+        setStatus('📍 ' + display, 'success');
+        mapLocationLbl.textContent = display.split(',').slice(0,3).join(', ');
+        initMap(loc.lat(), loc.lng());
+      } else {
+        setStatus('Address not found. Try including city and state.', 'error');
+      }
+    });
+  }
+
+  /* ── Google Maps callback ────────────────────────────────────────────────── */
+  window._pahInitStandalone = function() {
+    var suggestBox = document.getElementById('addr-suggestions');
+    if (suggestBox) suggestBox.style.display = 'none';
+
+    autocomplete = new google.maps.places.Autocomplete(addrInput, {
+      types: ['address'],
+      componentRestrictions: { country: 'us' },
+      fields: ['geometry', 'formatted_address']
+    });
+
+    autocomplete.addListener('place_changed', function() {
+      var place = autocomplete.getPlace();
+      if (!place.geometry || !place.geometry.location) {
+        doSearch(addrInput.value.trim()); return;
+      }
+      var lat = place.geometry.location.lat();
+      var lng = place.geometry.location.lng();
+      setStatus('📍 ' + (place.formatted_address || addrInput.value), 'success');
+      mapLocationLbl.textContent = (place.formatted_address || addrInput.value).split(',').slice(0,3).join(', ');
+      initMap(lat, lng);
+    });
+
+    addrSearchBtn.addEventListener('click', function() {
+      var val = addrInput.value.trim();
+      if (!val) { setStatus('Please enter a property address.', 'error'); return; }
+      doSearch(val);
+    });
+
+    addrInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') { var val = addrInput.value.trim(); if (val) doSearch(val); }
+    });
+  };
+
+})();
+</script>
+<!-- Load Google Maps with Places library -->
+<script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAONJyIFXiRuYgAikb-JwS7qHHYTHD6VOc&libraries=places&callback=_pahInitStandalone">
+</script>
+
+</body>
+</html>
