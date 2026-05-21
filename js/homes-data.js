@@ -246,6 +246,58 @@ const CLAYTON_EPIC_JOURNEY_DESIGN_OPTIONS = {
   },
 };
 
+// ── Clayton MiYO (Bonham) Design Options ─────────────────────────────────────
+// Source: https://claytonbuiltmiyo.com/decor/ — Region: Clayton Bonham
+const CLAYTON_MIYO_DESIGN_OPTIONS = {
+  exterior: {
+    sidingColor: [
+      // Vinyl
+      { name: "Clay",         color: "#b5997a", price: 0 },
+      { name: "Flint",        color: "#6b6b6b", price: 0 },
+      { name: "Mist",         color: "#a8a09a", price: 0 },
+      { name: "Olive",        color: "#8a9068", price: 0 },
+      // Smartpanel
+      { name: "MIYO Grey",    color: "#9ba0a0", price: 0 },
+      { name: "MIYO Cypress", color: "#6b8060", price: 0 },
+      { name: "MIYO Mist",    color: "#b8b0a8", price: 0 },
+      { name: "MIYO Oyster",  color: "#b0aa98", price: 0 },
+    ],
+    roofColor: [
+      { name: "Charcoal", color: "#3a3a3a", price: 0 },
+    ],
+  },
+  kitchen: {
+    cabinetColor: [
+      { name: "Alabaster White", color: "#f5f0e8", price: 0 },
+      { name: "Emberwood",       color: "#5a3e28", price: 0 },
+    ],
+    countertop: [
+      { name: "White Barn",   color: "#f0ece4", price: 0 },
+      { name: "Forged Steel", color: "#4a4848", price: 0 },
+    ],
+    appliances: [
+      { name: "Standard Included", price: 0, included: true },
+    ],
+  },
+  flooring: {
+    kitchenBath: [
+      { name: "Piedmont", color: "#b8aa90", price: 0 },
+    ],
+    bedroomLiving: [
+      { name: "Piedmont (Linoleum)", color: "#b8aa90", price: 0 },
+      { name: "Canyon Cove (Carpet)", color: "#9a9080", price: 0 },
+    ],
+  },
+  interior: {
+    wallColor: [
+      { name: "First Light",  color: "#e8e4d8", price: 0 },
+    ],
+    trimColor: [
+      { name: "Castle Rock", color: "#9a9898", price: 0 },
+    ],
+  },
+};
+
 const HOMES = [
   {
     slug: "elm",
@@ -293,7 +345,7 @@ const HOMES = [
     image: "images/homes/4peclnaaw0f.jpeg",
     floorPlan: "images/homes/wjv7klr70b8.jpeg",
     gallery: ["images/homes/ip1910dgjga.jpeg", "images/homes/28t29qv75fy.jpeg", "images/homes/qbopwc0133i.jpeg", "images/homes/v3yg5lonkyf.jpeg", "images/homes/4peclnaaw0f.jpeg", "images/homes/6ylaq27zqu7.jpeg", "images/homes/lonkevbhku.jpeg", "images/homes/stu84awn86f.jpeg", "images/homes/xek5yn1iuet.jpeg", "images/homes/pa7fl88i0l.jpeg", "images/homes/b2r833qxwoi.jpeg", "images/homes/szjjte7lna.jpeg", "images/homes/izh2nr96y7b.jpeg", "images/homes/2kh0fvr7qla.jpeg", "images/homes/0787fkbzl6mh.jpeg", "images/homes/36qmver4max.jpeg"],
-    designOptions: DEFAULT_DESIGN_OPTIONS,
+    designOptions: CLAYTON_MIYO_DESIGN_OPTIONS,
   },
   {
     slug: "ember",
@@ -405,7 +457,7 @@ const HOMES = [
     image: "images/homes/hkb72qfah7q.jpeg",
     floorPlan: "images/homes/ubrgt7exb8q.jpeg",
     gallery: ["images/homes/7r7ou96579y.jpeg", "images/homes/fnwh8wvidp.jpeg", "images/homes/hkb72qfah7q.jpeg", "images/homes/qcejvtgo76.jpeg", "images/homes/ubrgt7exb8q.jpeg"],
-    designOptions: DEFAULT_DESIGN_OPTIONS,
+    designOptions: CLAYTON_MIYO_DESIGN_OPTIONS,
   },
   {
     slug: "cypress",
@@ -549,7 +601,7 @@ const HOMES = [
     image: "images/homes/vo7o89zs0n.jpeg",
     floorPlan: "images/homes/1rgywf0knkk.jpeg",
     gallery: ["images/homes/36wfkngchtf.jpeg", "images/homes/vpi4riyhfxs.jpeg", "images/homes/1rgywf0knkk.jpeg", "images/homes/wyykkspav3.jpeg", "images/homes/vo7o89zs0n.jpeg", "images/homes/farxrhjj3qo.jpeg", "images/homes/6pklyl1ztn.jpeg", "images/homes/pu4xq6neb9.jpeg", "images/homes/x6hlujftfff.jpeg", "images/homes/hl8qjcd5h0b.jpeg", "images/homes/ziuutfh7ipd.jpeg", "images/homes/mdim9risim.jpeg", "images/homes/105q4st5azl.jpeg", "images/homes/dyqj27g68st.jpeg", "images/homes/ctospo8qaj.jpeg", "images/homes/9fln27mvdo8.jpeg", "images/homes/hzq122wp2cp.jpeg", "images/homes/bykfdka2l1w.jpeg", "images/homes/h6zn72aeh2o.jpeg"],
-    designOptions: DEFAULT_DESIGN_OPTIONS,
+    designOptions: CLAYTON_MIYO_DESIGN_OPTIONS,
   },
   {
     slug: "desire",
@@ -565,7 +617,7 @@ const HOMES = [
     image: "images/homes/lqej26cwxp.jpeg",
     floorPlan: "images/homes/dfxfcuned6.jpeg",
     gallery: ["images/homes/f88gtlri0xe.jpeg", "images/homes/lbzkafxhjoi.jpeg", "images/homes/e348lcvebvn.jpeg", "images/homes/017z6c2edckh.jpeg", "images/homes/lqej26cwxp.jpeg", "images/homes/6eisi4rutm2.jpeg", "images/homes/s213vmminsq.jpeg", "images/homes/3cpu1yvq7jq.jpeg", "images/homes/p56jlum0pvh.jpeg", "images/homes/en1bcef8tye.jpeg", "images/homes/xjj2irobfys.jpeg", "images/homes/ytreqw6gj4e.jpeg", "images/homes/bczrp138v2l.jpeg", "images/homes/ne7mhhofum.jpeg"],
-    designOptions: DEFAULT_DESIGN_OPTIONS,
+    designOptions: CLAYTON_MIYO_DESIGN_OPTIONS,
   },
   {
     slug: "birch",
@@ -597,7 +649,7 @@ const HOMES = [
     image: "images/homes/v10p9q1jnv.jpeg",
     floorPlan: "images/homes/wnmfgsvvc7.jpeg",
     gallery: ["images/homes/xwlf66ml1ut.jpeg", "images/homes/cg8auicbxud.jpeg", "images/homes/xstjqc7iwp.jpeg", "images/homes/v10p9q1jnv.jpeg", "images/homes/p35hor67yk.jpeg", "images/homes/8rnxiykt1xr.jpeg", "images/homes/rqs2bf6ouzm.jpeg", "images/homes/wppdbgvt3n.jpeg", "images/homes/lnkenlsu5a.jpeg", "images/homes/wnmfgsvvc7.jpeg"],
-    designOptions: DEFAULT_DESIGN_OPTIONS,
+    designOptions: CLAYTON_MIYO_DESIGN_OPTIONS,
   },
   {
     slug: "grand",
@@ -613,7 +665,7 @@ const HOMES = [
     image: "images/homes/w7qv1mqo3a.jpeg",
     floorPlan: "images/homes/q6chk5tjql.jpeg",
     gallery: ["images/homes/dkplw3sames.jpeg", "images/homes/tl3bmvv9za.jpeg", "images/homes/04al7s27rnjl.jpeg", "images/homes/x3dlikljda.jpeg", "images/homes/w7qv1mqo3a.jpeg", "images/homes/89hnovz9tnh.jpeg", "images/homes/cs5lxd8a2av.jpeg", "images/homes/4e1w4nhrile.jpeg", "images/homes/rca422c5ynd.jpeg", "images/homes/kz7wdrgu0m.jpeg", "images/homes/78uorvbagcg.jpeg", "images/homes/ljtevsz235.jpeg", "images/homes/49q7um07ix8.jpeg", "images/homes/afr8ex0w0of.jpeg", "images/homes/zvqu44u56wg.jpeg", "images/homes/0txsp82fyrpo.jpeg", "images/homes/vegf1rkq7lo.jpeg", "images/homes/nn49ldh1afb.jpeg"],
-    designOptions: DEFAULT_DESIGN_OPTIONS,
+    designOptions: CLAYTON_MIYO_DESIGN_OPTIONS,
   },
   {
     slug: "colossal",
@@ -629,7 +681,7 @@ const HOMES = [
     image: "images/homes/vsizi68u0wa.jpeg",
     floorPlan: "images/homes/vsizi68u0wa.jpeg",
     gallery: ["images/homes/3t2o12348hk.jpeg", "images/homes/vsizi68u0wa.jpeg", "images/homes/kyl9yofz3ck.png"],
-    designOptions: DEFAULT_DESIGN_OPTIONS,
+    designOptions: CLAYTON_MIYO_DESIGN_OPTIONS,
   },
   {
     slug: "the-simon",
@@ -934,7 +986,7 @@ const HOMES = [
     image: "images/homes/3wohy50qpbi.jpeg",
     floorPlan: "images/homes/ekhsuy01y55.jpeg",
     gallery: ["images/homes/2qm5nfy23wo.jpeg", "images/homes/lvi1etoxv9n.jpeg", "images/homes/21xckcm1up4.jpeg", "images/homes/3wohy50qpbi.jpeg", "images/homes/c0orblfyxcd.jpeg", "images/homes/s70xspw7dt.jpeg", "images/homes/ne9c78blwct.jpeg", "images/homes/yzb6hkagola.jpeg"],
-    designOptions: DEFAULT_DESIGN_OPTIONS,
+    designOptions: CLAYTON_MIYO_DESIGN_OPTIONS,
   },
   {
     slug: "crockett",
@@ -1014,7 +1066,7 @@ const HOMES = [
     image: "images/homes/asz6rcl6q7.jpeg",
     floorPlan: "images/homes/r4xqzvr47a.jpeg",
     gallery: ["images/homes/hh3gnb6aqac.jpeg", "images/homes/06rfxhueqza4.jpeg", "images/homes/9b504qfed4r.jpeg", "images/homes/wnqtcq66j6r.jpeg", "images/homes/asz6rcl6q7.jpeg", "images/homes/nbv9uzkeclq.jpeg", "images/homes/9czgwxvxh0j.jpeg", "images/homes/2ncskpy0qg6.jpeg", "images/homes/hnprvobnv69.jpeg", "images/homes/5kcdpe1o0l4.jpeg", "images/homes/dkxnxp8el86.jpeg", "images/homes/c1q1778d9fe.jpeg", "images/homes/k8qsrsyonwm.jpeg", "images/homes/6pusx37g25t.jpeg", "images/homes/16k1c5mjyrf.jpeg", "images/homes/hxgkk1zf6qb.jpeg", "images/homes/8b3i9b5nd02.jpeg", "images/homes/4np5eq0s1ee.jpeg", "images/homes/d7htgeb04ud.jpeg", "images/homes/a2yb8v0xed.jpeg"],
-    designOptions: DEFAULT_DESIGN_OPTIONS,
+    designOptions: CLAYTON_MIYO_DESIGN_OPTIONS,
   },
   {
     slug: "redwood",
