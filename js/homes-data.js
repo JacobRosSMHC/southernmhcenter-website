@@ -298,6 +298,57 @@ const CLAYTON_MIYO_DESIGN_OPTIONS = {
   },
 };
 
+// ── Clayton Horizon Design Options ───────────────────────────────────────────
+// Source: https://claytonbuilthorizon.com/decor/?region=2 — Region: South Central
+// 4 interior packages; exterior: vinyl siding + shutters + shingles
+const CLAYTON_HORIZON_DESIGN_OPTIONS = {
+  exterior: {
+    sidingColor: [
+      { name: "Flint",     color: "#6b6b6b", price: 0 },
+      { name: "Clay",      color: "#b5997a", price: 0 },
+      { name: "White",     color: "#f0eeea", price: 0 },
+      { name: "Olive",     color: "#8a9068", price: 0 },
+      { name: "Shadow",    color: "#5a5a58", price: 0 },
+      { name: "Bayou Blue",color: "#3a4f62", price: 0 },
+    ],
+    roofColor: [
+      { name: "Weathered Wood", color: "#8b7355", price: 0 },
+    ],
+  },
+  kitchen: {
+    // Interior color packages — each sets cabinets, countertops, flooring & wall
+    cabinetColor: [
+      { name: "Clayton Savannah",                color: "#f5f0e8", price: 0 },
+      { name: "Hope with Shadow Accent",         color: "#c8a878", price: 0 },
+      { name: "Opportunity",                     color: "#c8a060", price: 0 },
+      { name: "Opportunity with Shadow Accent",  color: "#9a7848", price: 0 },
+    ],
+    countertop: [
+      { name: "Burnished Iron", color: "#4a4848", price: 0 },
+    ],
+    appliances: [
+      { name: "Standard Included", price: 0, included: true },
+    ],
+  },
+  flooring: {
+    kitchenBath: [
+      { name: "Aged European Oak Natural", color: "#b8a880", price: 0 },
+    ],
+    bedroomLiving: [
+      { name: "Aged European Oak Natural", color: "#b8a880", price: 0 },
+    ],
+  },
+  interior: {
+    wallColor: [
+      { name: "First Light", color: "#e8e4d8", price: 0 },
+    ],
+    trimColor: [
+      { name: "Iron Mountain", color: "#7a6a50", price: 0 },
+      { name: "Onyx",          color: "#2a2a28", price: 0 },
+    ],
+  },
+};
+
 const HOMES = [
   {
     slug: "elm",
@@ -361,7 +412,7 @@ const HOMES = [
     image: "images/homes/di33tlwdbid.jpeg",
     floorPlan: "images/homes/e343iq6a6hu.jpeg",
     gallery: ["images/homes/2eu7modlnq.jpeg", "images/homes/mky2h1u34k.jpeg", "images/homes/qf2dlwhxype.jpeg", "images/homes/di33tlwdbid.jpeg", "images/homes/zlup5fn928s.jpeg", "images/homes/g5bbpm1stdg.jpeg", "images/homes/wa3eqzz7omm.jpeg", "images/homes/vpij5k7rpp.jpeg"],
-    designOptions: DEFAULT_DESIGN_OPTIONS,
+    designOptions: CLAYTON_HORIZON_DESIGN_OPTIONS,
   },
   {
     slug: "hickory",
@@ -409,7 +460,7 @@ const HOMES = [
     image: "images/homes/jlxmnn2mz6.jpeg",
     floorPlan: "images/homes/ksmraram8ha.jpeg",
     gallery: ["images/homes/frn17leps6g.jpeg", "images/homes/h6d6je28t3.jpeg", "images/homes/dmv0t5pgotp.jpeg", "images/homes/jlxmnn2mz6.jpeg", "images/homes/3yl155gbknl.jpeg", "images/homes/j2zogo7kji.jpeg", "images/homes/kw3mvt2x7r.jpeg", "images/homes/x5xjbvpbne.jpeg"],
-    designOptions: DEFAULT_DESIGN_OPTIONS,
+    designOptions: CLAYTON_HORIZON_DESIGN_OPTIONS,
   },
   {
     slug: "magnolia",
@@ -441,7 +492,7 @@ const HOMES = [
     image: "images/homes/ru33zdeozoi.jpeg",
     floorPlan: "images/homes/qric0nfwajk.jpeg",
     gallery: ["images/homes/ru33zdeozoi.jpeg", "images/homes/zad8flq9y6.jpeg", "images/homes/banbampu09j.jpeg", "images/homes/97k68h2dldh.jpeg", "images/homes/96ltpwasrjb.jpeg", "images/homes/e8g9jleokc.jpeg", "images/homes/jm0kc8iziwb.jpeg", "images/homes/d93qqflih7.jpeg", "images/homes/54ywd3n77i6.jpeg", "images/homes/tk4csclycvo.jpeg"],
-    designOptions: DEFAULT_DESIGN_OPTIONS,
+    designOptions: CLAYTON_HORIZON_DESIGN_OPTIONS,
   },
   {
     slug: "intuition",
@@ -505,7 +556,7 @@ const HOMES = [
     image: "images/homes/zmts8qfnk6a.jpeg",
     floorPlan: "images/homes/ovafysop52q.jpeg",
     gallery: ["images/homes/ovafysop52q.jpeg", "images/homes/0wp4ye11jvb.jpeg", "images/homes/j2wsik0jmxl.jpeg", "images/homes/zmts8qfnk6a.jpeg", "images/homes/d3shgmmkpmr.jpeg", "images/homes/bkz1ovpo94l.jpeg", "images/homes/sm7s1rvuen.jpeg"],
-    designOptions: DEFAULT_DESIGN_OPTIONS,
+    designOptions: CLAYTON_HORIZON_DESIGN_OPTIONS,
   },
   {
     slug: "clark",
@@ -810,7 +861,7 @@ const HOMES = [
     image: "images/homes/mrpm15gufs.jpeg",
     floorPlan: "images/homes/hl5qbu9y21h.jpeg",
     gallery: ["images/homes/bld770v5ylb.jpeg", "images/homes/tnlv5eh7ew.jpeg", "images/homes/d6b32ygab6n.jpeg", "images/homes/mrpm15gufs.jpeg", "images/homes/dy5yyd7qzjd.jpeg", "images/homes/5pf1nc5pax8.jpeg", "images/homes/mk5yckvnxb.jpeg", "images/homes/9kljvb7flvd.jpeg", "images/homes/h8fxfxjwaen.jpeg", "images/homes/orzqyo1x3k.jpeg"],
-    designOptions: DEFAULT_DESIGN_OPTIONS,
+    designOptions: CLAYTON_HORIZON_DESIGN_OPTIONS,
   },
   {
     slug: "aspire",
@@ -826,7 +877,7 @@ const HOMES = [
     image: "images/homes/pxl0kx4fzp.jpeg",
     floorPlan: "images/homes/m1h9x3crx5f.jpeg",
     gallery: ["images/homes/mmqxumb4cdn.jpeg", "images/homes/z9gprm9ciyi.jpeg", "images/homes/xp3rkkeq9bm.jpeg", "images/homes/pxl0kx4fzp.jpeg", "images/homes/ufaciwasok.jpeg", "images/homes/um16m8mkdvf.jpeg", "images/homes/ejg982hiap5.jpeg"],
-    designOptions: DEFAULT_DESIGN_OPTIONS,
+    designOptions: CLAYTON_HORIZON_DESIGN_OPTIONS,
   },
   {
     slug: "maple",
@@ -922,7 +973,7 @@ const HOMES = [
     image: "images/homes/iq6dqbh1ljf.jpeg",
     floorPlan: "images/homes/x560x9ri3ja.jpeg",
     gallery: ["images/homes/kftoam94eg.jpeg", "images/homes/98q2zz0kcpm.jpeg", "images/homes/iq6dqbh1ljf.jpeg", "images/homes/qroieihxgd.jpeg"],
-    designOptions: DEFAULT_DESIGN_OPTIONS,
+    designOptions: CLAYTON_HORIZON_DESIGN_OPTIONS,
   },
   {
     slug: "spruce",
@@ -1034,7 +1085,7 @@ const HOMES = [
     image: "images/homes/qcf0oewoh6t.jpeg",
     floorPlan: "images/homes/vte9ftrsl3n.jpeg",
     gallery: ["images/homes/xkju7cunvr.jpeg", "images/homes/abfylqfpp6w.jpeg", "images/homes/2p15diqj80x.jpeg", "images/homes/38cjxhb6i3f.jpeg", "images/homes/2l50k9jc0j6.jpeg", "images/homes/qcf0oewoh6t.jpeg", "images/homes/mdgx0qnmdwo.jpeg", "images/homes/7rvaphegj2l.jpeg", "images/homes/mb0hfhrfcw.jpeg", "images/homes/uktxek4e5sg.jpeg", "images/homes/xi6b16uy4u.jpeg", "images/homes/ystr1io7sar.jpeg"],
-    designOptions: DEFAULT_DESIGN_OPTIONS,
+    designOptions: CLAYTON_HORIZON_DESIGN_OPTIONS,
   },
   {
     slug: "sycamore",
