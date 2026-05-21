@@ -350,6 +350,66 @@ const CLAYTON_HORIZON_DESIGN_OPTIONS = {
   },
 };
 
+const LIVE_OAK_DESIGN_OPTIONS = {
+  exterior: {
+    sidingColor: [
+      { name: "Clay",          color: "#9e8870", price: 0 },
+      { name: "Country Beige", color: "#d9cba8", price: 0 },
+      { name: "Cypress",       color: "#8a9468", price: 0 },
+      { name: "Greystone",     color: "#9a948a", price: 0 },
+    ],
+    roofColor: [
+      { name: "Weathered Wood", color: "#8b7355", price: 0 },
+    ],
+  },
+  kitchen: {
+    cabinetColor: [
+      { name: "Chatham Grey",  color: "#9a9890", price: 0 },
+      { name: "Grizzly Oak",   color: "#b8903a", price: 0 },
+      { name: "Burnside Cherry", color: "#8a4030", price: 0 },
+      { name: "Pinehurst Oak", color: "#c0a060", price: 0 },
+      { name: "Lilly White",   color: "#f0ede6", price: 0 },
+    ],
+    countertop: [
+      { name: "Blackened Legno", color: "#3a3028", price: 0 },
+      { name: "Calcutta Marble", color: "#e8e4dc", price: 0 },
+      { name: "Dulce Vita",      color: "#c8b890", price: 0 },
+    ],
+    appliances: [
+      { name: "Standard Included", price: 0, included: true },
+    ],
+  },
+  flooring: {
+    kitchenBath: [
+      { name: "Blackened Legno", color: "#3a3028", price: 0 },
+      { name: "Calcutta Marble", color: "#e8e4dc", price: 0 },
+    ],
+    bedroomLiving: [
+      { name: "Century",    color: "#a0a0a0", price: 0 },
+      { name: "Harrington", color: "#c0a878", price: 0 },
+      { name: "Mirage",     color: "#808080", price: 0 },
+      { name: "Platinum",   color: "#b0b0b8", price: 0 },
+    ],
+  },
+  interior: {
+    wallColor: [
+      { name: "Accessible Beige", color: "#c8b89a", price: 0 },
+      { name: "Evergreen Fog",    color: "#7a8870", price: 0 },
+      { name: "Functional Gray",  color: "#9a9490", price: 0 },
+      { name: "Granite Peak",     color: "#5a6070", price: 0 },
+      { name: "Pure White",       color: "#f5f4f0", price: 0 },
+      { name: "Repose Gray",      color: "#cac8c0", price: 0 },
+      { name: "Software",         color: "#888480", price: 0 },
+      { name: "Urbane Bronze",    color: "#504840", price: 0 },
+      { name: "Woven Wicker",     color: "#c0a878", price: 0 },
+    ],
+    trimColor: [
+      { name: "White",  color: "#f0ede6", price: 0 },
+      { name: "Black",  color: "#2a2828", price: 0 },
+    ],
+  },
+};
+
 const HOMES = [
   {
     slug: "elm",
@@ -1328,7 +1388,7 @@ const HOMES = [
     image: "images/homes/lo-yellowstone-living.jpg",
     floorPlan: "",
     gallery: ["images/homes/lo-yellowstone-ext.jpg", "images/homes/lo-yellowstone-living.jpg", "images/homes/lo-yellowstone-kitchen.jpg", "images/homes/lo-yellowstone-master.jpg"],
-    designOptions: DEFAULT_DESIGN_OPTIONS,
+    designOptions: LIVE_OAK_DESIGN_OPTIONS,
   },
   {
     slug: "lo-highlander",
@@ -1344,7 +1404,7 @@ const HOMES = [
     image: "images/homes/lo-highlander-ext.jpg",
     floorPlan: "",
     gallery: ["images/homes/lo-highlander-ext.jpg"],
-    designOptions: DEFAULT_DESIGN_OPTIONS,
+    designOptions: LIVE_OAK_DESIGN_OPTIONS,
   },
   {
     slug: "lo-southern-charm",
@@ -1360,7 +1420,7 @@ const HOMES = [
     image: "images/homes/lo-southerncharm-living.jpg",
     floorPlan: "",
     gallery: ["images/homes/lo-southerncharm-ext.jpg", "images/homes/lo-southerncharm-living.jpg", "images/homes/lo-southerncharm-kitchen.jpg", "images/homes/lo-southerncharm-master.jpg"],
-    designOptions: DEFAULT_DESIGN_OPTIONS,
+    designOptions: LIVE_OAK_DESIGN_OPTIONS,
   },
   {
     slug: "lo-savannah",
@@ -1376,7 +1436,7 @@ const HOMES = [
     image: "images/homes/lo-savannah-living.jpg",
     floorPlan: "",
     gallery: ["images/homes/lo-savannah-ext.jpg", "images/homes/lo-savannah-living.jpg", "images/homes/lo-savannah-kitchen.jpg", "images/homes/lo-savannah-master.jpg"],
-    designOptions: DEFAULT_DESIGN_OPTIONS,
+    designOptions: LIVE_OAK_DESIGN_OPTIONS,
   },
   {
     slug: "lo-columbia",
@@ -1392,7 +1452,7 @@ const HOMES = [
     image: "images/homes/lo-columbia-living.jpg",
     floorPlan: "",
     gallery: ["images/homes/lo-columbia-ext.jpg", "images/homes/lo-columbia-living.jpg", "images/homes/lo-columbia-dining.jpg", "images/homes/lo-columbia-kitchen.jpg"],
-    designOptions: DEFAULT_DESIGN_OPTIONS,
+    designOptions: LIVE_OAK_DESIGN_OPTIONS,
   },
   {
     slug: "lo-madison",
@@ -1408,7 +1468,7 @@ const HOMES = [
     image: "images/homes/lo-madison-living.jpg",
     floorPlan: "",
     gallery: ["images/homes/lo-madison-ext.jpg", "images/homes/lo-madison-living.jpg", "images/homes/lo-madison-kitchen.jpg", "images/homes/lo-madison-master.jpg"],
-    designOptions: DEFAULT_DESIGN_OPTIONS,
+    designOptions: LIVE_OAK_DESIGN_OPTIONS,
   },
   {
     slug: "lo-buck-creek",
@@ -1424,7 +1484,7 @@ const HOMES = [
     image: "images/homes/lo-buckcreek-living.jpg",
     floorPlan: "",
     gallery: ["images/homes/lo-buckcreek-ext.jpg", "images/homes/lo-buckcreek-living.jpg", "images/homes/lo-buckcreek-kitchen.jpg"],
-    designOptions: DEFAULT_DESIGN_OPTIONS,
+    designOptions: LIVE_OAK_DESIGN_OPTIONS,
   },
   {
     slug: "lo-denali",
@@ -1440,7 +1500,7 @@ const HOMES = [
     image: "images/homes/lo-denali-ext.jpg",
     floorPlan: "",
     gallery: ["images/homes/lo-denali-ext.jpg", "images/homes/lo-denali-living.jpg", "images/homes/lo-denali-kitchen.jpg", "images/homes/lo-denali-master.jpg"],
-    designOptions: DEFAULT_DESIGN_OPTIONS,
+    designOptions: LIVE_OAK_DESIGN_OPTIONS,
   },
   {
     slug: "lo-lakeview",
@@ -1456,7 +1516,7 @@ const HOMES = [
     image: "images/homes/lo-lakeview-living.jpg",
     floorPlan: "",
     gallery: ["images/homes/lo-lakeview-ext.jpg", "images/homes/lo-lakeview-living.jpg", "images/homes/lo-lakeview-kitchen.jpg", "images/homes/lo-lakeview-master.jpg"],
-    designOptions: DEFAULT_DESIGN_OPTIONS,
+    designOptions: LIVE_OAK_DESIGN_OPTIONS,
   },
   {
     slug: "lo-hamilton",
@@ -1472,7 +1532,7 @@ const HOMES = [
     image: "images/homes/lo-hamilton-living.jpg",
     floorPlan: "",
     gallery: ["images/homes/lo-hamilton-ext.jpg", "images/homes/lo-hamilton-living.jpg", "images/homes/lo-hamilton-kitchen.jpg", "images/homes/lo-hamilton-master.jpg"],
-    designOptions: DEFAULT_DESIGN_OPTIONS,
+    designOptions: LIVE_OAK_DESIGN_OPTIONS,
   },
 
   // ── DEER VALLEY HOMEBUILDERS ──────────────────────────────────────────────
