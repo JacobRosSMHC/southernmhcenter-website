@@ -473,6 +473,7 @@
     <div class="admin-tab" onclick="switchTab('manufacturers',this)" id="tab-manufacturers">Manufacturers</div>
     <div class="admin-tab" onclick="switchTab('settings',this)" id="tab-settings">Settings</div>
     <div class="admin-tab" onclick="switchTab('landhomes',this)" id="tab-landhomes">🏡 Land &amp; Home</div>
+    <div class="admin-tab" onclick="switchTab('team',this)" id="tab-team">👥 Team</div>
     <a href="prices.html" class="admin-tab" style="background:var(--gold);color:#fff;font-weight:800;">💲 Price Manager</a>
     <a href="price-calc.html" class="admin-tab" style="background:#1a8f4a;color:#fff;font-weight:800;">🧮 Price Calculator</a>
   </div>
@@ -498,6 +499,7 @@
           <option value="">All Types</option>
           <option value="Single-Wide">Single-Wide</option>
           <option value="Double-Wide">Double-Wide</option>
+          <option value="Triple-Wide">Triple-Wide</option>
         </select>
         <select id="homes-filter-status" onchange="renderHomes()">
           <option value="">All Statuses</option>
@@ -842,6 +844,34 @@
       </div>
     </div>
 
+
+
+    <!-- ── TEAM TAB ──────────────────────────────────────────────────── -->
+    <div class="admin-panel" id="panel-team">
+      <div class="admin-topbar">
+        <h2>Team Members</h2>
+        <button class="btn btn-gold btn-sm" onclick="openTeamModal()">+ Add Member</button>
+      </div>
+
+      <div class="admin-table-wrap" style="margin-top:16px;">
+        <table class="admin-table" id="team-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Title</th>
+              <th>Phone</th>
+              <th>Email</th>
+              <th>Show on Site</th>
+              <th>Round-Robin</th>
+              <th style="width:80px;">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="team-tbody"></tbody>
+        </table>
+      </div>
+      <p style="font-size:0.78rem;color:var(--text-muted);margin-top:12px;">Team members are stored locally in your browser. Changes here update the website's contact / team page display.</p>
+    </div>
+
   </div><!-- /admin-content -->
 </div><!-- /admin-wrap -->
 
@@ -865,7 +895,8 @@
     <div class="form-grid">
       <div>
         <label class="form-lbl">Price ($)</label>
-        <input class="form-inp" type="number" id="edit-price">
+        <input class="form-inp" type="number" id="edit-price" placeholder="0">
+        <div style="font-size:0.72rem;color:var(--text-muted);margin-top:4px;">Set to 0 to show "Call for Price" on the website.</div>
       </div>
       <div>
         <label class="form-lbl">Status</label>
@@ -903,6 +934,7 @@
         <select class="form-inp" id="edit-type">
           <option value="Single-Wide">Single-Wide</option>
           <option value="Double-Wide">Double-Wide</option>
+          <option value="Triple-Wide">Triple-Wide</option>
         </select>
       </div>
       <div>
@@ -1071,6 +1103,50 @@
   </div>
 </div>
 
+
+<!-- ── TEAM MEMBER MODAL ───────────────────────────────────────────────────── -->
+<div class="modal-overlay" id="team-modal">
+  <div class="modal-card">
+    <button class="modal-close" onclick="closeModal('team-modal')">&#10005;</button>
+    <h3 id="team-modal-title">Add Team Member</h3>
+    <input type="hidden" id="team-id">
+    <div class="form-grid">
+      <div>
+        <label class="form-lbl">Full Name *</label>
+        <input class="form-inp" type="text" id="team-name" placeholder="e.g. Jane Smith">
+      </div>
+      <div>
+        <label class="form-lbl">Title / Role</label>
+        <input class="form-inp" type="text" id="team-title" placeholder="e.g. Sales Consultant">
+      </div>
+    </div>
+    <div class="form-grid">
+      <div>
+        <label class="form-lbl">Phone</label>
+        <input class="form-inp" type="text" id="team-phone" placeholder="(555) 000-0000">
+      </div>
+      <div>
+        <label class="form-lbl">Email</label>
+        <input class="form-inp" type="text" id="team-email" placeholder="name@southernmhc.com">
+      </div>
+    </div>
+    <div class="form-grid">
+      <div style="display:flex;align-items:center;gap:10px;padding-top:8px;">
+        <input type="checkbox" id="team-show" checked style="width:16px;height:16px;">
+        <label for="team-show" style="font-size:0.88rem;color:var(--navy);font-weight:600;cursor:pointer;">Show on website</label>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;padding-top:8px;">
+        <input type="checkbox" id="team-rr" style="width:16px;height:16px;">
+        <label for="team-rr" style="font-size:0.88rem;color:var(--navy);font-weight:600;cursor:pointer;">Include in lead round-robin</label>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('team-modal')">Cancel</button>
+      <button class="btn btn-gold" onclick="saveTeamMember()">Save Member</button>
+    </div>
+  </div>
+</div>
+
 <!-- Toast notification -->
 <div class="toast" id="toast"></div>
 
@@ -1133,6 +1209,7 @@ function switchTab(name, btn) {
 
   // Lazy-load heavy tabs
   if (name === 'analytics') renderAnalytics();
+  if (name === 'team') renderTeam();
   if (name === 'leads' && !_crmConnected) loadLeads();
   if (name === 'landhomes') renderLHTable();
 }
