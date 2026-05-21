@@ -244,6 +244,32 @@
 
   // ── Selections State ──────────────────────────────────────────────────────
   // Default to first option in each category
+  // ── Deer Valley: show call-to-action instead of option panels ──────────────
+  const DO = home.designOptions || DEFAULT_DESIGN_OPTIONS;
+  if (DO.callForCustomization) {
+    document.querySelector('.design-layout').innerHTML = `
+      <div style="grid-column:1/-1;">
+        <div style="background:#fff;border-radius:16px;border:1px solid var(--gray-200);padding:48px 40px;text-align:center;max-width:680px;margin:0 auto;">
+          <div style="font-size:2.5rem;margin-bottom:16px;">🏡</div>
+          <h2 class="display" style="color:var(--navy);margin-bottom:16px;font-size:1.6rem;">Endless Customization Awaits</h2>
+          <p style="color:var(--text-muted);font-size:1rem;line-height:1.7;margin-bottom:8px;">
+            Deer Valley homes offer an incredible range of customization options — so many that we couldn't fit them all here.
+          </p>
+          <p style="color:var(--text-muted);font-size:1rem;line-height:1.7;margin-bottom:32px;">
+            Give us a call and our team will walk you through every option available for your new <strong style="color:var(--navy);">${home.name}</strong>, from exterior colors and roofing to cabinetry, flooring, countertops, and more.
+          </p>
+          <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+            <a href="tel:9855205012" class="btn btn-gold btn-lg" style="font-size:1rem;">📞 Call (985) 520-5012</a>
+            <a href="contact.html?home=${encodeURIComponent(home.name)}" class="btn btn-outline btn-lg" style="font-size:1rem;">Send Us a Message</a>
+          </div>
+          <p style="margin-top:24px;font-size:0.8rem;color:var(--text-muted);">Mon–Fri 9am–5pm &nbsp;·&nbsp; Sat 9am–4pm &nbsp;·&nbsp; Tickfaw, Louisiana</p>
+        </div>
+      </div>
+    `;
+    updatePricing();
+    return;
+  }
+
   const DO_init = home.designOptions || DEFAULT_DESIGN_OPTIONS;
   const sels = {
     siding:     { name: DO_init.exterior.sidingColor[0].name,   price: 0 },
@@ -310,8 +336,6 @@
     if (!el) return;
     el.innerHTML = opts.map(opt => makeColorSwatch(opt, key)).join('');
   }
-
-  const DO = home.designOptions || DEFAULT_DESIGN_OPTIONS;
 
   // Exterior
   buildOpts('opts-siding', 'siding', DO.exterior.sidingColor);

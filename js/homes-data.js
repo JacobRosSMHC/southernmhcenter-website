@@ -67,6 +67,7 @@ const DEFAULT_DESIGN_OPTIONS = {
 
 // ── Deer Valley Design Options (real manufacturer swatches) ─────────────────
 const DEER_VALLEY_DESIGN_OPTIONS = {
+  callForCustomization: true, // Too many options — show call CTA instead of option panels
   exterior: {
     sidingColor: [
       { name: "Aspen White",   img: "https://www.deervalleyhb.com/wp-content/uploads/2023/09/Aspen-White-Standard.jpg",    price: 0 },
