@@ -424,155 +424,11 @@
             <div class="pbt-panel" id="pbt-extras" style="display:none;">
               <p class="pbt-panel-intro">Select everything you'll need for your situation. Prices shown are <em>average estimates</em> — your actual costs may vary based on site conditions, distance, and local requirements. Always confirm final pricing with our team.</p>
 
-              <div class="pbt-extra-group">
-                <div class="pbt-group-label">📍 Land &amp; Site Prep</div>
-                <label class="pbt-extra-item">
-                  <input type="checkbox" class="pbt-chk" data-price="3500" data-label="Site Clearing (light)" onchange="updateExtrasTotal()">
-                  <div class="pbt-extra-body">
-                    <span class="pbt-extra-name">Site Clearing <span class="pbt-extra-tag">Light</span></span>
-                    <span class="pbt-extra-price">+$3,500</span>
-                  </div>
-                  <div class="pbt-extra-note">Light brush &amp; vegetation removal. Heavily wooded sites will be more.</div>
-                </label>
-                <label class="pbt-extra-item">
-                  <input type="checkbox" class="pbt-chk" data-price="8000" data-label="Land Clearing (wooded)" onchange="updateExtrasTotal()">
-                  <div class="pbt-extra-body">
-                    <span class="pbt-extra-name">Land Clearing <span class="pbt-extra-tag">Wooded</span></span>
-                    <span class="pbt-extra-price">+$8,000</span>
-                  </div>
-                  <div class="pbt-extra-note">Tree removal, stump grinding, and grading. Varies widely by lot size and density.</div>
-                </label>
-                <label class="pbt-extra-item">
-                  <input type="checkbox" class="pbt-chk" data-price="2500" data-label="Gravel Pad" onchange="updateExtrasTotal()">
-                  <div class="pbt-extra-body">
-                    <span class="pbt-extra-name">Gravel Pad</span>
-                    <span class="pbt-extra-price">+$2,500</span>
-                  </div>
-                  <div class="pbt-extra-note">Compacted gravel base for the home. Size-dependent.</div>
-                </label>
-                <label class="pbt-extra-item">
-                  <input type="checkbox" class="pbt-chk" data-price="4500" data-label="Concrete Runners / Piers" onchange="updateExtrasTotal()">
-                  <div class="pbt-extra-body">
-                    <span class="pbt-extra-name">Concrete Runners / Piers</span>
-                    <span class="pbt-extra-price">+$4,500</span>
-                  </div>
-                  <div class="pbt-extra-note">Permanent concrete foundation option. Increases loan eligibility in some programs.</div>
-                </label>
+              <div id="pbt-addon-groups">
+                <!-- Loaded dynamically from admin add-ons settings -->
               </div>
 
-              <div class="pbt-extra-group">
-                <div class="pbt-group-label">🚰 Utilities &amp; Connections</div>
-                <label class="pbt-extra-item">
-                  <input type="checkbox" class="pbt-chk" data-price="6500" data-label="Septic System" onchange="updateExtrasTotal()">
-                  <div class="pbt-extra-body">
-                    <span class="pbt-extra-name">Septic System</span>
-                    <span class="pbt-extra-price">+$6,500</span>
-                  </div>
-                  <div class="pbt-extra-note">Conventional septic tank &amp; drain field. Costs vary significantly by soil type and local regulations.</div>
-                </label>
-                <label class="pbt-extra-item">
-                  <input type="checkbox" class="pbt-chk" data-price="2000" data-label="Water Well" onchange="updateExtrasTotal()">
-                  <div class="pbt-extra-body">
-                    <span class="pbt-extra-name">Water Well</span>
-                    <span class="pbt-extra-price">+$2,000</span>
-                  </div>
-                  <div class="pbt-extra-note">Shallow well estimate. Depth and local conditions can significantly affect this price.</div>
-                </label>
-                <label class="pbt-extra-item">
-                  <input type="checkbox" class="pbt-chk" data-price="1800" data-label="Electric Hookup (meter base &amp; service)" onchange="updateExtrasTotal()">
-                  <div class="pbt-extra-body">
-                    <span class="pbt-extra-name">Electric Hookup</span>
-                    <span class="pbt-extra-price">+$1,800</span>
-                  </div>
-                  <div class="pbt-extra-note">Meter base, service entrance, and connection. Utility company fees not included.</div>
-                </label>
-                <label class="pbt-extra-item">
-                  <input type="checkbox" class="pbt-chk" data-price="2800" data-label="Light Pole &amp; Meter Loop" onchange="updateExtrasTotal()">
-                  <div class="pbt-extra-body">
-                    <span class="pbt-extra-name">Light Pole &amp; Meter Loop</span>
-                    <span class="pbt-extra-price">+$2,800</span>
-                  </div>
-                  <div class="pbt-extra-note">Temporary or permanent pole with meter loop. Required in many rural locations before power can be connected.</div>
-                </label>
-                <label class="pbt-extra-item">
-                  <input type="checkbox" class="pbt-chk" data-price="1200" data-label="Water &amp; Sewer Hookup (city/municipal)" onchange="updateExtrasTotal()">
-                  <div class="pbt-extra-body">
-                    <span class="pbt-extra-name">City Water &amp; Sewer Hookup</span>
-                    <span class="pbt-extra-price">+$1,200</span>
-                  </div>
-                  <div class="pbt-extra-note">Tap fee and connection to municipal water/sewer line. Fees vary by municipality.</div>
-                </label>
-              </div>
-
-              <div class="pbt-extra-group">
-                <div class="pbt-group-label">🛫 Extended Delivery</div>
-                <label class="pbt-extra-item">
-                  <input type="checkbox" class="pbt-chk" data-price="1500" data-label="Extended Delivery (50–100 miles over standard)" onchange="updateExtrasTotal()">
-                  <div class="pbt-extra-body">
-                    <span class="pbt-extra-name">Extended Delivery</span>
-                    <span class="pbt-extra-price">+$1,500</span>
-                  </div>
-                  <div class="pbt-extra-note">For sites beyond our standard delivery radius. Exact fee confirmed based on your location.</div>
-                </label>
-              </div>
-
-              <div class="pbt-extra-group">
-                <div class="pbt-group-label">🏠 Optional Home Upgrades</div>
-                <label class="pbt-extra-item">
-                  <input type="checkbox" class="pbt-chk" data-price="3500" data-label="Covered Porch / Deck" onchange="updateExtrasTotal()">
-                  <div class="pbt-extra-body">
-                    <span class="pbt-extra-name">Covered Porch / Deck</span>
-                    <span class="pbt-extra-price">+$3,500</span>
-                  </div>
-                  <div class="pbt-extra-note">Basic covered entry porch or wood deck. Size and material choices affect pricing.</div>
-                </label>
-                <label class="pbt-extra-item">
-                  <input type="checkbox" class="pbt-chk" data-price="1500" data-label="Carport" onchange="updateExtrasTotal()">
-                  <div class="pbt-extra-body">
-                    <span class="pbt-extra-name">Carport</span>
-                    <span class="pbt-extra-price">+$1,500</span>
-                  </div>
-                  <div class="pbt-extra-note">Single-car metal carport. Double-car and enclosed options available.</div>
-                </label>
-                <label class="pbt-extra-item">
-                  <input type="checkbox" class="pbt-chk" data-price="2000" data-label="Upgrade Skirting (brick or stone)" onchange="updateExtrasTotal()">
-                  <div class="pbt-extra-body">
-                    <span class="pbt-extra-name">Upgraded Skirting</span>
-                    <span class="pbt-extra-price">+$2,000</span>
-                  </div>
-                  <div class="pbt-extra-note">Brick, stone veneer, or premium skirting instead of standard. Enhances curb appeal significantly.</div>
-                </label>
-                <label class="pbt-extra-item">
-                  <input type="checkbox" class="pbt-chk" data-price="500" data-label="Storm Door(s)" onchange="updateExtrasTotal()">
-                  <div class="pbt-extra-body">
-                    <span class="pbt-extra-name">Storm Door(s)</span>
-                    <span class="pbt-extra-price">+$500</span>
-                  </div>
-                  <div class="pbt-extra-note">Per door estimate for exterior storm/screen door addition.</div>
-                </label>
-              </div>
-
-              <div class="pbt-extra-group">
-                <div class="pbt-group-label">📜 Permits &amp; Inspections</div>
-                <label class="pbt-extra-item">
-                  <input type="checkbox" class="pbt-chk" data-price="800" data-label="Local Building Permits" onchange="updateExtrasTotal()">
-                  <div class="pbt-extra-body">
-                    <span class="pbt-extra-name">Local Building Permits</span>
-                    <span class="pbt-extra-price">+$800</span>
-                  </div>
-                  <div class="pbt-extra-note">Varies by parish/county. Some areas are higher, some exempt rural placements.</div>
-                </label>
-                <label class="pbt-extra-item">
-                  <input type="checkbox" class="pbt-chk" data-price="350" data-label="HUD Installation Inspection" onchange="updateExtrasTotal()">
-                  <div class="pbt-extra-body">
-                    <span class="pbt-extra-name">HUD Installation Inspection</span>
-                    <span class="pbt-extra-price">+$350</span>
-                  </div>
-                  <div class="pbt-extra-note">Required in some loan programs. Verifies proper installation per federal standards.</div>
-                </label>
-              </div>
-
-              <!-- Running total -->
+                            <!-- Running total -->
               <div class="pbt-total-box" id="pbt-total-box">
                 <div class="pbt-total-row">
                   <span>Home (advertised price)</span>
@@ -1196,6 +1052,90 @@
 
 <!-- ── Price Breakdown Tabs JS ─────────────────────────────────────── -->
 <script>
+
+  // ── Dynamic Add-ons Loader ──────────────────────────────────────
+  // Reads from admin Price Manager settings (localStorage: smhcAddons)
+  // Falls back to defaults if nothing saved yet
+  (function() {
+    var ADDONS_KEY = 'smhcAddons';
+    var DEFAULT_ADDONS = [
+      {
+        group: '📍 Land & Site Prep',
+        items: [
+          { id: 'site-clear-light',  label: 'Site Clearing (Light)',       price: 3500, note: 'Light brush & vegetation removal. Heavily wooded sites will be more.' },
+          { id: 'site-clear-heavy',  label: 'Land Clearing (Wooded)',       price: 8000, note: 'Tree removal, stump grinding, and grading. Varies widely by lot size and density.' },
+          { id: 'gravel-pad',        label: 'Gravel Pad',                   price: 2500, note: 'Compacted gravel base for the home. Size-dependent.' },
+          { id: 'concrete-runners',  label: 'Concrete Runners / Piers',     price: 4500, note: 'Permanent concrete foundation option. Increases loan eligibility in some programs.' },
+        ]
+      },
+      {
+        group: '🚰 Utilities & Connections',
+        items: [
+          { id: 'septic',            label: 'Septic System',                price: 6500, note: 'Conventional septic tank & drain field. Costs vary significantly by soil type and local regulations.' },
+          { id: 'water-well',        label: 'Water Well',                   price: 2000, note: 'Shallow well estimate. Depth and local conditions can significantly affect this price.' },
+          { id: 'electric-hookup',   label: 'Electric Hookup',              price: 1800, note: 'Meter base, service entrance, and connection. Utility company fees not included.' },
+          { id: 'light-pole',        label: 'Light Pole & Meter Loop',      price: 2800, note: 'Temporary or permanent pole with meter loop. Required in many rural locations.' },
+          { id: 'city-water-sewer',  label: 'City Water & Sewer Hookup',    price: 1200, note: 'Tap fee and connection to municipal water/sewer line. Fees vary by municipality.' },
+        ]
+      },
+      {
+        group: '🛫 Extended Delivery',
+        items: [
+          { id: 'ext-delivery',      label: 'Extended Delivery (50–100 mi over standard)', price: 1500, note: 'For sites beyond our standard delivery radius. Exact fee confirmed based on your location.' },
+        ]
+      },
+      {
+        group: '🏠 Optional Home Upgrades',
+        items: [
+          { id: 'porch-deck',        label: 'Covered Porch / Deck',         price: 3500, note: 'Basic covered entry porch or wood deck. Size and material choices affect pricing.' },
+          { id: 'carport',           label: 'Carport',                      price: 1500, note: 'Single-car metal carport. Double-car and enclosed options available.' },
+          { id: 'skirting-upgrade',  label: 'Upgraded Skirting',            price: 2000, note: 'Brick, stone veneer, or premium skirting instead of standard.' },
+          { id: 'storm-door',        label: 'Storm Door(s)',                 price: 500,  note: 'Per door estimate for exterior storm/screen door addition.' },
+        ]
+      },
+      {
+        group: '📜 Permits & Inspections',
+        items: [
+          { id: 'building-permits',  label: 'Local Building Permits',        price: 800,  note: 'Varies by parish/county. Some areas are higher, some exempt rural placements.' },
+          { id: 'hud-inspection',    label: 'HUD Installation Inspection',   price: 350,  note: 'Required in some loan programs. Verifies proper installation per federal standards.' },
+        ]
+      },
+    ];
+
+    function loadAddons() {
+      try {
+        var raw = localStorage.getItem(ADDONS_KEY);
+        return raw ? JSON.parse(raw) : DEFAULT_ADDONS;
+      } catch(e) { return DEFAULT_ADDONS; }
+    }
+
+    function buildAddonHTML(addons) {
+      return addons.map(function(g) {
+        var itemsHTML = g.items.map(function(item) {
+          return '<label class="pbt-extra-item">' +
+            '<input type="checkbox" class="pbt-chk" data-price="' + (item.price || 0) + '" data-label="' + (item.label || '').replace(/"/g, '&quot;') + '" onchange="updateExtrasTotal()">' +
+            '<div class="pbt-extra-body">' +
+              '<span class="pbt-extra-name">' + (item.label || '') + '</span>' +
+              '<span class="pbt-extra-price">+$' + (item.price || 0).toLocaleString() + '</span>' +
+            '</div>' +
+            (item.note ? '<div class="pbt-extra-note">' + item.note + '</div>' : '') +
+          '</label>';
+        }).join('');
+
+        return '<div class="pbt-extra-group">' +
+          '<div class="pbt-group-label">' + g.group + '</div>' +
+          itemsHTML +
+        '</div>';
+      }).join('');
+    }
+
+    // Render on load
+    var container = document.getElementById('pbt-addon-groups');
+    if (container) {
+      container.innerHTML = buildAddonHTML(loadAddons());
+    }
+  })();
+
 (function() {
 
   // ── Tab switching ──────────────────────────────────────────────

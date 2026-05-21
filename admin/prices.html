@@ -199,7 +199,77 @@
     @media (max-width: 600px) {
       .col-notes, .col-crm { display: none; }
     }
-  </style>
+  
+    /* ── Section Tabs ── */
+    .pm-tabs {
+      display: flex; gap: 0; border-bottom: 2px solid #e2e8f0;
+      padding: 0 32px; background: #fff; margin-bottom: 0;
+    }
+    .pm-tab {
+      padding: 12px 22px; font-size: .88rem; font-weight: 700;
+      color: #64748b; cursor: pointer; border-bottom: 3px solid transparent;
+      margin-bottom: -2px; transition: color .15s;
+      background: none; border-top: none; border-left: none; border-right: none;
+      font-family: inherit; letter-spacing: .02em;
+    }
+    .pm-tab.active { color: var(--navy); border-bottom-color: var(--gold); }
+    .pm-tab:hover:not(.active) { color: var(--navy); }
+
+    /* ── Add-ons editor ── */
+    .ao-section { padding: 28px 32px; }
+    .ao-group { margin-bottom: 36px; }
+    .ao-group-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 10px; padding-bottom: 8px;
+      border-bottom: 2px solid #e2e8f0;
+    }
+    .ao-group-label {
+      font-size: .95rem; font-weight: 800; color: var(--navy);
+    }
+    .ao-table { width: 100%; border-collapse: collapse; font-size: .85rem; }
+    .ao-table th {
+      text-align: left; padding: 8px 10px;
+      background: #f8fafc; color: #64748b;
+      font-weight: 700; font-size: .78rem; text-transform: uppercase;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .ao-table td { padding: 6px 8px; border-bottom: 1px solid #f1f5f9; vertical-align: middle; }
+    .ao-table tr:last-child td { border-bottom: none; }
+    .ao-inp {
+      padding: 6px 10px; border: 1.5px solid #e2e8f0; border-radius: 6px;
+      font-size: .85rem; font-family: inherit; width: 100%;
+      box-sizing: border-box;
+    }
+    .ao-inp:focus { outline: none; border-color: var(--gold); background: #fffde7; }
+    .ao-inp.price { width: 90px; }
+    .ao-inp.note { width: 100%; }
+    .ao-del-btn {
+      background: #fee2e2; color: #991b1b; border: none;
+      border-radius: 6px; padding: 5px 10px; cursor: pointer;
+      font-size: .78rem; font-weight: 700; font-family: inherit;
+    }
+    .ao-del-btn:hover { background: #fecaca; }
+    .ao-add-btn {
+      background: #f0fdf4; color: #166534; border: 1.5px dashed #86efac;
+      border-radius: 8px; padding: 8px 16px; cursor: pointer;
+      font-size: .83rem; font-weight: 700; font-family: inherit;
+      width: 100%; margin-top: 8px; transition: background .15s;
+    }
+    .ao-add-btn:hover { background: #dcfce7; }
+    .ao-save-bar {
+      position: sticky; bottom: 0; background: #fff;
+      border-top: 2px solid #e2e8f0; padding: 14px 32px;
+      display: flex; align-items: center; justify-content: space-between;
+      z-index: 50;
+    }
+    .ao-save-bar span { font-size: .83rem; color: #64748b; }
+    @media (max-width: 640px) {
+      .pm-tabs { padding: 0 16px; }
+      .ao-section { padding: 16px; }
+      .ao-save-bar { padding: 12px 16px; }
+    }
+
+</style>
 </head>
 <body>
 
@@ -267,8 +337,14 @@
     <span class="pm-count" id="pm-count"></span>
   </div>
 
-  <!-- Table -->
-  <div class="pm-body">
+  <!-- Section tabs -->
+  <div class="pm-tabs">
+    <button class="pm-tab active" id="tab-prices" onclick="switchPMTab('prices')">💲 Home Prices</button>
+    <button class="pm-tab" id="tab-addons" onclick="switchPMTab('addons')">✚ Need More Add-ons</button>
+  </div>
+
+  <!-- Prices panel -->
+  <div class="pm-body" id="pm-panel-prices">
     <div class="pm-table-wrap">
       <table>
         <thead>
@@ -295,6 +371,18 @@
     Southern MHC Price Manager &nbsp;·&nbsp; Changes saved locally to browser &nbsp;·&nbsp;
     Once <strong>southernmhc.com</strong> domain is live, prices will sync directly to the CRM at
     <a href="https://southern-mhc-crm-production.up.railway.app" target="_blank" style="color:var(--gold);">southern-mhc-crm-production.up.railway.app</a>
+  </div>
+
+
+  <!-- Add-ons editor panel -->
+  <div id="pm-panel-addons" style="display:none;">
+    <div class="ao-section" id="ao-content">
+      <!-- Rendered by JS -->
+    </div>
+    <div class="ao-save-bar">
+      <span>Changes are saved to your browser — they update the "Need More?" tab on all home pages.</span>
+      <button class="btn-sm btn-gold" onclick="saveAddons()">Save Add-ons</button>
+    </div>
   </div>
 
 </div><!-- /app -->
@@ -626,6 +714,192 @@
   /* ── Helpers ── */
   function escHtml(s) {
     return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+
+  /* ══════════════════════════════════════════════════════════════════════════
+     PM TAB SWITCHING
+  ══════════════════════════════════════════════════════════════════════════ */
+  function switchPMTab(tab) {
+    document.getElementById('pm-panel-prices').style.display = tab === 'prices' ? '' : 'none';
+    document.getElementById('pm-panel-addons').style.display = tab === 'addons' ? '' : 'none';
+    document.getElementById('tab-prices').classList.toggle('active', tab === 'prices');
+    document.getElementById('tab-addons').classList.toggle('active', tab === 'addons');
+    if (tab === 'addons') renderAddons();
+  }
+
+  /* ══════════════════════════════════════════════════════════════════════════
+     ADD-ONS EDITOR
+  ══════════════════════════════════════════════════════════════════════════ */
+  const ADDONS_KEY = 'smhcAddons';
+
+  const DEFAULT_ADDONS = [
+    {
+      group: '📍 Land & Site Prep',
+      items: [
+        { id: 'site-clear-light',  label: 'Site Clearing (Light)',       price: 3500, note: 'Light brush & vegetation removal. Heavily wooded sites will be more.' },
+        { id: 'site-clear-heavy',  label: 'Land Clearing (Wooded)',       price: 8000, note: 'Tree removal, stump grinding, and grading. Varies widely by lot size and density.' },
+        { id: 'gravel-pad',        label: 'Gravel Pad',                   price: 2500, note: 'Compacted gravel base for the home. Size-dependent.' },
+        { id: 'concrete-runners',  label: 'Concrete Runners / Piers',     price: 4500, note: 'Permanent concrete foundation option. Increases loan eligibility in some programs.' },
+      ]
+    },
+    {
+      group: '🚰 Utilities & Connections',
+      items: [
+        { id: 'septic',            label: 'Septic System',                price: 6500, note: 'Conventional septic tank & drain field. Costs vary significantly by soil type and local regulations.' },
+        { id: 'water-well',        label: 'Water Well',                   price: 2000, note: 'Shallow well estimate. Depth and local conditions can significantly affect this price.' },
+        { id: 'electric-hookup',   label: 'Electric Hookup',              price: 1800, note: 'Meter base, service entrance, and connection. Utility company fees not included.' },
+        { id: 'light-pole',        label: 'Light Pole & Meter Loop',      price: 2800, note: 'Temporary or permanent pole with meter loop. Required in many rural locations before power can be connected.' },
+        { id: 'city-water-sewer',  label: 'City Water & Sewer Hookup',    price: 1200, note: 'Tap fee and connection to municipal water/sewer line. Fees vary by municipality.' },
+      ]
+    },
+    {
+      group: '🛫 Extended Delivery',
+      items: [
+        { id: 'ext-delivery',      label: 'Extended Delivery (50–100 mi over standard)', price: 1500, note: 'For sites beyond our standard delivery radius. Exact fee confirmed based on your location.' },
+      ]
+    },
+    {
+      group: '🏠 Optional Home Upgrades',
+      items: [
+        { id: 'porch-deck',        label: 'Covered Porch / Deck',         price: 3500, note: 'Basic covered entry porch or wood deck. Size and material choices affect pricing.' },
+        { id: 'carport',           label: 'Carport',                      price: 1500, note: 'Single-car metal carport. Double-car and enclosed options available.' },
+        { id: 'skirting-upgrade',  label: 'Upgraded Skirting',            price: 2000, note: 'Brick, stone veneer, or premium skirting instead of standard.' },
+        { id: 'storm-door',        label: 'Storm Door(s)',                 price: 500,  note: 'Per door estimate for exterior storm/screen door addition.' },
+      ]
+    },
+    {
+      group: '📜 Permits & Inspections',
+      items: [
+        { id: 'building-permits',  label: 'Local Building Permits',        price: 800,  note: 'Varies by parish/county. Some areas are higher, some exempt rural placements.' },
+        { id: 'hud-inspection',    label: 'HUD Installation Inspection',   price: 350,  note: 'Required in some loan programs. Verifies proper installation per federal standards.' },
+      ]
+    },
+  ];
+
+  function loadAddons() {
+    try {
+      const raw = localStorage.getItem(ADDONS_KEY);
+      return raw ? JSON.parse(raw) : DEFAULT_ADDONS;
+    } catch(e) { return DEFAULT_ADDONS; }
+  }
+
+  function saveAddons() {
+    // Read current values from DOM inputs
+    const groups = [];
+    document.querySelectorAll('.ao-group[data-gidx]').forEach(gEl => {
+      const gidx = parseInt(gEl.dataset.gidx);
+      const groupLabel = gEl.querySelector('.ao-group-name-inp').value.trim();
+      const items = [];
+      gEl.querySelectorAll('tr[data-iidx]').forEach(row => {
+        const iidx = parseInt(row.dataset.iidx);
+        items.push({
+          id: row.dataset.id || ('item-' + Date.now() + '-' + iidx),
+          label: row.querySelector('.ao-label-inp').value.trim(),
+          price: parseInt(row.querySelector('.ao-price-inp').value) || 0,
+          note:  row.querySelector('.ao-note-inp').value.trim(),
+        });
+      });
+      if (groupLabel) groups.push({ group: groupLabel, items });
+    });
+    localStorage.setItem(ADDONS_KEY, JSON.stringify(groups));
+    showToastPM('✓ Add-ons saved! Changes are live on all home detail pages.');
+  }
+
+  function renderAddons() {
+    const data = loadAddons();
+    const container = document.getElementById('ao-content');
+    container.innerHTML = data.map((g, gi) => `
+      <div class="ao-group" data-gidx="${gi}">
+        <div class="ao-group-header">
+          <input class="ao-inp ao-group-name-inp" value="${escHtml(g.group)}" style="font-size:.95rem;font-weight:800;color:var(--navy);border:none;background:transparent;width:260px;padding:0;" placeholder="Group name…">
+          <button class="btn-sm" onclick="addAddonItem(${gi})" style="background:#eff6ff;color:#1d4ed8;border:none;padding:6px 14px;font-size:.8rem;font-weight:700;border-radius:6px;cursor:pointer;">+ Add Item</button>
+        </div>
+        <table class="ao-table">
+          <thead>
+            <tr>
+              <th style="width:30%;">Item Name</th>
+              <th style="width:90px;">Price ($)</th>
+              <th>Description / Note</th>
+              <th style="width:70px;"></th>
+            </tr>
+          </thead>
+          <tbody>
+            ${g.items.map((item, ii) => `
+              <tr data-iidx="${ii}" data-id="${item.id || ''}">
+                <td><input class="ao-inp ao-label-inp" value="${escHtml(item.label)}" placeholder="Item name…"></td>
+                <td><input class="ao-inp ao-inp price ao-price-inp" type="number" value="${item.price}" min="0" step="50" placeholder="0"></td>
+                <td><input class="ao-inp ao-note-inp" value="${escHtml(item.note || '')}" placeholder="Short description shown to customer…"></td>
+                <td><button class="ao-del-btn" onclick="removeAddonItem(this)">Remove</button></td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+        <button class="ao-add-btn" onclick="addAddonItem(${gi})">+ Add item to this group</button>
+      </div>
+    `).join('') + `
+      <div style="margin-top:24px;padding:16px;background:#f8fafc;border-radius:10px;border:1.5px dashed #cbd5e1;">
+        <button class="btn-sm" onclick="addAddonGroup()" style="background:#f0fdf4;color:#166534;border:1.5px dashed #86efac;padding:8px 20px;border-radius:8px;cursor:pointer;font-size:.85rem;font-weight:700;font-family:inherit;">+ Add New Group</button>
+        <span style="margin-left:14px;font-size:.8rem;color:#94a3b8;">e.g. "🔥 Fireplace & Heating Options"</span>
+      </div>
+    `;
+  }
+
+  function addAddonItem(gidx) {
+    // Save current state first, then add blank row
+    saveAddonsToState();
+    const data = loadAddons();
+    if (!data[gidx]) return;
+    data[gidx].items.push({ id: 'new-' + Date.now(), label: '', price: 0, note: '' });
+    localStorage.setItem(ADDONS_KEY, JSON.stringify(data));
+    renderAddons();
+  }
+
+  function addAddonGroup() {
+    saveAddonsToState();
+    const data = loadAddons();
+    data.push({ group: '✏️ New Group', items: [{ id: 'new-' + Date.now(), label: '', price: 0, note: '' }] });
+    localStorage.setItem(ADDONS_KEY, JSON.stringify(data));
+    renderAddons();
+  }
+
+  function removeAddonItem(btn) {
+    const row = btn.closest('tr');
+    row.remove();
+  }
+
+  function saveAddonsToState() {
+    // Silently save current DOM state to localStorage before re-rendering
+    try {
+      const groups = [];
+      document.querySelectorAll('.ao-group[data-gidx]').forEach(gEl => {
+        const groupLabel = gEl.querySelector('.ao-group-name-inp') ? gEl.querySelector('.ao-group-name-inp').value.trim() : '';
+        const items = [];
+        gEl.querySelectorAll('tr[data-iidx]').forEach(row => {
+          items.push({
+            id: row.dataset.id || ('item-' + Date.now()),
+            label: row.querySelector('.ao-label-inp') ? row.querySelector('.ao-label-inp').value.trim() : '',
+            price: parseInt(row.querySelector('.ao-price-inp') ? row.querySelector('.ao-price-inp').value : 0) || 0,
+            note:  row.querySelector('.ao-note-inp') ? row.querySelector('.ao-note-inp').value.trim() : '',
+          });
+        });
+        if (groupLabel) groups.push({ group: groupLabel, items });
+      });
+      if (groups.length > 0) localStorage.setItem(ADDONS_KEY, JSON.stringify(groups));
+    } catch(e) {}
+  }
+
+  function showToastPM(msg) {
+    const t = document.createElement('div');
+    t.style.cssText = `
+      position:fixed;bottom:24px;left:50%;transform:translateX(-50%);
+      background:#1e3a5f;color:#fff;padding:12px 24px;border-radius:10px;
+      font-size:.88rem;font-weight:600;z-index:9999;
+      box-shadow:0 4px 20px rgba(0,0,0,.2);animation:slideUp .25s ease;
+    `;
+    t.textContent = msg;
+    document.body.appendChild(t);
+    setTimeout(() => t.remove(), 3500);
   }
 
   /* ── Keyboard shortcut ── */
