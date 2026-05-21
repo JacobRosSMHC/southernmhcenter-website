@@ -57,16 +57,27 @@ fadeEls.forEach(el => observer.observe(el));
 
 // ── Announcement Banner ───────────────────────────────────────────────────
 (function() {
-  try {
-    const ann = JSON.parse(localStorage.getItem('smhcAnnouncement') || 'null');
-    if (ann && ann.enabled && ann.text) {
-      const bar = document.createElement('div');
-      bar.id = 'smhc-announcement';
-      bar.style.cssText = 'background:var(--gold);color:#fff;text-align:center;padding:10px 40px;font-size:.88rem;font-weight:600;position:relative;z-index:200;';
-      bar.innerHTML = ann.text + '<button onclick="this.parentElement.remove()" style="position:absolute;right:16px;top:50%;transform:translateY(-50%);background:none;border:none;color:#fff;font-size:1.1rem;cursor:pointer;opacity:.8;">&times;</button>';
-      document.body.insertBefore(bar, document.body.firstChild);
-    }
-  } catch(e) {}
+  function showBanner(text) {
+    if (!text) return;
+    var bar = document.createElement('div');
+    bar.id = 'smhc-announcement';
+    bar.style.cssText = 'background:var(--gold);color:#fff;text-align:center;padding:10px 40px;font-size:.88rem;font-weight:600;position:relative;z-index:200;';
+    bar.innerHTML = text + '<button onclick="this.parentElement.remove()" style="position:absolute;right:16px;top:50%;transform:translateY(-50%);background:none;border:none;color:#fff;font-size:1.1rem;cursor:pointer;opacity:.8;">&times;</button>';
+    document.body.insertBefore(bar, document.body.firstChild);
+  }
+  // Try CRM first, fall back to localStorage
+  fetch('https://southern-mhc-crm-production.up.railway.app/api/public/settings')
+    .then(function(r) { return r.ok ? r.json() : null; })
+    .then(function(s) {
+      if (s && s.announcementOn && s.announcementText) {
+        showBanner(s.announcementText);
+      } else {
+        try { var ann = JSON.parse(localStorage.getItem('smhcAnnouncement') || 'null'); if (ann && ann.enabled && ann.text) showBanner(ann.text); } catch(e) {}
+      }
+    })
+    .catch(function() {
+      try { var ann = JSON.parse(localStorage.getItem('smhcAnnouncement') || 'null'); if (ann && ann.enabled && ann.text) showBanner(ann.text); } catch(e) {}
+    });
 })();
 
 // ── CRM Lead Submission ───────────────────────────────────────────────────

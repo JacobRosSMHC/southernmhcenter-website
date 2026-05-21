@@ -170,37 +170,47 @@
 <script src="../js/nav.js"></script>
 <script>
 (async function() {
-  const grid = document.getElementById('lh-grid');
-  try {
-    const res = await fetch('../data/land-homes.json');
-    const listings = await res.json();
-    const available = listings.filter(l => l.status !== 'sold');
+  var CRM_URL = 'https://southern-mhc-crm-production.up.railway.app/api/public/land-homes';
+  var grid = document.getElementById('lh-grid');
+
+  function renderCard(l) {
+    var img = l.imageUrl || l.image || '';
+    return '<div class="lh-card">' +
+      '<div class="lh-card-img">' + (img ? '<img src="' + img + '" alt="' + l.title + '">' : '<span>Photo Coming Soon</span>') + '</div>' +
+      '<div class="lh-card-body">' +
+        '<span class="lh-card-status ' + l.status + '">' + (l.status === 'available' ? 'Available' : l.status === 'pending' ? 'Pending' : 'Sold') + '</span>' +
+        '<h3>' + l.title + '</h3>' +
+        '<div class="lh-card-location">📍 ' + l.location + '</div>' +
+        '<div class="lh-card-meta">' +
+          ((l.beds || l.bedrooms) ? '<span>🛏 ' + (l.beds || l.bedrooms) + ' Bed</span>' : '') +
+          ((l.baths || l.bathrooms) ? '<span>🚿 ' + (l.baths || l.bathrooms) + ' Bath</span>' : '') +
+          (l.sqft ? '<span>📐 ' + l.sqft.toLocaleString() + ' sq ft</span>' : '') +
+        '</div>' +
+        (l.description ? '<p class="lh-card-desc">' + l.description + '</p>' : '') +
+        (l.price ? '<div class="lh-card-price">$' + l.price.toLocaleString() + '</div>' : '<div class="lh-card-price">Call for Price</div>') +
+        '<a href="../pages/contact.html" class="btn btn-navy btn-sm" style="width:100%;justify-content:center;">Inquire About This Home</a>' +
+      '</div></div>';
+  }
+
+  function render(listings) {
+    var available = listings.filter(function(l) { return l.status !== 'sold'; });
     if (!available.length) {
-      grid.innerHTML = `<div class="lh-empty"><p>No listings available right now — check back soon or give us a call.</p><a href="contact.html" class="btn btn-navy btn-sm">Contact Us</a></div>`;
+      grid.innerHTML = '<div class="lh-empty"><p>No listings available right now — check back soon or give us a call.</p><a href="contact.html" class="btn btn-navy btn-sm">Contact Us</a></div>';
       return;
     }
-    grid.innerHTML = available.map(l => `
-      <div class="lh-card">
-        <div class="lh-card-img">
-          ${l.image ? `<img src="${l.image}" alt="${l.title}">` : '<span>Photo Coming Soon</span>'}
-        </div>
-        <div class="lh-card-body">
-          <span class="lh-card-status ${l.status}">${l.status === 'available' ? 'Available' : l.status === 'pending' ? 'Pending' : 'Sold'}</span>
-          <h3>${l.title}</h3>
-          <div class="lh-card-location">📍 ${l.location}</div>
-          <div class="lh-card-meta">
-            ${l.bedrooms ? `<span>🛏 ${l.bedrooms} Bed</span>` : ''}
-            ${l.bathrooms ? `<span>🚿 ${l.bathrooms} Bath</span>` : ''}
-            ${l.sqft ? `<span>📐 ${l.sqft.toLocaleString()} sq ft</span>` : ''}
-          </div>
-          ${l.description ? `<p class="lh-card-desc">${l.description}</p>` : ''}
-          ${l.price ? `<div class="lh-card-price">$${l.price.toLocaleString()}</div>` : '<div class="lh-card-price">Call for Price</div>'}
-          <a href="../pages/contact.html" class="btn btn-navy btn-sm" style="width:100%;justify-content:center;">Inquire About This Home</a>
-        </div>
-      </div>
-    `).join('');
-  } catch(e) {
-    grid.innerHTML = `<div class="lh-empty"><p>No listings available right now. Give us a call to learn more.</p><a href="tel:9855205012" class="btn btn-navy btn-sm">Call (985) 520-5012</a></div>`;
+    grid.innerHTML = available.map(renderCard).join('');
+  }
+
+  // Try CRM API first, fall back to static JSON
+  try {
+    var res = await fetch(CRM_URL);
+    if (res.ok) { render(await res.json()); return; }
+  } catch(e) {}
+  try {
+    var fallback = await fetch('../data/land-homes.json');
+    render(await fallback.json());
+  } catch(e2) {
+    grid.innerHTML = '<div class="lh-empty"><p>No listings available right now. Give us a call to learn more.</p><a href="tel:9855205012" class="btn btn-navy btn-sm">Call (985) 520-5012</a></div>';
   }
 })();
 </script>
