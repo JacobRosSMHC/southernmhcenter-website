@@ -196,6 +196,56 @@ const CLAYTON_EPIC_EXPERIENCE_DESIGN_OPTIONS = {
   },
 };
 
+// ── Clayton Epic Journey Design Options ──────────────────────────────────────
+// Source: https://claytonepicjourney.com/decor/?region=2
+const CLAYTON_EPIC_JOURNEY_DESIGN_OPTIONS = {
+  exterior: {
+    sidingColor: [
+      { name: "Clay",  color: "#b5997a", price: 0 },
+      { name: "Flint", color: "#6b6b6b", price: 0 },
+      { name: "White", color: "#f0eeea", price: 0 },
+    ],
+    roofColor: [
+      { name: "Charcoal", color: "#3a3a3a", price: 0 },
+    ],
+  },
+  kitchen: {
+    cabinetColor: [
+      { name: "Cottage Stone", color: "#e8e0d4", price: 0 },
+      { name: "Hearthstone",   color: "#7a6050", price: 0 },
+      { name: "Sugi Ban",      color: "#4a3c34", price: 0 },
+      { name: "Oakley II",     color: "#b08850", price: 0 },
+    ],
+    countertop: [
+      { name: "Coulter Pine",      color: "#c8b090", price: 0 },
+      { name: "Calacatta Lincoln", color: "#e8e4de", price: 0 },
+      { name: "Lisola",            color: "#d0c8bc", price: 0 },
+    ],
+    appliances: [
+      { name: "Standard Included", price: 0, included: true },
+    ],
+  },
+  flooring: {
+    kitchenBath: [
+      { name: "Shaw Driftwood Latte", color: "#c8b898", price: 0 },
+    ],
+    bedroomLiving: [
+      { name: "Shaw Driftwood Latte", color: "#c8b898", price: 0 },
+    ],
+  },
+  interior: {
+    wallColor: [
+      { name: "Lillian",       color: "#f0ece4", price: 0 },
+      { name: "Cottage Stone", color: "#d4c8b8", price: 0 },
+      { name: "Charwood",      color: "#6a5c50", price: 0 },
+    ],
+    trimColor: [
+      { name: "Rustic Alder", color: "#c8a878", price: 0 },
+      { name: "Oakley",       color: "#b08850", price: 0 },
+    ],
+  },
+};
+
 const HOMES = [
   {
     slug: "elm",
@@ -243,7 +293,7 @@ const HOMES = [
     image: "images/homes/4peclnaaw0f.jpeg",
     floorPlan: "images/homes/wjv7klr70b8.jpeg",
     gallery: ["images/homes/ip1910dgjga.jpeg", "images/homes/28t29qv75fy.jpeg", "images/homes/qbopwc0133i.jpeg", "images/homes/v3yg5lonkyf.jpeg", "images/homes/4peclnaaw0f.jpeg", "images/homes/6ylaq27zqu7.jpeg", "images/homes/lonkevbhku.jpeg", "images/homes/stu84awn86f.jpeg", "images/homes/xek5yn1iuet.jpeg", "images/homes/pa7fl88i0l.jpeg", "images/homes/b2r833qxwoi.jpeg", "images/homes/szjjte7lna.jpeg", "images/homes/izh2nr96y7b.jpeg", "images/homes/2kh0fvr7qla.jpeg", "images/homes/0787fkbzl6mh.jpeg", "images/homes/36qmver4max.jpeg"],
-    designOptions: CLAYTON_EPIC_EXPERIENCE_DESIGN_OPTIONS,
+    designOptions: DEFAULT_DESIGN_OPTIONS,
   },
   {
     slug: "ember",
@@ -259,7 +309,7 @@ const HOMES = [
     image: "images/homes/di33tlwdbid.jpeg",
     floorPlan: "images/homes/e343iq6a6hu.jpeg",
     gallery: ["images/homes/2eu7modlnq.jpeg", "images/homes/mky2h1u34k.jpeg", "images/homes/qf2dlwhxype.jpeg", "images/homes/di33tlwdbid.jpeg", "images/homes/zlup5fn928s.jpeg", "images/homes/g5bbpm1stdg.jpeg", "images/homes/wa3eqzz7omm.jpeg", "images/homes/vpij5k7rpp.jpeg"],
-    designOptions: CLAYTON_EPIC_EXPERIENCE_DESIGN_OPTIONS,
+    designOptions: DEFAULT_DESIGN_OPTIONS,
   },
   {
     slug: "hickory",
@@ -291,7 +341,7 @@ const HOMES = [
     image: "images/homes/7pho8apnvk9.jpeg",
     floorPlan: "images/homes/5tip7x75fg.png",
     gallery: ["images/homes/ea7khnx0zh.jpeg", "images/homes/txww4w3dugc.jpeg", "images/homes/2fp6x28p5h.jpeg", "images/homes/7pho8apnvk9.jpeg", "images/homes/qx1iqeerky.jpeg", "images/homes/ty2w4t34x2b.jpeg", "images/homes/6ic2e02otc.jpeg", "images/homes/h197il1w9c8.jpeg", "images/homes/uz0iygs8eks.jpeg", "images/homes/fv2dpkz4bq.jpeg", "images/homes/121rjuhzrbbg.jpeg"],
-    designOptions: CLAYTON_EPIC_EXPERIENCE_DESIGN_OPTIONS,
+    designOptions: CLAYTON_EPIC_JOURNEY_DESIGN_OPTIONS,
   },
   {
     slug: "lumen",
@@ -307,7 +357,7 @@ const HOMES = [
     image: "images/homes/jlxmnn2mz6.jpeg",
     floorPlan: "images/homes/ksmraram8ha.jpeg",
     gallery: ["images/homes/frn17leps6g.jpeg", "images/homes/h6d6je28t3.jpeg", "images/homes/dmv0t5pgotp.jpeg", "images/homes/jlxmnn2mz6.jpeg", "images/homes/3yl155gbknl.jpeg", "images/homes/j2zogo7kji.jpeg", "images/homes/kw3mvt2x7r.jpeg", "images/homes/x5xjbvpbne.jpeg"],
-    designOptions: CLAYTON_EPIC_EXPERIENCE_DESIGN_OPTIONS,
+    designOptions: DEFAULT_DESIGN_OPTIONS,
   },
   {
     slug: "magnolia",
@@ -339,7 +389,7 @@ const HOMES = [
     image: "images/homes/ru33zdeozoi.jpeg",
     floorPlan: "images/homes/qric0nfwajk.jpeg",
     gallery: ["images/homes/ru33zdeozoi.jpeg", "images/homes/zad8flq9y6.jpeg", "images/homes/banbampu09j.jpeg", "images/homes/97k68h2dldh.jpeg", "images/homes/96ltpwasrjb.jpeg", "images/homes/e8g9jleokc.jpeg", "images/homes/jm0kc8iziwb.jpeg", "images/homes/d93qqflih7.jpeg", "images/homes/54ywd3n77i6.jpeg", "images/homes/tk4csclycvo.jpeg"],
-    designOptions: CLAYTON_EPIC_EXPERIENCE_DESIGN_OPTIONS,
+    designOptions: DEFAULT_DESIGN_OPTIONS,
   },
   {
     slug: "intuition",
@@ -355,7 +405,7 @@ const HOMES = [
     image: "images/homes/hkb72qfah7q.jpeg",
     floorPlan: "images/homes/ubrgt7exb8q.jpeg",
     gallery: ["images/homes/7r7ou96579y.jpeg", "images/homes/fnwh8wvidp.jpeg", "images/homes/hkb72qfah7q.jpeg", "images/homes/qcejvtgo76.jpeg", "images/homes/ubrgt7exb8q.jpeg"],
-    designOptions: CLAYTON_EPIC_EXPERIENCE_DESIGN_OPTIONS,
+    designOptions: DEFAULT_DESIGN_OPTIONS,
   },
   {
     slug: "cypress",
@@ -403,7 +453,7 @@ const HOMES = [
     image: "images/homes/zmts8qfnk6a.jpeg",
     floorPlan: "images/homes/ovafysop52q.jpeg",
     gallery: ["images/homes/ovafysop52q.jpeg", "images/homes/0wp4ye11jvb.jpeg", "images/homes/j2wsik0jmxl.jpeg", "images/homes/zmts8qfnk6a.jpeg", "images/homes/d3shgmmkpmr.jpeg", "images/homes/bkz1ovpo94l.jpeg", "images/homes/sm7s1rvuen.jpeg"],
-    designOptions: CLAYTON_EPIC_EXPERIENCE_DESIGN_OPTIONS,
+    designOptions: DEFAULT_DESIGN_OPTIONS,
   },
   {
     slug: "clark",
@@ -419,7 +469,7 @@ const HOMES = [
     image: "images/homes/clm65jhblus.png",
     floorPlan: "images/homes/0j7p84bwgbps.png",
     gallery: ["images/homes/0j7p84bwgbps.png", "images/homes/53m6xf2cyp9.jpeg", "images/homes/7fimmh41ea.png", "images/homes/9gwzm0lelv4.png", "images/homes/clm65jhblus.png", "images/homes/dj5rd96vpsv.jpeg", "images/homes/ijpzg13b43p.png", "images/homes/sq0sui75vo.png", "images/homes/v5glgg1jkv.png", "images/homes/vs3sqgx3un8.png", "images/homes/w1yy4v4vil.jpeg", "images/homes/xg5r1m0y0n.png"],
-    designOptions: CLAYTON_EPIC_EXPERIENCE_DESIGN_OPTIONS,
+    designOptions: CLAYTON_EPIC_JOURNEY_DESIGN_OPTIONS,
   },
   {
     slug: "aspen",
@@ -467,7 +517,7 @@ const HOMES = [
     image: "images/homes/sbmfarvf0fd.jpeg",
     floorPlan: "images/homes/h6rg0tff01i.png",
     gallery: ["images/homes/rgv3reor8d.jpeg", "images/homes/9pjherm3s4.jpeg", "images/homes/sbmfarvf0fd.jpeg", "images/homes/8dgxuwg0l2r.jpeg", "images/homes/h6rg0tff01i.png"],
-    designOptions: CLAYTON_EPIC_EXPERIENCE_DESIGN_OPTIONS,
+    designOptions: CLAYTON_EPIC_JOURNEY_DESIGN_OPTIONS,
   },
   {
     slug: "mariner",
@@ -499,7 +549,7 @@ const HOMES = [
     image: "images/homes/vo7o89zs0n.jpeg",
     floorPlan: "images/homes/1rgywf0knkk.jpeg",
     gallery: ["images/homes/36wfkngchtf.jpeg", "images/homes/vpi4riyhfxs.jpeg", "images/homes/1rgywf0knkk.jpeg", "images/homes/wyykkspav3.jpeg", "images/homes/vo7o89zs0n.jpeg", "images/homes/farxrhjj3qo.jpeg", "images/homes/6pklyl1ztn.jpeg", "images/homes/pu4xq6neb9.jpeg", "images/homes/x6hlujftfff.jpeg", "images/homes/hl8qjcd5h0b.jpeg", "images/homes/ziuutfh7ipd.jpeg", "images/homes/mdim9risim.jpeg", "images/homes/105q4st5azl.jpeg", "images/homes/dyqj27g68st.jpeg", "images/homes/ctospo8qaj.jpeg", "images/homes/9fln27mvdo8.jpeg", "images/homes/hzq122wp2cp.jpeg", "images/homes/bykfdka2l1w.jpeg", "images/homes/h6zn72aeh2o.jpeg"],
-    designOptions: CLAYTON_EPIC_EXPERIENCE_DESIGN_OPTIONS,
+    designOptions: DEFAULT_DESIGN_OPTIONS,
   },
   {
     slug: "desire",
@@ -515,7 +565,7 @@ const HOMES = [
     image: "images/homes/lqej26cwxp.jpeg",
     floorPlan: "images/homes/dfxfcuned6.jpeg",
     gallery: ["images/homes/f88gtlri0xe.jpeg", "images/homes/lbzkafxhjoi.jpeg", "images/homes/e348lcvebvn.jpeg", "images/homes/017z6c2edckh.jpeg", "images/homes/lqej26cwxp.jpeg", "images/homes/6eisi4rutm2.jpeg", "images/homes/s213vmminsq.jpeg", "images/homes/3cpu1yvq7jq.jpeg", "images/homes/p56jlum0pvh.jpeg", "images/homes/en1bcef8tye.jpeg", "images/homes/xjj2irobfys.jpeg", "images/homes/ytreqw6gj4e.jpeg", "images/homes/bczrp138v2l.jpeg", "images/homes/ne7mhhofum.jpeg"],
-    designOptions: CLAYTON_EPIC_EXPERIENCE_DESIGN_OPTIONS,
+    designOptions: DEFAULT_DESIGN_OPTIONS,
   },
   {
     slug: "birch",
@@ -547,7 +597,7 @@ const HOMES = [
     image: "images/homes/v10p9q1jnv.jpeg",
     floorPlan: "images/homes/wnmfgsvvc7.jpeg",
     gallery: ["images/homes/xwlf66ml1ut.jpeg", "images/homes/cg8auicbxud.jpeg", "images/homes/xstjqc7iwp.jpeg", "images/homes/v10p9q1jnv.jpeg", "images/homes/p35hor67yk.jpeg", "images/homes/8rnxiykt1xr.jpeg", "images/homes/rqs2bf6ouzm.jpeg", "images/homes/wppdbgvt3n.jpeg", "images/homes/lnkenlsu5a.jpeg", "images/homes/wnmfgsvvc7.jpeg"],
-    designOptions: CLAYTON_EPIC_EXPERIENCE_DESIGN_OPTIONS,
+    designOptions: DEFAULT_DESIGN_OPTIONS,
   },
   {
     slug: "grand",
@@ -563,7 +613,7 @@ const HOMES = [
     image: "images/homes/w7qv1mqo3a.jpeg",
     floorPlan: "images/homes/q6chk5tjql.jpeg",
     gallery: ["images/homes/dkplw3sames.jpeg", "images/homes/tl3bmvv9za.jpeg", "images/homes/04al7s27rnjl.jpeg", "images/homes/x3dlikljda.jpeg", "images/homes/w7qv1mqo3a.jpeg", "images/homes/89hnovz9tnh.jpeg", "images/homes/cs5lxd8a2av.jpeg", "images/homes/4e1w4nhrile.jpeg", "images/homes/rca422c5ynd.jpeg", "images/homes/kz7wdrgu0m.jpeg", "images/homes/78uorvbagcg.jpeg", "images/homes/ljtevsz235.jpeg", "images/homes/49q7um07ix8.jpeg", "images/homes/afr8ex0w0of.jpeg", "images/homes/zvqu44u56wg.jpeg", "images/homes/0txsp82fyrpo.jpeg", "images/homes/vegf1rkq7lo.jpeg", "images/homes/nn49ldh1afb.jpeg"],
-    designOptions: CLAYTON_EPIC_EXPERIENCE_DESIGN_OPTIONS,
+    designOptions: DEFAULT_DESIGN_OPTIONS,
   },
   {
     slug: "colossal",
@@ -579,7 +629,7 @@ const HOMES = [
     image: "images/homes/vsizi68u0wa.jpeg",
     floorPlan: "images/homes/vsizi68u0wa.jpeg",
     gallery: ["images/homes/3t2o12348hk.jpeg", "images/homes/vsizi68u0wa.jpeg", "images/homes/kyl9yofz3ck.png"],
-    designOptions: CLAYTON_EPIC_EXPERIENCE_DESIGN_OPTIONS,
+    designOptions: DEFAULT_DESIGN_OPTIONS,
   },
   {
     slug: "the-simon",
@@ -692,7 +742,7 @@ const HOMES = [
     image: "images/homes/eaqz2dfmvg.png",
     floorPlan: "images/homes/zeeovn7caa.png",
     gallery: ["images/homes/nzjvsmrmg9l.png", "images/homes/5klsh218re.png", "images/homes/xqxne69mzo.png", "images/homes/eaqz2dfmvg.png", "images/homes/ngg42gn38w.png", "images/homes/keoj63a4cpl.png", "images/homes/hr1jrjjt58a.png", "images/homes/rji79wrx37r.png", "images/homes/u6kdpptgyz.png", "images/homes/yp0jwdao07g.png", "images/homes/zeeovn7caa.png"],
-    designOptions: CLAYTON_EPIC_EXPERIENCE_DESIGN_OPTIONS,
+    designOptions: CLAYTON_EPIC_JOURNEY_DESIGN_OPTIONS,
   },
   {
     slug: "vista",
@@ -708,7 +758,7 @@ const HOMES = [
     image: "images/homes/mrpm15gufs.jpeg",
     floorPlan: "images/homes/hl5qbu9y21h.jpeg",
     gallery: ["images/homes/bld770v5ylb.jpeg", "images/homes/tnlv5eh7ew.jpeg", "images/homes/d6b32ygab6n.jpeg", "images/homes/mrpm15gufs.jpeg", "images/homes/dy5yyd7qzjd.jpeg", "images/homes/5pf1nc5pax8.jpeg", "images/homes/mk5yckvnxb.jpeg", "images/homes/9kljvb7flvd.jpeg", "images/homes/h8fxfxjwaen.jpeg", "images/homes/orzqyo1x3k.jpeg"],
-    designOptions: CLAYTON_EPIC_EXPERIENCE_DESIGN_OPTIONS,
+    designOptions: DEFAULT_DESIGN_OPTIONS,
   },
   {
     slug: "aspire",
@@ -724,7 +774,7 @@ const HOMES = [
     image: "images/homes/pxl0kx4fzp.jpeg",
     floorPlan: "images/homes/m1h9x3crx5f.jpeg",
     gallery: ["images/homes/mmqxumb4cdn.jpeg", "images/homes/z9gprm9ciyi.jpeg", "images/homes/xp3rkkeq9bm.jpeg", "images/homes/pxl0kx4fzp.jpeg", "images/homes/ufaciwasok.jpeg", "images/homes/um16m8mkdvf.jpeg", "images/homes/ejg982hiap5.jpeg"],
-    designOptions: CLAYTON_EPIC_EXPERIENCE_DESIGN_OPTIONS,
+    designOptions: DEFAULT_DESIGN_OPTIONS,
   },
   {
     slug: "maple",
@@ -756,7 +806,7 @@ const HOMES = [
     image: "images/homes/c4kp6a185y.jpeg",
     floorPlan: "images/homes/cgvh799l7p9.png",
     gallery: ["images/homes/1zxaao177e6.jpeg", "images/homes/3gmnmj48k03.jpeg", "images/homes/56hv9u1n85t.jpeg", "images/homes/arpjhyayr3d.jpeg", "images/homes/c4kp6a185y.jpeg", "images/homes/dj4rermqk6o.jpeg", "images/homes/ergon7wlxfk.jpeg", "images/homes/icssn3cgm3.jpeg", "images/homes/jnb9bprvoid.jpeg", "images/homes/k4fymybet6.jpeg", "images/homes/kh17hcvk0ig.jpeg", "images/homes/lawrldi7q5e.jpeg", "images/homes/txfw5v5bruj.jpeg", "images/homes/udoa11l2xdc.jpeg", "images/homes/vdmhcw50wf.jpeg", "images/homes/x4jrnf9dwp.jpeg", "images/homes/xzqhxd9f0sa.jpeg", "images/homes/y5cu65h2su.jpeg", "images/homes/ybmytyby1h.jpeg", "images/homes/zjf7uj831u.jpeg"],
-    designOptions: CLAYTON_EPIC_EXPERIENCE_DESIGN_OPTIONS,
+    designOptions: CLAYTON_EPIC_JOURNEY_DESIGN_OPTIONS,
   },
   {
     slug: "cook",
@@ -772,7 +822,7 @@ const HOMES = [
     image: "images/home-placeholder.jpg",
     floorPlan: "",
     gallery: [],
-    designOptions: CLAYTON_EPIC_EXPERIENCE_DESIGN_OPTIONS,
+    designOptions: CLAYTON_EPIC_JOURNEY_DESIGN_OPTIONS,
   },
   {
     slug: "boone",
@@ -788,7 +838,7 @@ const HOMES = [
     image: "images/homes/h22tmo9rzvo.jpeg",
     floorPlan: "images/homes/2o1t4n2nwyo.png",
     gallery: ["images/homes/thzazxim94.jpeg", "images/homes/q2qpqjoedj.jpeg", "images/homes/r5v2ej7cai.jpeg", "images/homes/197hh3f94li.jpeg", "images/homes/h22tmo9rzvo.jpeg", "images/homes/jxaflc2bj7l.jpeg", "images/homes/kh17hcvk0ig.jpeg", "images/homes/i39028o9fd9.jpeg", "images/homes/zxjyis9dbxf.jpeg", "images/homes/5wnvx64mqnd.jpeg", "images/homes/0nl38x33n6l.jpeg", "images/homes/7v139et9sm3.jpeg", "images/homes/9x68k229sh9.jpeg", "images/homes/c07aatzfby.jpeg", "images/homes/q6h4d6e3tal.jpeg", "images/homes/grrv1arhg4u.jpeg", "images/homes/2vzg96n3ws4.jpeg"],
-    designOptions: CLAYTON_EPIC_EXPERIENCE_DESIGN_OPTIONS,
+    designOptions: CLAYTON_EPIC_JOURNEY_DESIGN_OPTIONS,
   },
   {
     slug: "explorer",
@@ -820,7 +870,7 @@ const HOMES = [
     image: "images/homes/iq6dqbh1ljf.jpeg",
     floorPlan: "images/homes/x560x9ri3ja.jpeg",
     gallery: ["images/homes/kftoam94eg.jpeg", "images/homes/98q2zz0kcpm.jpeg", "images/homes/iq6dqbh1ljf.jpeg", "images/homes/qroieihxgd.jpeg"],
-    designOptions: CLAYTON_EPIC_EXPERIENCE_DESIGN_OPTIONS,
+    designOptions: DEFAULT_DESIGN_OPTIONS,
   },
   {
     slug: "spruce",
@@ -884,7 +934,7 @@ const HOMES = [
     image: "images/homes/3wohy50qpbi.jpeg",
     floorPlan: "images/homes/ekhsuy01y55.jpeg",
     gallery: ["images/homes/2qm5nfy23wo.jpeg", "images/homes/lvi1etoxv9n.jpeg", "images/homes/21xckcm1up4.jpeg", "images/homes/3wohy50qpbi.jpeg", "images/homes/c0orblfyxcd.jpeg", "images/homes/s70xspw7dt.jpeg", "images/homes/ne9c78blwct.jpeg", "images/homes/yzb6hkagola.jpeg"],
-    designOptions: CLAYTON_EPIC_EXPERIENCE_DESIGN_OPTIONS,
+    designOptions: DEFAULT_DESIGN_OPTIONS,
   },
   {
     slug: "crockett",
@@ -900,7 +950,7 @@ const HOMES = [
     image: "images/homes/qr13ys8vlp.jpeg",
     floorPlan: "images/homes/97yfj8g9nk6.png",
     gallery: ["images/homes/2na1wuy5y1h.jpeg", "images/homes/3ax77tthb02.jpeg", "images/homes/4ifcz83tnlg.jpeg", "images/homes/59612evi3uy.jpeg", "images/homes/85m5hp290au.jpeg", "images/homes/8si58518rd.jpeg", "images/homes/czyukzslj0h.jpeg", "images/homes/dll3v1fei49.jpeg", "images/homes/elljf75gdi.jpeg", "images/homes/ftn2mtdr81.jpeg", "images/homes/ldelkzlgbxa.jpeg", "images/homes/po17yx8uij.jpeg", "images/homes/qd9zqt5xc3s.jpeg", "images/homes/qr13ys8vlp.jpeg", "images/homes/rjjeo38vmc9.jpeg", "images/homes/t01mtir4a9e.jpeg", "images/homes/yfu3e4gdedc.jpeg"],
-    designOptions: CLAYTON_EPIC_EXPERIENCE_DESIGN_OPTIONS,
+    designOptions: CLAYTON_EPIC_JOURNEY_DESIGN_OPTIONS,
   },
   {
     slug: "expedition",
@@ -932,7 +982,7 @@ const HOMES = [
     image: "images/homes/qcf0oewoh6t.jpeg",
     floorPlan: "images/homes/vte9ftrsl3n.jpeg",
     gallery: ["images/homes/xkju7cunvr.jpeg", "images/homes/abfylqfpp6w.jpeg", "images/homes/2p15diqj80x.jpeg", "images/homes/38cjxhb6i3f.jpeg", "images/homes/2l50k9jc0j6.jpeg", "images/homes/qcf0oewoh6t.jpeg", "images/homes/mdgx0qnmdwo.jpeg", "images/homes/7rvaphegj2l.jpeg", "images/homes/mb0hfhrfcw.jpeg", "images/homes/uktxek4e5sg.jpeg", "images/homes/xi6b16uy4u.jpeg", "images/homes/ystr1io7sar.jpeg"],
-    designOptions: CLAYTON_EPIC_EXPERIENCE_DESIGN_OPTIONS,
+    designOptions: DEFAULT_DESIGN_OPTIONS,
   },
   {
     slug: "sycamore",
@@ -964,7 +1014,7 @@ const HOMES = [
     image: "images/homes/asz6rcl6q7.jpeg",
     floorPlan: "images/homes/r4xqzvr47a.jpeg",
     gallery: ["images/homes/hh3gnb6aqac.jpeg", "images/homes/06rfxhueqza4.jpeg", "images/homes/9b504qfed4r.jpeg", "images/homes/wnqtcq66j6r.jpeg", "images/homes/asz6rcl6q7.jpeg", "images/homes/nbv9uzkeclq.jpeg", "images/homes/9czgwxvxh0j.jpeg", "images/homes/2ncskpy0qg6.jpeg", "images/homes/hnprvobnv69.jpeg", "images/homes/5kcdpe1o0l4.jpeg", "images/homes/dkxnxp8el86.jpeg", "images/homes/c1q1778d9fe.jpeg", "images/homes/k8qsrsyonwm.jpeg", "images/homes/6pusx37g25t.jpeg", "images/homes/16k1c5mjyrf.jpeg", "images/homes/hxgkk1zf6qb.jpeg", "images/homes/8b3i9b5nd02.jpeg", "images/homes/4np5eq0s1ee.jpeg", "images/homes/d7htgeb04ud.jpeg", "images/homes/a2yb8v0xed.jpeg"],
-    designOptions: CLAYTON_EPIC_EXPERIENCE_DESIGN_OPTIONS,
+    designOptions: DEFAULT_DESIGN_OPTIONS,
   },
   {
     slug: "redwood",
