@@ -230,6 +230,9 @@
   filterSort.addEventListener('change', renderCards);
 
   renderCards();
+
+  // Re-render when CRM prices arrive (API responds after initial render)
+  document.addEventListener('crmInventoryLoaded', function() { renderCards(); });
 })();
 </script>
 

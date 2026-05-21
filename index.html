@@ -410,18 +410,22 @@
   const grid = document.getElementById('featured-homes-grid');
   if (!grid) return;
 
-  const homes   = getEffectiveHomes();
-  const singles = homes.filter(h => h.type === 'Single-Wide').sort((a, b) => a.price - b.price);
-  const doubles = homes.filter(h => h.type === 'Double-Wide').sort((a, b) => a.price - b.price);
-
-  // Pick 3 singles + 3 doubles spanning price range
-  function pick3(arr) {
-    if (arr.length <= 3) return arr;
-    return [arr[0], arr[Math.floor(arr.length / 2)], arr[arr.length - 1]];
+  function renderFeatured() {
+    const homes   = getEffectiveHomes();
+    const singles = homes.filter(h => h.type === 'Single-Wide').sort((a, b) => a.price - b.price);
+    const doubles = homes.filter(h => h.type === 'Double-Wide').sort((a, b) => a.price - b.price);
+    function pick3(arr) {
+      if (arr.length <= 3) return arr;
+      return [arr[0], arr[Math.floor(arr.length / 2)], arr[arr.length - 1]];
+    }
+    const featured = [...pick3(singles), ...pick3(doubles)].filter(Boolean);
+    grid.innerHTML = featured.map(h => homeTroveCardHTML(h, BASE_PATH)).join('');
   }
 
-  const featured = [...pick3(singles), ...pick3(doubles)].filter(Boolean);
-  grid.innerHTML  = featured.map(h => homeTroveCardHTML(h, BASE_PATH)).join('');
+  renderFeatured();
+
+  // Re-render when CRM prices arrive
+  document.addEventListener('crmInventoryLoaded', function() { renderFeatured(); });
 })();
 </script>
 </body>

@@ -754,6 +754,19 @@
   window._currentHome = home; // expose for Place-a-Home tool
   window._currentHomePrice = home.price || 0; // expose for price breakdown tab total
 
+  // Re-apply price when CRM inventory loads (API arrives after initial render)
+  document.addEventListener('crmInventoryLoaded', function(e) {
+    var live = e.detail && e.detail[slug];
+    if (live && live.websitePrice) {
+      home.price = live.websitePrice;
+      window._currentHomePrice = live.websitePrice;
+      document.getElementById('sb-price').textContent = formatPrice(live.websitePrice);
+      var moLive = estimateMonthly(live.websitePrice);
+      document.getElementById('sb-mo').textContent = '~$' + moLive.toLocaleString() + '/mo est.';
+      document.getElementById('sb-est-mo').textContent = '$' + moLive.toLocaleString() + '/mo';
+    }
+  });
+
   // ── Meta / Title ──────────────────────────────────────────────────────────
   document.title = home.name + ' — Southern Mobile Home Center';
   document.getElementById('bc-name').textContent = home.name;
