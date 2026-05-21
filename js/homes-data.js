@@ -1666,3 +1666,53 @@ function homeCardHTML(home) {
 // Root pages (index.html): BASE_PATH = ''
 // Sub-pages (pages/*.html): BASE_PATH = '../'
 if (typeof BASE_PATH === 'undefined') { var BASE_PATH = ''; }
+
+// ── Live CRM Inventory Loader ─────────────────────────────────────────────
+// Fetches live price + status from CRM at page load.
+// Non-breaking: if the API is down, static data is the fallback.
+(function() {
+  var CRM_API = 'https://southern-mhc-crm-production.up.railway.app/api/public/inventory';
+
+  function applyLiveData(liveList) {
+    if (!Array.isArray(liveList) || liveList.length === 0) return;
+
+    // Build a map: slug → { websitePrice, websiteStatus, showOnWebsite }
+    var liveMap = {};
+    liveList.forEach(function(item) {
+      if (item.slug) liveMap[item.slug] = item;
+    });
+
+    // Patch every home in the HOMES array
+    if (typeof HOMES !== 'undefined') {
+      HOMES.forEach(function(home) {
+        var live = liveMap[home.slug];
+        if (!live) return;
+        // Update price (null or 0 → shows "Call for Price" via formatPrice)
+        if (live.websitePrice !== undefined) {
+          home.price = live.websitePrice || 0;
+        }
+        // Update on-lot badge
+        if (live.websiteStatus) {
+          home.status = live.websiteStatus; // 'available', 'on-lot', 'on-order', 'sold'
+          home.onLot = (live.websiteStatus === 'on-lot');
+        }
+        // Mark hidden homes
+        if (live.showOnWebsite === 0) {
+          home._hiddenOnWebsite = true;
+        }
+      });
+    }
+
+    // Dispatch event so any already-rendered grids can refresh
+    document.dispatchEvent(new CustomEvent('crmInventoryLoaded', { detail: liveMap }));
+  }
+
+  // Fetch silently in background — no blocking
+  fetch(CRM_API, { method: 'GET', headers: { 'Accept': 'application/json' } })
+    .then(function(r) { return r.ok ? r.json() : null; })
+    .then(function(data) { if (data) applyLiveData(data); })
+    .catch(function() { /* silently fail — static data remains */ });
+
+  // Also expose as a global for pages that render cards after load
+  window.SMHC_CRM_URL = 'https://southern-mhc-crm-production.up.railway.app';
+})();

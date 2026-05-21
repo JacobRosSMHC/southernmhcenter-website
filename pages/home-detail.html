@@ -1054,9 +1054,11 @@
 <script>
 
   // ── Dynamic Add-ons Loader ──────────────────────────────────────
-  // Reads from admin Price Manager settings (localStorage: smhcAddons)
-  // Falls back to defaults if nothing saved yet
+  // Primary source: CRM API (GET /api/public/addons)
+  // Fallback 1: localStorage (smhcAddons) — set by admin price manager
+  // Fallback 2: built-in defaults below
   (function() {
+    var CRM_ADDONS_URL = 'https://southern-mhc-crm-production.up.railway.app/api/public/addons';
     var ADDONS_KEY = 'smhcAddons';
     var DEFAULT_ADDONS = [
       {
@@ -1102,13 +1104,6 @@
       },
     ];
 
-    function loadAddons() {
-      try {
-        var raw = localStorage.getItem(ADDONS_KEY);
-        return raw ? JSON.parse(raw) : DEFAULT_ADDONS;
-      } catch(e) { return DEFAULT_ADDONS; }
-    }
-
     function buildAddonHTML(addons) {
       return addons.map(function(g) {
         var itemsHTML = g.items.map(function(item) {
@@ -1121,7 +1116,6 @@
             (item.note ? '<div class="pbt-extra-note">' + item.note + '</div>' : '') +
           '</label>';
         }).join('');
-
         return '<div class="pbt-extra-group">' +
           '<div class="pbt-group-label">' + g.group + '</div>' +
           itemsHTML +
@@ -1129,11 +1123,32 @@
       }).join('');
     }
 
-    // Render on load
-    var container = document.getElementById('pbt-addon-groups');
-    if (container) {
-      container.innerHTML = buildAddonHTML(loadAddons());
+    function renderAddons(addons) {
+      var container = document.getElementById('pbt-addon-groups');
+      if (container && addons && addons.length) {
+        container.innerHTML = buildAddonHTML(addons);
+      }
     }
+
+    function getFallback() {
+      try {
+        var raw = localStorage.getItem(ADDONS_KEY);
+        return raw ? JSON.parse(raw) : DEFAULT_ADDONS;
+      } catch(e) { return DEFAULT_ADDONS; }
+    }
+
+    // Render fallback immediately (no flash)
+    renderAddons(getFallback());
+
+    // Then try to load live from CRM API and re-render
+    fetch(CRM_ADDONS_URL, { method: 'GET', headers: { 'Accept': 'application/json' } })
+      .then(function(r) { return r.ok ? r.json() : null; })
+      .then(function(data) {
+        if (data && Array.isArray(data) && data.length > 0) {
+          renderAddons(data);
+        }
+      })
+      .catch(function() { /* silently keep fallback */ });
   })();
 
 (function() {

@@ -74,25 +74,15 @@ const CRM_URL = 'https://southern-mhc-crm-production.up.railway.app';
 
 async function submitLeadToCRM(data) {
   try {
-    // Step 1: Login
-    const loginRes = await fetch(CRM_URL + '/api/auth/login', {
+    // Use the public (no-auth) endpoint — no login step needed
+    const res = await fetch(CRM_URL + '/api/leads/public', {
       method: 'POST',
-      credentials: 'include',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username: 'admin', password: 'smhc2026' }),
-    });
-    if (!loginRes.ok) return false;
-
-    // Step 2: Create lead
-    const leadRes = await fetch(CRM_URL + '/api/leads', {
-      method: 'POST',
-      credentials: 'include',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
     });
-    return leadRes.ok;
+    return res.ok;
   } catch(e) {
-    console.warn('CRM submission failed (CORS or network):', e);
+    console.warn('CRM submission failed:', e);
     return false;
   }
 }
