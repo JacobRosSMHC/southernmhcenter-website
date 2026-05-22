@@ -415,25 +415,14 @@
 
             <!-- TAB 2: NEED MORE CHECKLIST -->
             <div class="pbt-panel" id="pbt-extras" style="display:none;">
-              <p class="pbt-panel-intro">Select everything you'll need for your situation. Costs shown are <em>average estimates only</em> — your actual costs may vary based on site conditions, distance, and local requirements. Always confirm with our team.</p>
+              <p class="pbt-panel-intro">Check off everything you'll need for your situation, then contact our team for accurate pricing on any of these items.</p>
 
               <div id="pbt-addon-groups">
                 <!-- Loaded dynamically from admin add-ons settings -->
               </div>
 
                             <!-- Running total -->
-              <div class="pbt-total-box" id="pbt-total-box" style="display:none;">
-                <div class="pbt-total-row" id="pbt-extras-row" style="display:none;">
-                  <span>Selected add-ons</span>
-                  <span id="pbt-extras-sum" style="color:#e67e22;">+$0</span>
-                </div>
-                <div id="pbt-items-list" style="margin-top:8px;"></div>
-                <div class="pbt-total-disclaimer">
-                  ⚠️ Add-on prices are <strong>average estimates only</strong> and vary based on site conditions, location, and local requirements. This tool is for planning purposes — not a quote. Contact our team for an accurate estimate.
-                </div>
-              </div>
-
-              <a href="contact.html" class="btn btn-gold" style="width:100%;justify-content:center;margin-top:14px;display:flex;">Get a Real Estimate →</a>
+              <a href="contact.html" class="btn btn-gold" style="width:100%;justify-content:center;margin-top:14px;display:flex;">Contact Us for Pricing →</a>
             </div>
 
           </div><!-- /pbt-wrap -->
@@ -1097,10 +1086,9 @@
       return addons.map(function(g) {
         var itemsHTML = g.items.map(function(item) {
           return '<label class="pbt-extra-item">' +
-            '<input type="checkbox" class="pbt-chk" data-price="' + (item.price || 0) + '" data-label="' + (item.label || '').replace(/"/g, '&quot;') + '" onchange="updateExtrasTotal()">' +
+            '<input type="checkbox" class="pbt-chk" data-label="' + (item.label || '').replace(/"/g, '&quot;') + '">' +
             '<div class="pbt-extra-body">' +
               '<span class="pbt-extra-name">' + (item.label || '') + '</span>' +
-              '<span class="pbt-extra-price">+$' + (item.price || 0).toLocaleString() + '</span>' +
             '</div>' +
             (item.note ? '<div class="pbt-extra-note">' + item.note + '</div>' : '') +
           '</label>';
@@ -1163,61 +1151,21 @@
     if (tab === 'extras') updateExtrasTotal();
   };
 
-  // ── Extras total calculator ──────────────────────────────────────
+  // ── Checkbox counter (badge only — no pricing) ──────────────────
   window.updateExtrasTotal = function() {
     var checkboxes = document.querySelectorAll('.pbt-chk');
-    var extrasTotal = 0;
-    var selectedLabels = [];
     var count = 0;
-
     checkboxes.forEach(function(cb) {
-      // Toggle .checked class for browsers without :has() support
       var label = cb.closest('.pbt-extra-item');
       if (label) {
-        if (cb.checked) {
-          label.classList.add('checked');
-        } else {
-          label.classList.remove('checked');
-        }
+        label.classList.toggle('checked', cb.checked);
       }
-      if (cb.checked) {
-        var price = parseInt(cb.getAttribute('data-price'), 10) || 0;
-        var lbl   = cb.getAttribute('data-label') || '';
-        extrasTotal += price;
-        selectedLabels.push(lbl + ' (+$' + price.toLocaleString() + ')');
-        count++;
-      }
+      if (cb.checked) count++;
     });
-
-    // Update badge
     var badge = document.getElementById('pbt-badge');
     if (badge) {
       badge.textContent = count;
       badge.setAttribute('data-count', count);
-    }
-
-    // Show / hide extras total box
-    var totalBox = document.getElementById('pbt-total-box');
-    var extrasRow = document.getElementById('pbt-extras-row');
-    var extrasSumEl = document.getElementById('pbt-extras-sum');
-    if (extrasTotal > 0) {
-      if (totalBox) totalBox.style.display = '';
-      if (extrasRow) extrasRow.style.display = 'flex';
-      if (extrasSumEl) extrasSumEl.textContent = '+$' + extrasTotal.toLocaleString();
-    } else {
-      if (totalBox) totalBox.style.display = 'none';
-    }
-
-    // Itemized list
-    var itemsEl = document.getElementById('pbt-items-list');
-    if (itemsEl) {
-      if (selectedLabels.length > 0) {
-        itemsEl.innerHTML = selectedLabels.map(function(l) {
-          return '<div style="padding:1px 0;">&#8226; ' + l + '</div>';
-        }).join('');
-      } else {
-        itemsEl.innerHTML = '';
-      }
     }
   };
 
