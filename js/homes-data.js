@@ -1806,8 +1806,7 @@ const HOMES = [
 // ── Utility functions ────────────────────────────────────────────────────────
 
 function formatPrice(p) {
-  if (!p) return 'Call for Price';
-  return "$" + p.toLocaleString();
+  return '';
 }
 
 function estimateMonthly(price) {
@@ -1863,7 +1862,6 @@ function homeTroveCardHTML(home, basePath) {
   const designHref = basePath === '' ? 'pages/design.html' : 'design.html';
   const imgSrc = basePath + home.image;
   const placeholder = basePath + 'images/home-placeholder.jpg';
-  const mo = estimateMonthly(home.price);
   const dims = home.dimensions || '';
   const specsStr = `${home.beds} Bed | ${home.baths} Bath | ${home.sqft ? home.sqft.toLocaleString() + ' Sq. Ft.' : 'Contact for Sq. Ft.'}${dims ? ' | ' + dims : ''}`;
   const statusBadge = home.status && home.status !== 'available'
@@ -1885,10 +1883,7 @@ function homeTroveCardHTML(home, basePath) {
       <div class="card-body">
         <div class="card-name">${home.name}</div>
         <div class="card-mfg">${home.manufacturer}</div>
-        <div class="card-price">
-          <span class="price-main">${formatPrice(home.price)}</span>
-          ${mo > 0 ? `<span class="price-mo">~$${mo.toLocaleString()}/mo</span>` : ''}
-        </div>
+
         <div class="card-specs">${specsStr}</div>
         <div class="card-actions">
           <a href="${detailHref}?home=${home.slug}" class="btn btn-outline btn-sm">View Details</a>
@@ -1916,7 +1911,7 @@ function homeCardHTML(home) {
       <div class="home-card-body">
         <div class="home-card-header">
           <h3 class="home-card-name">${home.name}</h3>
-          <span class="home-card-price">${formatPrice(home.price)}</span>
+
         </div>
         <div class="home-card-specs">
           <span>${home.beds} Bed</span>

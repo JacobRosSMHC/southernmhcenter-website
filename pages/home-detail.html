@@ -359,8 +359,8 @@
           <div class="ds-name" id="sb-type">Single-Wide</div>
           <h2 id="sb-name">Loading…</h2>
           <div class="ds-mfg" id="sb-mfg"></div>
-          <div class="ds-price" id="sb-price"></div>
-          <div class="ds-mo" id="sb-mo"></div>
+
+
         </div>
         <div class="detail-sidebar-body">
           <!-- Status Badge -->
@@ -386,13 +386,6 @@
             </div>
           </div>
 
-          <!-- Financing box -->
-          <div class="financing-box" style="margin-bottom:18px;">
-            <div class="est-label">Est. Monthly Payment</div>
-            <div class="est-val" id="sb-est-mo">–</div>
-            <div class="est-terms">Estimated · 30 yr · 5% down · subject to lender approval</div>
-          </div>
-
           <!-- ── PRICE BREAKDOWN TABS ──────────────────────────────────────── -->
           <div class="pbt-wrap">
 
@@ -404,7 +397,7 @@
 
             <!-- TAB 1: WHAT'S INCLUDED -->
             <div class="pbt-panel" id="pbt-included">
-              <p class="pbt-panel-intro">Every advertised price already includes all of the following at no extra charge:</p>
+              <p class="pbt-panel-intro">Every home from Southern MHC includes all of the following at no extra charge:</p>
               <ul class="pbt-included-list">
                 <li><span class="pbt-check">✔</span><div><strong>Standard Delivery</strong><span class="pbt-inc-note">Within our standard service area (LA &amp; MS)</span></div></li>
                 <li><span class="pbt-check">✔</span><div><strong>Blocking &amp; Leveling</strong><span class="pbt-inc-note">Professional on-site foundation work</span></div></li>
@@ -422,30 +415,21 @@
 
             <!-- TAB 2: NEED MORE CHECKLIST -->
             <div class="pbt-panel" id="pbt-extras" style="display:none;">
-              <p class="pbt-panel-intro">Select everything you'll need for your situation. Prices shown are <em>average estimates</em> — your actual costs may vary based on site conditions, distance, and local requirements. Always confirm final pricing with our team.</p>
+              <p class="pbt-panel-intro">Select everything you'll need for your situation. Costs shown are <em>average estimates only</em> — your actual costs may vary based on site conditions, distance, and local requirements. Always confirm with our team.</p>
 
               <div id="pbt-addon-groups">
                 <!-- Loaded dynamically from admin add-ons settings -->
               </div>
 
                             <!-- Running total -->
-              <div class="pbt-total-box" id="pbt-total-box">
-                <div class="pbt-total-row">
-                  <span>Home (advertised price)</span>
-                  <span id="pbt-base-price">—</span>
-                </div>
+              <div class="pbt-total-box" id="pbt-total-box" style="display:none;">
                 <div class="pbt-total-row" id="pbt-extras-row" style="display:none;">
                   <span>Selected add-ons</span>
                   <span id="pbt-extras-sum" style="color:#e67e22;">+$0</span>
                 </div>
-                <div class="pbt-total-divider"></div>
-                <div class="pbt-total-row grand">
-                  <span>Estimated Total</span>
-                  <span id="pbt-grand-total">—</span>
-                </div>
                 <div id="pbt-items-list" style="margin-top:8px;"></div>
                 <div class="pbt-total-disclaimer">
-                  ⚠️ All add-on prices are <strong>average estimates only</strong> and can vary significantly based on your specific site conditions, location, soil type, access, and local regulations. This tool is for planning purposes — not a quote. Contact our team for an accurate assessment of your situation.
+                  ⚠️ Add-on prices are <strong>average estimates only</strong> and vary based on site conditions, location, and local requirements. This tool is for planning purposes — not a quote. Contact our team for an accurate estimate.
                 </div>
               </div>
 
@@ -461,9 +445,7 @@
             <a href="contact.html" class="btn btn-navy" style="margin-top:8px;">Contact Us</a>
           </div>
 
-          <p style="font-size:.72rem;color:var(--text-muted);margin-top:14px;line-height:1.5;">
-            Advertised price includes standard delivery, blocking, anchoring, steps, central A/C, skirting, shown kitchen appliances, and a minimum one-year manufacturer warranty within our standard service area. Price excludes land, land preparation, utility connections, optional upgrades, permits, and applicable taxes. Estimated add-on prices shown are averages only and vary by site. Final purchase price confirmed in writing at time of sale. Financing subject to lender approval; rates and terms vary.
-          </p>
+
         </div>
       </div>
     </div>
@@ -760,10 +742,6 @@
     if (live && live.websitePrice) {
       home.price = live.websitePrice;
       window._currentHomePrice = live.websitePrice;
-      document.getElementById('sb-price').textContent = formatPrice(live.websitePrice);
-      var moLive = estimateMonthly(live.websitePrice);
-      document.getElementById('sb-mo').textContent = '~$' + moLive.toLocaleString() + '/mo est.';
-      document.getElementById('sb-est-mo').textContent = '$' + moLive.toLocaleString() + '/mo';
     }
   });
 
@@ -775,14 +753,12 @@
   document.getElementById('sb-type').textContent  = home.type;
   document.getElementById('sb-name').textContent  = home.name;
   document.getElementById('sb-mfg').textContent   = 'by ' + home.manufacturer;
-  document.getElementById('sb-price').textContent = formatPrice(home.price);
-  const mo = estimateMonthly(home.price);
-  document.getElementById('sb-mo').textContent    = '~$' + mo.toLocaleString() + '/mo est.';
+  const mo = 0;
   document.getElementById('sb-beds').textContent  = home.beds + ' Bed';
   document.getElementById('sb-baths').textContent = home.baths + ' Bath';
   document.getElementById('sb-sqft').textContent  = home.sqft.toLocaleString() + ' sq ft';
   document.getElementById('sb-dims').textContent  = home.dimensions || '—';
-  document.getElementById('sb-est-mo').textContent = '$' + mo.toLocaleString() + '/mo';
+
   document.getElementById('sb-status').innerHTML  = statusBadgeHTML(home.status || 'available');
 
   const brochureBtn = document.getElementById('btn-brochure');
@@ -1220,37 +1196,16 @@
       badge.setAttribute('data-count', count);
     }
 
-    // Populate base price from the loaded home
-    var basePrice = window._currentHomePrice || 0;
-    var basePriceEl = document.getElementById('pbt-base-price');
-    if (basePriceEl) {
-      basePriceEl.textContent = basePrice > 0
-        ? '$' + basePrice.toLocaleString()
-        : 'See price on listing';
-    }
-
-    // Show / hide extras row
+    // Show / hide extras total box
+    var totalBox = document.getElementById('pbt-total-box');
     var extrasRow = document.getElementById('pbt-extras-row');
     var extrasSumEl = document.getElementById('pbt-extras-sum');
-    if (extrasRow && extrasSumEl) {
-      if (extrasTotal > 0) {
-        extrasRow.style.display = 'flex';
-        extrasSumEl.textContent = '+$' + extrasTotal.toLocaleString();
-      } else {
-        extrasRow.style.display = 'none';
-      }
-    }
-
-    // Grand total
-    var grandEl = document.getElementById('pbt-grand-total');
-    if (grandEl) {
-      if (basePrice > 0) {
-        grandEl.textContent = '$' + (basePrice + extrasTotal).toLocaleString();
-      } else {
-        grandEl.textContent = extrasTotal > 0
-          ? 'Base + $' + extrasTotal.toLocaleString() + ' add-ons'
-          : 'Confirm with our team';
-      }
+    if (extrasTotal > 0) {
+      if (totalBox) totalBox.style.display = '';
+      if (extrasRow) extrasRow.style.display = 'flex';
+      if (extrasSumEl) extrasSumEl.textContent = '+$' + extrasTotal.toLocaleString();
+    } else {
+      if (totalBox) totalBox.style.display = 'none';
     }
 
     // Itemized list
