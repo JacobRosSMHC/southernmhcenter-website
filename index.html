@@ -43,11 +43,11 @@
       <span>📍</span> Tickfaw, Louisiana
     </div>
     <h1 class="hero-title-trove display">Find, design, and order<br>your next home</h1>
-    <p class="hero-sub-trove">80+ floor plans from the top manufacturers. On your lot or ours.</p>
+    <p class="hero-sub-trove">On your lot or ours.</p>
     <div class="hero-btns">
       <a href="pages/floor-plans.html" class="btn btn-gold btn-lg">Browse Homes</a>
-      <a href="pages/design.html" class="btn btn-outline-white btn-lg">Design Your Home</a>
-      <a href="pages/prequal.html" class="btn btn-outline-white btn-sm" style="margin-top:8px;">Check If You Pre-Qualify →</a>
+      <a href="pages/design.html" class="btn btn-outline-white btn-lg hero-btn-desktop-only">Design Your Home</a>
+      <a href="pages/prequal.html" class="btn btn-outline-white btn-lg">Get Pre-Qualified →</a>
     </div>
     <div class="hero-stats">
       <div>
@@ -74,7 +74,7 @@
       <h2 class="display">Featured Homes</h2>
       <p>Handpicked single-wide and double-wide homes — on lot, on order, and available to customize.</p>
     </div>
-    <div class="homes-grid-trove" id="featured-homes-grid">
+    <div class="homes-grid-trove" id="featured-homes-grid" data-mobile-limit="3">
       <!-- Injected by JS -->
     </div>
     <div class="text-center mt-8 fade-up">
@@ -160,7 +160,7 @@
 </section>
 
 <!-- ── HOW IT WORKS ─────────────────────────────────────────────────────── -->
-<section class="section bg-cream">
+<section class="section bg-cream section-desktop-only">
   <div class="container">
     <div class="section-header centered fade-up">
       <p class="eyebrow">Simple Process</p>
@@ -313,7 +313,7 @@
 <section class="section">
   <div class="container">
     <div class="hp-split-2col fade-up" style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;">
-      <div>
+      <div class="contact-info-panel">
         <p class="eyebrow" style="font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;">Ready to get started?</p>
         <h2 class="display" style="color:var(--navy);margin-bottom:16px;">We're excited to meet you</h2>
         <p style="margin-bottom:24px;">Leave us your info and we'll get back to you soon. Lauren, Robert, Chris, Cody, and the team are here to help you find the perfect home.</p>
@@ -414,7 +414,10 @@
       if (arr.length <= 3) return arr;
       return [arr[0], arr[Math.floor(arr.length / 2)], arr[arr.length - 1]];
     }
-    const featured = [...pick3(singles), ...pick3(doubles)].filter(Boolean);
+    const allFeatured = [...pick3(singles), ...pick3(doubles)].filter(Boolean);
+    // On mobile (< 640px), show max 3 cards to reduce clutter
+    const isMobile = window.innerWidth < 640;
+    const featured = isMobile ? allFeatured.slice(0, 3) : allFeatured;
     grid.innerHTML = featured.map(h => homeTroveCardHTML(h, BASE_PATH)).join('');
   }
 

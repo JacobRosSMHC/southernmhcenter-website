@@ -2349,3 +2349,93 @@ input[type="range"]::-moz-range-thumb {
     display: none !important;
   }
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   MOBILE SIMPLIFICATION — Homepage declutter
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── 1. Hero: hide "Design Your Home" button on mobile ───────────────────── */
+@media (max-width: 640px) {
+  .hero-btn-desktop-only {
+    display: none !important;
+  }
+  /* With only 2 buttons, make them cleaner */
+  .hero-btns {
+    gap: 12px;
+  }
+  .hero-btns .btn {
+    padding: 15px 20px;
+    font-size: 1rem;
+    font-weight: 700;
+  }
+}
+
+/* ── 2. Hero: subtext already shortened in HTML ──────────────────────────── */
+/* The hero-sub-trove text is now just "On your lot or ours." */
+/* On mobile, bump it up slightly so it reads with more presence */
+@media (max-width: 640px) {
+  .hero-sub-trove {
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: rgba(255,255,255,.9);
+    letter-spacing: .01em;
+  }
+}
+
+/* ── 3. Featured Homes: the JS already limits to 3 cards on mobile ───────── */
+/* Ensure grid looks right with 3 cards on mobile */
+@media (max-width: 640px) {
+  #featured-homes-grid.homes-grid-trove {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+/* ── 4. Hide How It Works section on mobile ──────────────────────────────── */
+@media (max-width: 640px) {
+  .section-desktop-only {
+    display: none !important;
+  }
+}
+
+/* ── 5. Contact section: hide left info panel on mobile ──────────────────── */
+/* The phone/email/address info is duplicated in the footer — no need to     */
+/* show it again on mobile. Just show the form, nice and clean.               */
+@media (max-width: 640px) {
+  .contact-info-panel {
+    display: none !important;
+  }
+  /* Contact section: single-column, form takes full width */
+  .hp-split-2col:has(.contact-form-wrap) {
+    display: block !important;
+  }
+  .contact-form-wrap {
+    margin: 0;
+    border-radius: var(--radius-lg);
+  }
+  /* Give the contact section a bit less top padding */
+  .section:has(.contact-form-wrap) {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+}
+
+/* ── General: tighten section spacing on mobile across all sections ──────── */
+@media (max-width: 640px) {
+  /* Reviews: show only 2 on mobile (overflow hidden) */
+  .reviews-grid {
+    grid-template-columns: 1fr !important;
+  }
+  /* Limit reviews to 2 visible — handled via CSS nth-child */
+  .review-card:nth-child(n+3) {
+    display: none;
+  }
+  /* Add a subtle "See more" nudge text after reviews */
+  .reviews-grid + .text-center::before {
+    content: 'Showing 2 of our most recent reviews.';
+    display: block;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+}
