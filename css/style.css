@@ -1827,7 +1827,9 @@ input[type="range"]::-moz-range-thumb {
     font-size: 0.95rem;
   }
   .hero-stats {
-    gap: 20px 28px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px 20px;
     padding-top: 24px;
   }
   .hero-stat-val { font-size: 1.4rem; }
