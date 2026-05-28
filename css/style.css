@@ -1782,3 +1782,388 @@ input[type="range"]::-moz-range-thumb {
 .home-card-img-wrap img.loaded {
   opacity: 1;
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   MOBILE FIXES — Comprehensive responsive overhaul
+   Applied: 2026-05-28
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── 1. Hero Section ────────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .hero {
+    min-height: auto;
+    padding-bottom: 48px;
+  }
+  .hero-content {
+    padding: 40px 20px 36px;
+  }
+  .hero-title-trove,
+  .hero-title {
+    font-size: clamp(1.9rem, 8vw, 2.6rem);
+    line-height: 1.15;
+    margin-bottom: 12px;
+  }
+  .hero-sub-trove,
+  .hero-sub {
+    font-size: 0.95rem;
+    margin-bottom: 24px;
+    line-height: 1.6;
+  }
+  .hero-eyebrow {
+    font-size: 0.72rem;
+    padding: 5px 12px;
+    margin-bottom: 14px;
+  }
+  .hero-btns {
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 32px;
+  }
+  .hero-btns .btn {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+    padding: 14px 20px;
+    font-size: 0.95rem;
+  }
+  .hero-stats {
+    gap: 20px 28px;
+    padding-top: 24px;
+  }
+  .hero-stat-val { font-size: 1.4rem; }
+  .hero-stat-label { font-size: 0.72rem; }
+}
+
+/* ── 2. Inline grid sections on homepage (Land & Home, Visit Us, Contact) ── */
+@media (max-width: 640px) {
+  .hp-split-2col {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 28px !important;
+  }
+  /* Why section 4-col grid → 2-col on mobile */
+  .why-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 16px;
+  }
+}
+
+/* ── 3. Nav — hamburger button size & tap target ─────────────────────────── */
+@media (max-width: 880px) {
+  .nav-mobile-toggle {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border-radius: 8px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 1.4rem;
+    color: var(--navy);
+    flex-shrink: 0;
+  }
+  .nav-inner {
+    padding: 0 16px;
+    min-height: var(--nav-h);
+    height: var(--nav-h);
+  }
+  /* Ensure logo doesn't get squished */
+  .nav-logo-text .brand-top {
+    font-size: 0.95rem;
+  }
+  .nav-logo-text .brand-sub {
+    font-size: 0.62rem;
+  }
+}
+
+/* ── 4. Filter Bar (Floor Plans) — stack on mobile ───────────────────────── */
+@media (max-width: 640px) {
+  .fbt-inner {
+    flex-direction: column !important;
+    gap: 12px !important;
+    padding: 16px !important;
+    align-items: stretch !important;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .fbt-inner .fbt-group {
+    width: 100% !important;
+    min-width: unset !important;
+    flex: none !important;
+  }
+  .fbt-inner select {
+    width: 100%;
+    min-width: unset;
+    font-size: 1rem;
+    padding: 12px 36px 12px 14px;
+  }
+  /* Search input full width */
+  #filter-search {
+    width: 100% !important;
+    font-size: 1rem;
+    padding: 12px 12px 12px 36px;
+    box-sizing: border-box;
+  }
+  /* Page-top padding on mobile */
+  .page-top-inner {
+    padding: 0 16px;
+  }
+  .page-top-inner h1 {
+    font-size: 1.5rem;
+  }
+  .page-top-inner .sub {
+    font-size: 0.88rem;
+  }
+}
+
+/* ── 5. Home Cards — ensure single column below 480px ───────────────────── */
+@media (max-width: 480px) {
+  .homes-grid-trove {
+    grid-template-columns: 1fr !important;
+    gap: 16px;
+  }
+  .home-card-trove .card-body {
+    padding: 14px 16px 16px;
+  }
+  .home-card-trove .card-name {
+    font-size: 1rem;
+  }
+  /* Old-style cards too */
+  .homes-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ── 6. Home Detail Page ─────────────────────────────────────────────────── */
+@media (max-width: 960px) {
+  .detail-layout {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  /* Sidebar goes BELOW the main content on mobile (not above) */
+  .detail-sidebar {
+    order: 2;
+    position: relative !important;
+    top: 0 !important;
+    margin-top: 24px;
+  }
+  .detail-main-col {
+    order: 1;
+  }
+  .detail-main {
+    padding-top: 16px;
+  }
+}
+
+@media (max-width: 640px) {
+  /* Gallery main image — shorter on small screens */
+  .trove-gallery-main img {
+    aspect-ratio: 4/3;
+    max-height: 280px;
+  }
+  /* Thumbnail strip — smaller thumbs */
+  .trove-thumb {
+    width: 60px;
+    height: 44px;
+  }
+  /* View tabs — fill available width */
+  .view-tabs {
+    gap: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .view-tabs::-webkit-scrollbar { display: none; }
+  .view-tab {
+    padding: 10px 14px;
+    font-size: 0.82rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  /* Sidebar card on mobile — full width, no sticky */
+  .detail-sidebar-card {
+    border-radius: var(--radius-lg);
+    margin: 0 0 24px;
+  }
+  .detail-sidebar-head {
+    padding: 18px 20px;
+  }
+  .detail-sidebar-head h2 {
+    font-size: 1.15rem;
+  }
+  .detail-sidebar-body {
+    padding: 16px 20px;
+  }
+  /* Specs grid in sidebar — 2 col on mobile */
+  .detail-sidebar-specs {
+    grid-template-columns: 1fr 1fr;
+  }
+  /* Gallery nav buttons — bigger tap targets */
+  .gallery-nav {
+    width: 40px;
+    height: 40px;
+    font-size: 1.4rem;
+  }
+}
+
+/* ── 7. Section padding — reduce on mobile ────────────────────────────────── */
+@media (max-width: 640px) {
+  .section {
+    padding: 48px 0;
+  }
+  .container {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  .section-header {
+    margin-bottom: 28px;
+  }
+  .section-header h2 {
+    font-size: clamp(1.5rem, 6vw, 2rem);
+  }
+  /* CTA banner */
+  .cta-banner {
+    padding: 48px 0;
+  }
+  .cta-banner h2 {
+    font-size: 1.6rem;
+  }
+  .cta-banner .btns {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  .cta-banner .btn {
+    width: 100%;
+    max-width: 320px;
+    justify-content: center;
+  }
+  /* Buttons in general — full width on small screens when stacked */
+  .hero-btns .btn,
+  .cta-btns .btn {
+    min-height: 48px;
+  }
+}
+
+/* ── 8. Floor plan page — type section headings ──────────────────────────── */
+@media (max-width: 640px) {
+  .homes-type-section {
+    margin-bottom: 40px;
+  }
+  .homes-type-heading h2 {
+    font-size: 1.1rem;
+  }
+}
+
+/* ── 9. Contact form — already mostly handled, add small tweaks ──────────── */
+@media (max-width: 640px) {
+  .contact-form-wrap {
+    padding: 20px 16px;
+    border-radius: var(--radius);
+  }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    font-size: 1rem; /* Prevents iOS zoom on input focus */
+    padding: 12px 14px;
+  }
+}
+
+/* ── 10. Footer — mobile polish ───────────────────────────────────────────── */
+@media (max-width: 560px) {
+  .footer {
+    padding: 40px 0 24px;
+  }
+  .footer-bottom {
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+  }
+  .footer-grid {
+    gap: 28px;
+  }
+}
+
+/* ── 11. Similar Homes section ────────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .similar-homes-row {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ── 12. Page hero (interior pages) — height on mobile ───────────────────── */
+@media (max-width: 640px) {
+  .page-hero {
+    height: 200px;
+  }
+  .page-hero-content h1 {
+    font-size: 1.5rem;
+  }
+}
+
+/* ── 13. Prevent horizontal overflow on all pages ────────────────────────── */
+@media (max-width: 640px) {
+  body, html {
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
+  .hero,
+  .section,
+  .cta-banner,
+  .footer {
+    overflow-x: hidden;
+  }
+}
+
+/* ── 14. Home detail "Loading..." state — hide the spinner section ────────── */
+/* The loading state shows when JS hasn't populated the sidebar yet.         */
+/* On mobile this sometimes shows as a blank white box — fix layout so it    */
+/* renders as a compact placeholder instead of a broken full-height block.   */
+@media (max-width: 960px) {
+  #detail-loading,
+  .detail-loading-state {
+    min-height: auto;
+    padding: 24px;
+  }
+}
+
+/* ── 15. Map embed — full width on mobile ────────────────────────────────── */
+@media (max-width: 640px) {
+  .map-embed iframe {
+    height: 240px;
+  }
+}
+
+/* ── 16. Touch-friendly tap targets ──────────────────────────────────────── */
+@media (max-width: 880px) {
+  .btn {
+    min-height: 44px;
+  }
+  a, button {
+    touch-action: manipulation;
+  }
+}
+
+/* ── 17. Design page — stack on mobile ───────────────────────────────────── */
+@media (max-width: 640px) {
+  .design-layout {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .design-summary {
+    order: -1;
+    position: relative !important;
+    top: 0 !important;
+  }
+}
+
+/* ── 18. Fix inline-style grid on home detail page (what's included grid) ── */
+@media (max-width: 500px) {
+  /* The "What's Included" 2-col grid in sidebar */
+  .detail-sidebar-body [style*="grid-template-columns"],
+  .sidebar-inclusions {
+    grid-template-columns: 1fr !important;
+  }
+}
