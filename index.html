@@ -72,7 +72,7 @@
     <div class="section-header fade-up">
       <p class="eyebrow">Browse Our Inventory</p>
       <h2 class="display">Featured Homes</h2>
-      <p>Handpicked single-wide and double-wide homes — on lot, on order, and available to customize.</p>
+      <p class="featured-desc-full">Handpicked single-wide and double-wide homes — on lot, on order, and available to customize.</p>
     </div>
     <div class="homes-grid-trove" id="featured-homes-grid" data-mobile-limit="3">
       <!-- Injected by JS -->
@@ -105,7 +105,7 @@
         </div>
         <a href="pages/land-homes.html" class="btn btn-gold btn-lg">View Land &amp; Home Options</a>
       </div>
-      <div class="fade-up" style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+      <div class="fade-up land-mini-cards" style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
         <div style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:12px;padding:20px;text-align:center;">
           <div style="font-size:2rem;margin-bottom:8px;">🏡</div>
           <div style="font-weight:800;font-size:0.9rem;margin-bottom:4px;">Ready to Move In</div>
@@ -304,7 +304,7 @@
     <p>We work with multiple trusted lenders — including Triad, Cascade, CSL Financial, and more — to find you the best path to ownership. Multiple loan types available for all situations.</p>
     <div class="btns">
       <a href="pages/prequal.html" class="btn btn-gold btn-lg">Check If You Pre-Qualify →</a>
-      <a href="pages/financing.html" class="btn btn-outline-white btn-lg">Learn More</a>
+      <a href="pages/financing.html" class="btn btn-outline-white btn-lg financing-learn-more">Learn More</a>
     </div>
   </div>
 </section>
@@ -406,10 +406,22 @@
   const grid = document.getElementById('featured-homes-grid');
   if (!grid) return;
 
+  function hasRealPhotos(home) {
+    // Exclude homes whose thumbnail is the same file as their floor plan
+    // or homes with 2 or fewer gallery items (likely just floor plan drawings)
+    const gallery = home.gallery || [];
+    if (gallery.length <= 2) return false;
+    // If image === floorPlan it means there's no real exterior photo
+    if (home.image && home.floorPlan && home.image === home.floorPlan) return false;
+    return true;
+  }
+
   function renderFeatured() {
     const homes   = getEffectiveHomes();
-    const singles = homes.filter(h => h.type === 'Single-Wide').sort((a, b) => a.price - b.price);
-    const doubles = homes.filter(h => h.type === 'Double-Wide').sort((a, b) => a.price - b.price);
+    // Only show homes that have real photos (not floor-plan drawings as thumbnail)
+    const withPhotos = homes.filter(hasRealPhotos);
+    const singles = withPhotos.filter(h => h.type === 'Single-Wide').sort((a, b) => a.price - b.price);
+    const doubles = withPhotos.filter(h => h.type === 'Double-Wide').sort((a, b) => a.price - b.price);
     function pick3(arr) {
       if (arr.length <= 3) return arr;
       return [arr[0], arr[Math.floor(arr.length / 2)], arr[arr.length - 1]];

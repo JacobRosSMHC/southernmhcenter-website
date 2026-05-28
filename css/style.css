@@ -2439,3 +2439,54 @@ input[type="range"]::-moz-range-thumb {
     margin-bottom: 8px;
   }
 }
+
+/* ============================================================
+   MOBILE IMPROVEMENTS — ROUND 2
+   ============================================================ */
+
+@media (max-width: 639px) {
+
+  /* 1. Why Choose Us — single column so 3rd card isn't orphaned */
+  .why-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* 2. Hide "Design Home" on featured home cards — View Details is the primary CTA */
+  .home-card-trove .card-actions a.btn-gold {
+    display: none !important;
+  }
+  /* Make View Details full-width since it's the only button */
+  .home-card-trove .card-actions {
+    display: block !important;
+  }
+  .home-card-trove .card-actions a.btn-outline {
+    width: 100%;
+    text-align: center;
+    display: block !important;
+    box-sizing: border-box;
+  }
+
+  /* 3. Hide "Learn More" in financing/CTA banner — Pre-Qualify is already prominent */
+  .financing-learn-more {
+    display: none !important;
+  }
+
+  /* 4. Land & Home mini-cards — reduce padding so they don't eat the whole viewport */
+  .land-mini-cards > div {
+    padding: 12px 8px !important;
+  }
+  .land-mini-cards > div > div:first-child {
+    font-size: 1.4rem !important;
+    margin-bottom: 4px !important;
+  }
+
+  /* 5. Featured Homes description — hide the paragraph on mobile */
+  .featured-desc-full {
+    display: none !important;
+  }
+
+  /* 6. CTA banner — center single button after hiding Learn More */
+  .cta-banner .btns {
+    justify-content: center !important;
+  }
+}
