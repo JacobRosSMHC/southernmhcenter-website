@@ -3,7 +3,6 @@
   const path = window.location.pathname;
   const isRoot = path.endsWith('index.html') || path.endsWith('/') || path === '';
   const prefix = isRoot ? '' : '../';
-  // determine active page
   const page = path.split('/').pop() || 'index.html';
 
   function active(href) {
@@ -34,20 +33,71 @@
     <a href="tel:9855205012" class="btn btn-gold btn-sm nav-cta desktop">
       ☎ (985) 520-5012
     </a>
-    <button class="nav-mobile-toggle" aria-label="Menu">
+    <button class="nav-mobile-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
   </div>
 </nav>
-<div class="nav-mobile">
-  <a href="${prefix}pages/floor-plans.html">Floor Plans</a>
-  <a href="${prefix}pages/land-homes.html">Land &amp; Home</a>
-  <a href="${prefix}pages/place-a-home.html" style="color:var(--gold);font-weight:700;">📍 Place a Home</a>
-  <a href="${prefix}pages/financing.html">Financing</a>
-  <a href="${prefix}pages/about.html">About</a>
-  <a href="${prefix}pages/faq.html">FAQ</a>
-  <a href="${prefix}pages/contact.html">Contact</a>
-  <a href="tel:9855205012" class="btn btn-gold">☎ (985) 520-5012</a>
+
+<!-- Mobile drawer overlay -->
+<div class="nav-drawer-overlay" id="nav-overlay"></div>
+
+<!-- Mobile drawer -->
+<div class="nav-drawer" id="nav-drawer" aria-hidden="true">
+  <div class="nav-drawer-header">
+    <div class="nav-drawer-logo">
+      <img src="${prefix}images/smhc-logo.jpg" alt="SMHC">
+      <div>
+        <div class="nav-drawer-brand">Southern MHC</div>
+        <div class="nav-drawer-sub">Tickfaw, Louisiana</div>
+      </div>
+    </div>
+    <button class="nav-drawer-close" id="nav-close" aria-label="Close menu">✕</button>
+  </div>
+
+  <nav class="nav-drawer-links">
+    <a href="${prefix}pages/floor-plans.html"${active('floor-plans.html')}>
+      <span class="nav-drawer-icon">🏠</span>
+      <span>Floor Plans</span>
+    </a>
+    <a href="${prefix}pages/land-homes.html"${active('land-homes.html')}>
+      <span class="nav-drawer-icon">📦</span>
+      <span>Land &amp; Home</span>
+    </a>
+    <a href="${prefix}pages/place-a-home.html"${active('place-a-home.html')} class="nav-drawer-highlight">
+      <span class="nav-drawer-icon">📍</span>
+      <span>Place a Home</span>
+    </a>
+    <a href="${prefix}pages/financing.html"${active('financing.html')}>
+      <span class="nav-drawer-icon">💰</span>
+      <span>Financing</span>
+    </a>
+    <a href="${prefix}pages/about.html"${active('about.html')}>
+      <span class="nav-drawer-icon">ℹ️</span>
+      <span>About Us</span>
+    </a>
+    <a href="${prefix}pages/faq.html"${active('faq.html')}>
+      <span class="nav-drawer-icon">❓</span>
+      <span>FAQ</span>
+    </a>
+    <a href="${prefix}pages/contact.html"${active('contact.html')}>
+      <span class="nav-drawer-icon">✉️</span>
+      <span>Contact</span>
+    </a>
+    <a href="${prefix}pages/compare.html"${active('compare.html')}>
+      <span class="nav-drawer-icon">⚖️</span>
+      <span>Compare Homes</span>
+    </a>
+  </nav>
+
+  <div class="nav-drawer-footer">
+    <a href="tel:9855205012" class="btn btn-gold nav-drawer-cta">
+      ☎ &nbsp;(985) 520-5012
+    </a>
+    <a href="${prefix}pages/prequal.html" class="btn btn-outline nav-drawer-cta">
+      Get Pre-Qualified →
+    </a>
+  </div>
 </div>`;
 
   const footerHTML = `
@@ -103,11 +153,55 @@
   </div>
 </footer>`;
 
-  // Inject
+  // ── Inject nav & footer
   const navEl = document.getElementById('nav-placeholder');
   const footerEl = document.getElementById('footer-placeholder');
   if (navEl) navEl.outerHTML = navHTML;
   if (footerEl) footerEl.outerHTML = footerHTML;
+
+  // ── Wire up mobile drawer — runs immediately after injection
+  function initDrawer() {
+    const toggle  = document.getElementById('nav-toggle');
+    const drawer  = document.getElementById('nav-drawer');
+    const overlay = document.getElementById('nav-overlay');
+    const closeBtn = document.getElementById('nav-close');
+
+    if (!toggle || !drawer) return;
+
+    function openDrawer() {
+      drawer.classList.add('open');
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      toggle.setAttribute('aria-expanded', 'true');
+      drawer.setAttribute('aria-hidden', 'false');
+    }
+
+    function closeDrawer() {
+      drawer.classList.remove('open');
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+      toggle.setAttribute('aria-expanded', 'false');
+      drawer.setAttribute('aria-hidden', 'true');
+    }
+
+    toggle.addEventListener('click', openDrawer);
+    if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
+    overlay.addEventListener('click', closeDrawer);
+
+    // Close on any link tap inside drawer
+    drawer.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', closeDrawer);
+    });
+
+    // Close on Escape key
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeDrawer();
+    });
+  }
+
+  // Run immediately (nav is already in DOM at this point)
+  initDrawer();
+
 })();
 
 // ── Tawk.to Live Chat ─────────────────────────────────────────────────────
@@ -121,7 +215,6 @@
   s1.charset = 'UTF-8';
   s1.setAttribute('crossorigin','*');
   s0.parentNode.insertBefore(s1,s0);
-  // Customize chat widget colors to match SMHC brand
   Tawk_API.customStyle = {
     zIndex: 99,
     visibility: { desktop: { position: 'br', xOffset: 20, yOffset: 20 },

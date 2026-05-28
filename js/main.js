@@ -6,22 +6,7 @@ if (nav) {
   });
 }
 
-// ── Mobile nav toggle ─────────────────────────────────────────────────────
-const toggle = document.querySelector('.nav-mobile-toggle');
-const mobileMenu = document.querySelector('.nav-mobile');
-if (toggle && mobileMenu) {
-  toggle.addEventListener('click', () => {
-    mobileMenu.classList.toggle('open');
-    document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
-  });
-  // Close on link click
-  mobileMenu.querySelectorAll('a').forEach(a => {
-    a.addEventListener('click', () => {
-      mobileMenu.classList.remove('open');
-      document.body.style.overflow = '';
-    });
-  });
-}
+// Mobile nav toggle is handled in nav.js (injected inline after DOM injection)
 
 // ── Active nav link ───────────────────────────────────────────────────────
 const currentPage = window.location.pathname.split('/').pop() || 'index.html';
