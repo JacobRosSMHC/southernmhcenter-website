@@ -2532,3 +2532,46 @@ input[type="range"]::-moz-range-thumb {
     background: rgba(0, 0, 0, 0.52) !important;
   }
 }
+
+/* ============================================================
+   HOME TYPE BADGES (Single-Wide / Double-Wide / Triple-Wide)
+   ============================================================ */
+
+.card-type-label {
+  margin: 4px 0 6px;
+}
+
+.home-type-badge {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.type-badge-single {
+  background: #e8f0fc;
+  color: #1e3a5f;
+  border: 1px solid #c5d5f0;
+}
+
+.type-badge-double {
+  background: #fdf3e0;
+  color: #7a4a00;
+  border: 1px solid #f5d89a;
+}
+
+.type-badge-triple {
+  background: #edf7ee;
+  color: #1a5c22;
+  border: 1px solid #a8d9ac;
+}
+
+@media (max-width: 639px) {
+  .home-type-badge {
+    font-size: 0.65rem;
+    padding: 2px 6px;
+  }
+}
