@@ -1409,7 +1409,7 @@ const HOMES = [
   {
     slug: "lo-denali",
     name: "Denali",
-    type: "Single-Wide",
+    type: "Double-Wide",
     beds: 3,
     baths: 2,
     sqft: 1568,
