@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Credit Application — Southern Mobile Home Center</title>
+  <meta name="description" content="Apply for financing with Southern Mobile Home Center. Fill out our quick credit application and we'll get back to you soon.">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="icon" href="../images/smhc-logo.jpg">
+  <style>
+    .apply-wrap { max-width: 720px; margin: 0 auto; }
+    .apply-card { background: #fff; border-radius: var(--radius-lg); border: 1px solid var(--cream-dark); padding: 36px 40px; margin-bottom: 24px; box-shadow: var(--shadow-sm); }
+    @media (max-width: 600px) { .apply-card { padding: 24px 20px; } }
+    .apply-section-title { font-size: .7rem; font-weight: 800; text-transform: uppercase; letter-spacing: .1em; color: var(--gold); margin-bottom: 18px; display: flex; align-items: center; gap: 8px; }
+    .apply-section-title::after { content: ''; flex: 1; height: 1px; background: var(--cream-dark); }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-grid.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+    .form-grid.cols-1 { grid-template-columns: 1fr; }
+    @media (max-width: 600px) { .form-grid, .form-grid.cols-3 { grid-template-columns: 1fr; } }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group.span-2 { grid-column: span 2; }
+    @media (max-width: 600px) { .form-group.span-2 { grid-column: span 1; } }
+    .form-group label { font-size: .8rem; font-weight: 700; color: var(--navy); }
+    .form-group label .req { color: var(--gold); margin-left: 2px; }
+    .form-group input, .form-group select, .form-group textarea {
+      padding: 11px 14px; border: 1.5px solid var(--gray-200); border-radius: var(--radius);
+      font-size: .95rem; color: var(--text); background: #fff; transition: border-color .15s;
+      width: 100%;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(201,146,10,.12);
+    }
+    .form-group textarea { resize: vertical; min-height: 80px; }
+    .co-toggle { display: flex; align-items: center; gap: 10px; cursor: pointer; margin-bottom: 4px; }
+    .co-toggle input[type=checkbox] { width: 18px; height: 18px; accent-color: var(--navy); cursor: pointer; }
+    .co-toggle span { font-size: .9rem; font-weight: 600; color: var(--navy); }
+    #co-section { display: none; margin-top: 20px; }
+    #co-section.visible { display: block; }
+    .agent-badge {
+      display: flex; align-items: center; gap: 14px;
+      background: var(--navy); color: #fff;
+      border-radius: var(--radius-lg); padding: 16px 22px; margin-bottom: 28px;
+    }
+    .agent-avatar { width: 48px; height: 48px; border-radius: 50%; background: var(--gold); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; font-weight: 800; color: #fff; flex-shrink: 0; }
+    .agent-label { font-size: .72rem; text-transform: uppercase; letter-spacing: .08em; color: rgba(255,255,255,.6); margin-bottom: 2px; }
+    .agent-name { font-size: 1rem; font-weight: 700; }
+    .submit-row { display: flex; justify-content: flex-end; margin-top: 8px; }
+    .btn-submit { background: var(--navy); color: #fff; padding: 14px 36px; border-radius: var(--radius); font-size: 1rem; font-weight: 700; border: none; cursor: pointer; transition: background .15s; display: flex; align-items: center; gap: 8px; }
+    .btn-submit:hover { background: var(--navy-light); }
+    .btn-submit:disabled { opacity: .5; cursor: not-allowed; }
+    .success-msg { display: none; text-align: center; padding: 48px 24px; }
+    .success-msg.visible { display: block; }
+    .success-icon { font-size: 3rem; margin-bottom: 16px; }
+    .success-msg h2 { color: var(--navy); margin-bottom: 8px; }
+    .success-msg p { color: var(--text-muted); }
+    .error-banner { display: none; background: #fef2f2; border: 1.5px solid #fca5a5; color: #b91c1c; border-radius: var(--radius); padding: 12px 16px; font-size: .88rem; margin-bottom: 16px; }
+    .error-banner.visible { display: block; }
+    .disclaimer { font-size: .75rem; color: var(--text-muted); margin-top: 12px; line-height: 1.5; }
+  </style>
+  <!-- Facebook Pixel -->
+  <script>
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init','1482427083607310');fbq('track','PageView');
+  </script>
+</head>
+<body>
+
+<div id="nav-placeholder"></div>
+
+<!-- ── PAGE HERO ─────────────────────────────────────────────────────────── -->
+<div class="page-hero" style="background-image:url('../images/hero-1.jpg')">
+  <div class="page-hero-overlay"></div>
+  <div class="page-hero-content">
+    <p class="breadcrumb"><a href="../index.html">Home</a> › Apply</p>
+    <h1 class="display">Credit Application</h1>
+    <p style="color:rgba(255,255,255,.8);margin-top:8px;font-size:1.05rem">Fill out the form below and we'll be in touch shortly.</p>
+  </div>
+</div>
+
+<!-- ── FORM ───────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <div class="apply-wrap">
+
+      <!-- Agent badge -->
+      <div class="agent-badge">
+        <div class="agent-avatar">C</div>
+        <div>
+          <div class="agent-label">Your Sales Consultant</div>
+          <div class="agent-name">Cody McCullough</div>
+        </div>
+      </div>
+
+      <!-- Success state -->
+      <div id="success-msg" class="success-msg apply-card">
+        <div class="success-icon">✅</div>
+        <h2 class="display">Application Submitted!</h2>
+        <p>Thank you! Cody will review your application and reach out to you shortly.</p>
+      </div>
+
+      <!-- Form -->
+      <form id="apply-form" novalidate>
+
+        <!-- Error banner -->
+        <div id="error-banner" class="error-banner"></div>
+
+        <!-- Applicant Info -->
+        <div class="apply-card fade-up">
+          <p class="apply-section-title">Applicant Information</p>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>First Name <span class="req">*</span></label>
+              <input type="text" name="firstName" required autocomplete="given-name">
+            </div>
+            <div class="form-group">
+              <label>Last Name <span class="req">*</span></label>
+              <input type="text" name="lastName" required autocomplete="family-name">
+            </div>
+            <div class="form-group">
+              <label>Phone Number <span class="req">*</span></label>
+              <input type="tel" name="phone" required autocomplete="tel" placeholder="(985) 000-0000">
+            </div>
+            <div class="form-group">
+              <label>Email Address</label>
+              <input type="email" name="email" autocomplete="email">
+            </div>
+            <div class="form-group">
+              <label>Date of Birth</label>
+              <input type="date" name="dob">
+            </div>
+            <div class="form-group">
+              <label>Social Security Number</label>
+              <input type="text" name="ssn" placeholder="XXX-XX-XXXX" maxlength="11">
+            </div>
+            <div class="form-group span-2">
+              <label>Street Address</label>
+              <input type="text" name="address" autocomplete="street-address">
+            </div>
+            <div class="form-group">
+              <label>City</label>
+              <input type="text" name="city" autocomplete="address-level2">
+            </div>
+            <div class="form-group" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+              <div class="form-group">
+                <label>State</label>
+                <input type="text" name="state" maxlength="2" placeholder="LA" autocomplete="address-level1">
+              </div>
+              <div class="form-group">
+                <label>ZIP</label>
+                <input type="text" name="zip" maxlength="10" autocomplete="postal-code">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Employment -->
+        <div class="apply-card fade-up">
+          <p class="apply-section-title">Employment Information</p>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Employer Name</label>
+              <input type="text" name="employer">
+            </div>
+            <div class="form-group">
+              <label>Employer Phone</label>
+              <input type="tel" name="employerPhone">
+            </div>
+            <div class="form-group">
+              <label>Job Title</label>
+              <input type="text" name="jobTitle">
+            </div>
+            <div class="form-group">
+              <label>Monthly Income</label>
+              <input type="number" name="monthlyIncome" min="0" placeholder="$">
+            </div>
+            <div class="form-group">
+              <label>Time at Current Job</label>
+              <input type="text" name="timeEmployed" placeholder="e.g. 2 years">
+            </div>
+          </div>
+        </div>
+
+        <!-- Co-Applicant -->
+        <div class="apply-card fade-up">
+          <label class="co-toggle">
+            <input type="checkbox" id="co-toggle">
+            <span>Add a Co-Applicant</span>
+          </label>
+          <div id="co-section">
+            <p class="apply-section-title" style="margin-top:4px">Co-Applicant Information</p>
+            <div class="form-grid">
+              <div class="form-group">
+                <label>Co-Applicant Full Name</label>
+                <input type="text" name="coApplicantName">
+              </div>
+              <div class="form-group">
+                <label>Co-Applicant Phone</label>
+                <input type="tel" name="coApplicantPhone">
+              </div>
+              <div class="form-group">
+                <label>Date of Birth</label>
+                <input type="date" name="coApplicantDob">
+              </div>
+              <div class="form-group">
+                <label>Social Security Number</label>
+                <input type="text" name="coApplicantSsn" placeholder="XXX-XX-XXXX" maxlength="11">
+              </div>
+              <div class="form-group">
+                <label>Employer</label>
+                <input type="text" name="coApplicantEmployer">
+              </div>
+              <div class="form-group">
+                <label>Monthly Income</label>
+                <input type="number" name="coApplicantIncome" min="0" placeholder="$">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Home Interest + Comments -->
+        <div class="apply-card fade-up">
+          <p class="apply-section-title">Additional Information</p>
+          <div class="form-grid cols-1">
+            <div class="form-group">
+              <label>Home You're Interested In (optional)</label>
+              <input type="text" name="homeInterest" placeholder="e.g. 3BR/2BA double-wide, specific model, etc.">
+            </div>
+            <div class="form-group">
+              <label>Anything Else We Should Know?</label>
+              <textarea name="comments" placeholder="Any additional information..."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Submit -->
+        <div class="apply-card fade-up" style="padding:24px 40px;">
+          <p class="disclaimer">By submitting this form you authorize Southern Mobile Home Center to obtain a consumer credit report in connection with your application for financing. All information is kept strictly confidential.</p>
+          <div class="submit-row" style="margin-top:20px">
+            <button type="submit" class="btn-submit" id="submit-btn">
+              <span id="submit-label">Submit Application</span>
+            </button>
+          </div>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</section>
+
+<div id="footer-placeholder"></div>
+
+<script src="../js/nav.js"></script>
+<script>
+  // Co-applicant toggle
+  document.getElementById('co-toggle').addEventListener('change', function() {
+    document.getElementById('co-section').classList.toggle('visible', this.checked);
+  });
+
+  // SSN formatting
+  function fmtSsn(e) {
+    let v = e.target.value.replace(/\D/g,'').slice(0,9);
+    if (v.length > 5) v = v.slice(0,3)+'-'+v.slice(3,5)+'-'+v.slice(5);
+    else if (v.length > 3) v = v.slice(0,3)+'-'+v.slice(3);
+    e.target.value = v;
+  }
+  document.querySelectorAll('[name=ssn],[name=coApplicantSsn]').forEach(el => el.addEventListener('input', fmtSsn));
+
+  // Submit
+  document.getElementById('apply-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn = document.getElementById('submit-btn');
+    const label = document.getElementById('submit-label');
+    const errorBanner = document.getElementById('error-banner');
+    errorBanner.classList.remove('visible');
+
+    const data = {};
+    new FormData(this).forEach((v, k) => { if (v) data[k] = v; });
+
+    if (!data.firstName || !data.lastName || !data.phone) {
+      errorBanner.textContent = 'Please fill in your first name, last name, and phone number.';
+      errorBanner.classList.add('visible');
+      return;
+    }
+
+    btn.disabled = true;
+    label.textContent = 'Submitting…';
+
+    try {
+      const r = await fetch('https://southern-mhc-crm-production.up.railway.app/api/public-apply/cody', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      const json = await r.json();
+      if (!r.ok) throw new Error(json.error || 'Submission failed');
+      document.getElementById('apply-form').style.display = 'none';
+      document.getElementById('success-msg').classList.add('visible');
+      document.querySelector('.agent-badge').style.display = 'none';
+      if (typeof fbq !== 'undefined') fbq('track', 'Lead');
+    } catch (err) {
+      errorBanner.textContent = err.message || 'Something went wrong. Please try again.';
+      errorBanner.classList.add('visible');
+      btn.disabled = false;
+      label.textContent = 'Submit Application';
+    }
+  });
+</script>
+</body>
+</html>
