@@ -1604,7 +1604,7 @@ const HOMES = [
     status: "available",
     dimensions: "28' x 64'",
     image: "images/homes/kb-windsor/living-room-3.jpg",
-    floorPlan: "",
+    floorPlan: "images/homes/kb-windsor/floorplan.jpg",
     gallery: [
       "images/homes/kb-windsor/living-room-3.jpg",
       "images/homes/kb-windsor/exterior.jpg",
@@ -1644,7 +1644,7 @@ const HOMES = [
     status: "available",
     dimensions: "32' x 60'",
     image: "images/homes/kb-winter-special/living-room.jpg",
-    floorPlan: "",
+    floorPlan: "images/homes/kb-winter-special/floorplan.jpg",
     gallery: [
       "images/homes/kb-winter-special/living-room.jpg",
       "images/homes/kb-winter-special/living-room-2.jpg",
