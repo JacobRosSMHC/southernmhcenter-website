@@ -1480,7 +1480,7 @@ const HOMES = [
     status: "available",
     dimensions: "32' x 82'",
     image: "images/homes/kb-durango/living-room-3.jpg",
-    floorPlan: "",
+    floorPlan: "images/homes/kb-durango/floorplan.jpg",
     gallery: [
       "images/homes/kb-durango/living-room-3.jpg",
       "images/homes/kb-durango/exterior.jpg",
@@ -1521,7 +1521,7 @@ const HOMES = [
     status: "available",
     dimensions: "32' x 82'",
     image: "images/homes/kb-tiger-kat/kitchen.jpg",
-    floorPlan: "",
+    floorPlan: "images/homes/kb-tiger-kat/floorplan.jpg",
     gallery: [
       "images/homes/kb-tiger-kat/kitchen.jpg",
       "images/homes/kb-tiger-kat/exterior.jpg",
@@ -1565,7 +1565,7 @@ const HOMES = [
     status: "available",
     dimensions: "28' x 60'",
     image: "images/homes/kb-rawhide/living-room-3.jpg",
-    floorPlan: "",
+    floorPlan: "images/homes/kb-rawhide/floorplan.jpg",
     gallery: [
       "images/homes/kb-rawhide/living-room-3.jpg",
       "images/homes/kb-rawhide/living-room.jpg",
@@ -1680,7 +1680,7 @@ const HOMES = [
     status: "available",
     dimensions: "32' x 80'",
     image: "images/homes/kb-stagecoach/kitchen.jpg",
-    floorPlan: "",
+    floorPlan: "images/homes/kb-stagecoach/floorplan.jpg",
     gallery: [
       "images/homes/kb-stagecoach/kitchen.jpg",
       "images/homes/kb-stagecoach/exterior.jpg",
@@ -1724,7 +1724,7 @@ const HOMES = [
     status: "available",
     dimensions: "32' x 80'",
     image: "images/homes/kb-rubicon/kitchen-3.jpg",
-    floorPlan: "",
+    floorPlan: "images/homes/kb-rubicon/floorplan.jpg",
     gallery: [
       "images/homes/kb-rubicon/kitchen-3.jpg",
       "images/homes/kb-rubicon/living-room.jpg",
