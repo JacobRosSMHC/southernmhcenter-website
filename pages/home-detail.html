@@ -728,6 +728,15 @@
   const home  = homes.find(h => h.slug === slug);
   if (!home) { document.getElementById('bc-name').textContent = 'Not Found'; return; }
 
+  // OpenAI Ads conversion: shopper viewed a specific home
+  if (typeof oaiq === 'function') {
+    oaiq(
+      "measure",
+      "contents_viewed",
+      { type: "contents" }
+    );
+  }
+
   window._currentHome = home; // expose for Place-a-Home tool
   window._currentHomePrice = home.price || 0; // expose for price breakdown tab total
 
