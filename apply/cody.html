@@ -7,8 +7,8 @@
   <!-- End OpenAI Ads Pixel -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="canonical" href="https://www.southernmhcenter.com/apply/cody.html">
-  <title>Credit Application — Southern Mobile Home Center</title>
-  <meta name="description" content="Apply for financing with Southern Mobile Home Center. Fill out our quick credit application and we'll get back to you soon.">
+  <title>Start Your Application — Southern Mobile Home Center</title>
+  <meta name="description" content="Start your application with Southern Mobile Home Center. Tell us how to reach you and we will send you a secure link to complete it.">
   <link rel="stylesheet" href="../css/style.css">
   <link rel="icon" href="../images/smhc-logo.jpg">
   <style>
@@ -35,11 +35,6 @@
       outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(201,146,10,.12);
     }
     .form-group textarea { resize: vertical; min-height: 80px; }
-    .co-toggle { display: flex; align-items: center; gap: 10px; cursor: pointer; margin-bottom: 4px; }
-    .co-toggle input[type=checkbox] { width: 18px; height: 18px; accent-color: var(--navy); cursor: pointer; }
-    .co-toggle span { font-size: .9rem; font-weight: 600; color: var(--navy); }
-    #co-section { display: none; margin-top: 20px; }
-    #co-section.visible { display: block; }
     .agent-badge {
       display: flex; align-items: center; gap: 14px;
       background: var(--navy); color: #fff;
@@ -54,12 +49,14 @@
     .btn-submit:disabled { opacity: .5; cursor: not-allowed; }
     .success-msg { display: none; text-align: center; padding: 48px 24px; }
     .success-msg.visible { display: block; }
-    .success-icon { font-size: 3rem; margin-bottom: 16px; }
+    .success-icon { width: 56px; height: 56px; margin: 0 auto 16px; border-radius: 50%; background: var(--navy); position: relative; }
+    .success-icon::after { content: ''; position: absolute; left: 20px; top: 11px; width: 13px; height: 25px; border: solid #fff; border-width: 0 4px 4px 0; transform: rotate(45deg); }
     .success-msg h2 { color: var(--navy); margin-bottom: 8px; }
     .success-msg p { color: var(--text-muted); }
     .error-banner { display: none; background: #fef2f2; border: 1.5px solid #fca5a5; color: #b91c1c; border-radius: var(--radius); padding: 12px 16px; font-size: .88rem; margin-bottom: 16px; }
     .error-banner.visible { display: block; }
     .disclaimer { font-size: .75rem; color: var(--text-muted); margin-top: 12px; line-height: 1.5; }
+    .field-hint { font-size: .75rem; color: var(--text-muted); font-weight: 400; }
   </style>
   <!-- Facebook Pixel -->
   <script>
@@ -77,8 +74,8 @@
   <div class="page-hero-overlay"></div>
   <div class="page-hero-content">
     <p class="breadcrumb"><a href="../index.html">Home</a> › Apply</p>
-    <h1 class="display">Credit Application</h1>
-    <p style="color:rgba(255,255,255,.8);margin-top:8px;font-size:1.05rem">Fill out the form below and we'll be in touch shortly.</p>
+    <h1 class="display">Start Your Application</h1>
+    <p style="color:rgba(255,255,255,.8);margin-top:8px;font-size:1.05rem">Tell us how to reach you. Cody will send you a secure link to complete your application.</p>
   </div>
 </div>
 
@@ -98,9 +95,9 @@
 
       <!-- Success state -->
       <div id="success-msg" class="success-msg apply-card">
-        <div class="success-icon">✅</div>
-        <h2 class="display">Application Submitted!</h2>
-        <p>Thank you! Cody will review your application and reach out to you shortly.</p>
+        <div class="success-icon" aria-hidden="true"></div>
+        <h2 class="display">Request Received</h2>
+        <p id="success-text">Thank you. Check your email for a secure link to complete your application. Cody will also reach out shortly.</p>
       </div>
 
       <!-- Form -->
@@ -109,115 +106,26 @@
         <!-- Error banner -->
         <div id="error-banner" class="error-banner"></div>
 
-        <!-- Applicant Info -->
+        <!-- Contact details only. No Social Security number, date of birth, address,
+             employment or income is collected on this page. -->
         <div class="apply-card fade-up">
-          <p class="apply-section-title">Applicant Information</p>
+          <p class="apply-section-title">Your Contact Information</p>
           <div class="form-grid">
             <div class="form-group">
-              <label>First Name <span class="req">*</span></label>
-              <input type="text" name="firstName" required autocomplete="given-name">
+              <label for="apply-first">First Name <span class="req">*</span></label>
+              <input type="text" id="apply-first" name="firstName" required maxlength="60" autocomplete="given-name">
             </div>
             <div class="form-group">
-              <label>Last Name <span class="req">*</span></label>
-              <input type="text" name="lastName" required autocomplete="family-name">
+              <label for="apply-last">Last Name <span class="req">*</span></label>
+              <input type="text" id="apply-last" name="lastName" required maxlength="60" autocomplete="family-name">
             </div>
             <div class="form-group">
-              <label>Phone Number <span class="req">*</span></label>
-              <input type="tel" name="phone" required autocomplete="tel" placeholder="(985) 000-0000">
+              <label for="apply-phone">Phone Number <span class="req">*</span></label>
+              <input type="tel" id="apply-phone" name="phone" required maxlength="30" autocomplete="tel" placeholder="(985) 000-0000">
             </div>
             <div class="form-group">
-              <label>Email Address</label>
-              <input type="email" name="email" autocomplete="email">
-            </div>
-            <div class="form-group">
-              <label>Date of Birth</label>
-              <input type="date" name="dob">
-            </div>
-            <div class="form-group">
-              <label>Social Security Number</label>
-              <input type="text" name="ssn" placeholder="XXX-XX-XXXX" maxlength="11">
-            </div>
-            <div class="form-group span-2">
-              <label>Street Address</label>
-              <input type="text" name="address" autocomplete="street-address">
-            </div>
-            <div class="form-group">
-              <label>City</label>
-              <input type="text" name="city" autocomplete="address-level2">
-            </div>
-            <div class="form-group" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
-              <div class="form-group">
-                <label>State</label>
-                <input type="text" name="state" maxlength="2" placeholder="LA" autocomplete="address-level1">
-              </div>
-              <div class="form-group">
-                <label>ZIP</label>
-                <input type="text" name="zip" maxlength="10" autocomplete="postal-code">
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Employment -->
-        <div class="apply-card fade-up">
-          <p class="apply-section-title">Employment Information</p>
-          <div class="form-grid">
-            <div class="form-group">
-              <label>Employer Name</label>
-              <input type="text" name="employer">
-            </div>
-            <div class="form-group">
-              <label>Employer Phone</label>
-              <input type="tel" name="employerPhone">
-            </div>
-            <div class="form-group">
-              <label>Job Title</label>
-              <input type="text" name="jobTitle">
-            </div>
-            <div class="form-group">
-              <label>Monthly Income</label>
-              <input type="number" name="monthlyIncome" min="0" placeholder="$">
-            </div>
-            <div class="form-group">
-              <label>Time at Current Job</label>
-              <input type="text" name="timeEmployed" placeholder="e.g. 2 years">
-            </div>
-          </div>
-        </div>
-
-        <!-- Co-Applicant -->
-        <div class="apply-card fade-up">
-          <label class="co-toggle">
-            <input type="checkbox" id="co-toggle">
-            <span>Add a Co-Applicant</span>
-          </label>
-          <div id="co-section">
-            <p class="apply-section-title" style="margin-top:4px">Co-Applicant Information</p>
-            <div class="form-grid">
-              <div class="form-group">
-                <label>Co-Applicant Full Name</label>
-                <input type="text" name="coApplicantName">
-              </div>
-              <div class="form-group">
-                <label>Co-Applicant Phone</label>
-                <input type="tel" name="coApplicantPhone">
-              </div>
-              <div class="form-group">
-                <label>Date of Birth</label>
-                <input type="date" name="coApplicantDob">
-              </div>
-              <div class="form-group">
-                <label>Social Security Number</label>
-                <input type="text" name="coApplicantSsn" placeholder="XXX-XX-XXXX" maxlength="11">
-              </div>
-              <div class="form-group">
-                <label>Employer</label>
-                <input type="text" name="coApplicantEmployer">
-              </div>
-              <div class="form-group">
-                <label>Monthly Income</label>
-                <input type="number" name="coApplicantIncome" min="0" placeholder="$">
-              </div>
+              <label for="apply-email">Email Address <span class="field-hint">(where we send your secure link)</span></label>
+              <input type="email" id="apply-email" name="email" maxlength="254" autocomplete="email">
             </div>
           </div>
         </div>
@@ -227,22 +135,22 @@
           <p class="apply-section-title">Additional Information</p>
           <div class="form-grid cols-1">
             <div class="form-group">
-              <label>Home You're Interested In (optional)</label>
-              <input type="text" name="homeInterest" placeholder="e.g. 3BR/2BA double-wide, specific model, etc.">
+              <label for="apply-home">Home You're Interested In (optional)</label>
+              <input type="text" id="apply-home" name="homeInterest" maxlength="200" placeholder="e.g. 3BR/2BA double-wide, specific model, etc.">
             </div>
             <div class="form-group">
-              <label>Anything Else We Should Know?</label>
-              <textarea name="comments" placeholder="Any additional information..."></textarea>
+              <label for="apply-comments">Anything Else We Should Know?</label>
+              <textarea id="apply-comments" name="comments" maxlength="1000" placeholder="Any additional information..."></textarea>
             </div>
           </div>
         </div>
 
         <!-- Submit -->
         <div class="apply-card fade-up" style="padding:24px 40px;">
-          <p class="disclaimer">By submitting this form you authorize Southern Mobile Home Center to obtain a consumer credit report in connection with your application for financing. All information is kept strictly confidential.</p>
+          <p class="disclaimer">Please do not enter a Social Security number or other sensitive information on this page. You will complete your application through the secure link.</p>
           <div class="submit-row" style="margin-top:20px">
             <button type="submit" class="btn-submit" id="submit-btn">
-              <span id="submit-label">Submit Application</span>
+              <span id="submit-label">Submit</span>
             </button>
           </div>
         </div>
@@ -257,20 +165,6 @@
 
 <script src="../js/nav.js"></script>
 <script>
-  // Co-applicant toggle
-  document.getElementById('co-toggle').addEventListener('change', function() {
-    document.getElementById('co-section').classList.toggle('visible', this.checked);
-  });
-
-  // SSN formatting
-  function fmtSsn(e) {
-    let v = e.target.value.replace(/\D/g,'').slice(0,9);
-    if (v.length > 5) v = v.slice(0,3)+'-'+v.slice(3,5)+'-'+v.slice(5);
-    else if (v.length > 3) v = v.slice(0,3)+'-'+v.slice(3);
-    e.target.value = v;
-  }
-  document.querySelectorAll('[name=ssn],[name=coApplicantSsn]').forEach(el => el.addEventListener('input', fmtSsn));
-
   // Submit
   document.getElementById('apply-form').addEventListener('submit', async function(e) {
     e.preventDefault();
@@ -279,8 +173,13 @@
     const errorBanner = document.getElementById('error-banner');
     errorBanner.classList.remove('visible');
 
+    // Only these six fields are ever sent.
     const data = {};
-    new FormData(this).forEach((v, k) => { if (v) data[k] = v; });
+    const form = new FormData(this);
+    ['firstName', 'lastName', 'phone', 'email', 'homeInterest', 'comments'].forEach(function (k) {
+      const v = String(form.get(k) || '').trim();
+      if (v) data[k] = v;
+    });
 
     if (!data.firstName || !data.lastName || !data.phone) {
       errorBanner.textContent = 'Please fill in your first name, last name, and phone number.';
@@ -292,7 +191,7 @@
     label.textContent = 'Submitting…';
 
     try {
-      const r = await fetch('https://southern-mhc-crm-production.up.railway.app/api/public-apply/cody', {
+      const r = await fetch('https://crm.southernmhc.com/api/public-apply/cody', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
@@ -300,6 +199,10 @@
       const json = await r.json();
       if (!r.ok) throw new Error(json.error || 'Submission failed');
       document.getElementById('apply-form').style.display = 'none';
+      if (!data.email) {
+        document.getElementById('success-text').textContent =
+          'Thank you. Cody will reach out shortly with a secure link to complete your application.';
+      }
       document.getElementById('success-msg').classList.add('visible');
       document.querySelector('.agent-badge').style.display = 'none';
       if (typeof fbq !== 'undefined') fbq('track', 'Lead');
@@ -307,7 +210,7 @@
       errorBanner.textContent = err.message || 'Something went wrong. Please try again.';
       errorBanner.classList.add('visible');
       btn.disabled = false;
-      label.textContent = 'Submit Application';
+      label.textContent = 'Submit';
     }
   });
 </script>
