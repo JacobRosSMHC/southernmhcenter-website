@@ -134,6 +134,10 @@ forms.forEach(form => {
     const homeInterest = findVal('home interest', 'model', 'home') ||
                          (typeof window.currentHomeSlug !== 'undefined' ? window.currentHomeSlug : '');
     const salesperson = findVal('team member', 'salesperson', 'agent');
+    // SMS opt-in checkbox (home page form only): record the visitor's choice
+    // in the notes text, since it is not a separate CRM field.
+    const smsBox      = form.querySelector('input[type="checkbox"][name="smsOptIn"]');
+    const smsNote     = smsBox ? 'SMS updates: ' + (smsBox.checked ? 'yes' : 'no') : '';
 
     const leadData = {
       firstName: firstName || 'Website',
@@ -141,7 +145,7 @@ forms.forEach(form => {
       phone,
       email,
       address,
-      notes: [message, address ? 'Property: ' + address : '', homeInterest ? 'Interested in: ' + homeInterest : ''].filter(Boolean).join(' | '),
+      notes: [message, address ? 'Property: ' + address : '', homeInterest ? 'Interested in: ' + homeInterest : '', smsNote].filter(Boolean).join(' | '),
       homeInterest,
       assignedTo: salesperson || '',
       source: 'Website',
