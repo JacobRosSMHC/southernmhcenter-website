@@ -86,6 +86,9 @@ async function submitLeadToCRM(data) {
 // ── Contact form ──────────────────────────────────────────────────────────
 const forms = document.querySelectorAll('.contact-form');
 forms.forEach(form => {
+  // A form marked data-own-submit has its own submit handler on its page
+  // (pages/contact.html). Skip it here so each submission posts exactly once.
+  if (form.hasAttribute('data-own-submit')) return;
   form.addEventListener('submit', async e => {
     e.preventDefault();
     const success = form.querySelector('.form-success');
