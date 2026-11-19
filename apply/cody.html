@@ -57,6 +57,8 @@
     .error-banner.visible { display: block; }
     .disclaimer { font-size: .75rem; color: var(--text-muted); margin-top: 12px; line-height: 1.5; }
     .field-hint { font-size: .75rem; color: var(--text-muted); font-weight: 400; }
+    /* Trap field for automated submissions: kept off-screen, never shown to people */
+    .hp-wrap { position: absolute; left: -9999px; top: auto; width: 1px; height: 1px; overflow: hidden; }
   </style>
   <!-- Facebook Pixel -->
   <script>
@@ -105,6 +107,12 @@
 
         <!-- Error banner -->
         <div id="error-banner" class="error-banner"></div>
+
+        <!-- Trap field: people never see or reach it. Leave empty. -->
+        <div class="hp-wrap" aria-hidden="true">
+          <label for="apply-website">Website</label>
+          <input type="text" id="apply-website" name="website" tabindex="-1" autocomplete="off">
+        </div>
 
         <!-- Contact details only. No Social Security number, date of birth, address,
              employment or income is collected on this page. -->
@@ -180,6 +188,9 @@
       const v = String(form.get(k) || '').trim();
       if (v) data[k] = v;
     });
+    // Trap field: sent only if something filled it in. The CRM ignores those posts.
+    const trap = String(form.get('website') || '').trim();
+    if (trap) data.website = trap;
 
     if (!data.firstName || !data.lastName || !data.phone) {
       errorBanner.textContent = 'Please fill in your first name, last name, and phone number.';
