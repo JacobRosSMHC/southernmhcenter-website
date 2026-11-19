@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="canonical" href="https://www.southernmhcenter.com/pages/compare.html">
   <title>Compare Homes — Southern Mobile Home Center</title>
-  <meta name="description" content="Compare up to 3 manufactured homes side by side. Price, size, beds, baths, monthly payment and more. Southern Mobile Home Center, Tickfaw, LA.">
+  <meta name="description" content="Compare up to 3 manufactured homes side by side. Size, beds, baths and more. Southern Mobile Home Center, Tickfaw, LA.">
   <link rel="stylesheet" href="../css/style.css">
   <link rel="icon" href="../images/smhc-logo.jpg">
   <style>
@@ -159,13 +159,6 @@
       font-size: 0.88rem; font-weight: 700; color: #fff;
       white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
-    .cmp-slot-name .cmp-slot-price {
-      font-size: 1.05rem; color: var(--gold); font-weight: 800;
-    }
-    .cmp-slot-name .cmp-slot-mo {
-      font-size: 0.72rem; color: rgba(255,255,255,.45); font-weight: 500;
-    }
-
     /* Clear button */
     .cmp-slot-clear {
       position: absolute; top: 12px; right: 12px;
@@ -294,7 +287,6 @@
     .cmp-summary-card.active { opacity: 1; }
     .cmp-summary-card .sc-name { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--text-muted); margin-bottom: 6px; }
     .cmp-summary-card .sc-title { font-size: 1.05rem; font-weight: 700; color: var(--navy); margin-bottom: 2px; }
-    .cmp-summary-card .sc-price { font-size: 0.85rem; font-weight: 700; color: var(--gold); }
 
     /* Responsive */
     @media (max-width: 480px) {
@@ -313,7 +305,7 @@
   <div class="cmp-hero">
     <p class="eyebrow">Find Your Perfect Fit</p>
     <h1 class="display">Compare Homes</h1>
-    <p class="sub">Select up to 3 homes and see them side by side. Specs, price, and payment — all in one view.</p>
+    <p class="sub">Select up to 3 homes and see them side by side. Specs and features — all in one view.</p>
     <div class="cmp-hero-cta">
       <div class="cmp-count-badge">
         <strong id="selected-count">0</strong> of 3 homes selected
@@ -333,17 +325,14 @@
       <div class="cmp-summary-card" id="sc-0">
         <div class="sc-name">Slot 1</div>
         <div class="sc-title">—</div>
-        <div class="sc-price">—</div>
       </div>
       <div class="cmp-summary-card" id="sc-1">
         <div class="sc-name">Slot 2</div>
         <div class="sc-title">—</div>
-        <div class="sc-price">—</div>
       </div>
       <div class="cmp-summary-card" id="sc-2">
         <div class="sc-name">Slot 3</div>
         <div class="sc-title">—</div>
-        <div class="sc-price">—</div>
       </div>
     </div>
 
@@ -407,19 +396,7 @@
 
       <!-- ── Comparison rows ── -->
       <div class="cmp-rows" id="cmp-rows">
-        <!-- Rows: Price, Monthly Est., Beds, Baths, Sq Ft, Dimensions, Manufacturer, Status, Type -->
-        <div class="cmp-row" data-field="price">
-          <div class="cmp-row-label">💰 Price</div>
-          <div class="cmp-row-cell empty" id="cell-price-0"><span class="cell-val">—</span></div>
-          <div class="cmp-row-cell empty" id="cell-price-1"><span class="cell-val">—</span></div>
-          <div class="cmp-row-cell empty" id="cell-price-2"><span class="cell-val">—</span></div>
-        </div>
-        <div class="cmp-row" data-field="monthly">
-          <div class="cmp-row-label">📅 Monthly Est.</div>
-          <div class="cmp-row-cell empty" id="cell-monthly-0"><span class="cell-val">—</span></div>
-          <div class="cmp-row-cell empty" id="cell-monthly-1"><span class="cell-val">—</span></div>
-          <div class="cmp-row-cell empty" id="cell-monthly-2"><span class="cell-val">—</span></div>
-        </div>
+        <!-- Rows: Beds, Baths, Sq Ft, Dimensions, Manufacturer, Status, Type -->
         <div class="cmp-row" data-field="beds">
           <div class="cmp-row-label">🛏 Bedrooms</div>
           <div class="cmp-row-cell empty" id="cell-beds-0"><span class="cell-val">—</span></div>
@@ -488,7 +465,7 @@
   <section style="background:var(--navy);padding:56px 24px;text-align:center;">
     <p style="font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;">Ready to Move Forward?</p>
     <h2 class="display" style="color:#fff;margin-bottom:12px;font-size:clamp(1.4rem,3vw,2rem);">Found your perfect home?</h2>
-    <p style="color:rgba(255,255,255,.6);max-width:460px;margin:0 auto 28px;">Get pre-qualified in 5 minutes and find out your estimated monthly payment today.</p>
+    <p style="color:rgba(255,255,255,.6);max-width:460px;margin:0 auto 28px;">Get pre-qualified in 5 minutes.</p>
     <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
       <a href="prequal.html" class="btn btn-gold btn-lg">Get Pre-Qualified →</a>
       <a href="contact.html" class="btn btn-outline-white">Talk to a Team Member</a>
@@ -544,7 +521,7 @@ function populateDropdown(slotIdx) {
     homes.forEach(h => {
       const opt = document.createElement('option');
       opt.value = h.slug;
-      opt.textContent = h.name + ' — ' + h.beds + 'bd/' + h.baths + 'ba, ' + h.sqft.toLocaleString() + ' sqft — $' + h.price.toLocaleString();
+      opt.textContent = h.name + ' — ' + h.beds + 'bd/' + h.baths + 'ba, ' + h.sqft.toLocaleString() + ' sqft';
       og.appendChild(opt);
     });
     sel.appendChild(og);
@@ -604,28 +581,13 @@ function updateSlotHeader(slotIdx, home) {
   const placeholder = BASE_PATH + 'images/home-placeholder.jpg';
   photo.innerHTML = `<img src="${imgSrc}" alt="${home.name}" onerror="this.src='${placeholder}'">${badgeHtml}`;
 
-  const monthly = calcMonthlyLocal(home.price, 0.10);
   nameEl.innerHTML = `
-    <div class="cmp-slot-price">$${home.price.toLocaleString()}</div>
-    <div style="font-size:.8rem;color:rgba(255,255,255,.8);font-weight:600;margin-top:2px;">${home.name}</div>
-    <div class="cmp-slot-mo">~$${monthly.toLocaleString()}/mo est.</div>
+    <div style="font-size:.95rem;color:#fff;font-weight:700;margin-top:2px;">${home.name}</div>
   `;
 }
 
 // ── Update comparison rows ─────────────────────────────────────────────────
 const ROW_FIELDS = [
-  {
-    key: 'price',
-    format: h => h ? '$' + h.price.toLocaleString() : '—',
-    rawVal: h => h ? h.price : null,
-    winner: 'min',   // lower is better
-  },
-  {
-    key: 'monthly',
-    format: h => h ? '~$' + calcMonthlyLocal(h.price, 0.10).toLocaleString() + '/mo' : '—',
-    rawVal: h => h ? calcMonthlyLocal(h.price, 0.10) : null,
-    winner: 'min',
-  },
   {
     key: 'beds',
     format: h => h ? h.beds + ' Bed' + (h.beds !== 1 ? 's' : '') : '—',
@@ -743,7 +705,6 @@ function updateSummaryBar() {
     if (!card) continue;
     card.classList.toggle('active', !!home);
     card.querySelector('.sc-title').textContent = home ? home.name : '—';
-    card.querySelector('.sc-price').textContent = home ? '$' + home.price.toLocaleString() : '—';
   }
 }
 
@@ -753,18 +714,6 @@ function updateSelectedCount() {
   if (el) el.textContent = count;
 }
 
-// ── Monthly calc ───────────────────────────────────────────────────────────
-function calcMonthlyLocal(price, downFrac, apr, years) {
-  apr   = apr   || 0.09;
-  years = years || 25;
-  if (typeof window.calcMonthly === 'function') {
-    return window.calcMonthly(price, downFrac, apr, years);
-  }
-  const principal = price * (1 - downFrac);
-  const r = apr / 12;
-  const n = years * 12;
-  return Math.round(principal * r * Math.pow(1+r,n) / (Math.pow(1+r,n) - 1));
-}
 </script>
 
 </body>

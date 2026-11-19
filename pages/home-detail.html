@@ -34,7 +34,7 @@
 
     .detail-main { padding-top: 32px; }
 
-    /* ── Price Breakdown Tabs ──────────────────────────────────────── */
+    /* ── Included / Extras Tabs ──────────────────────────────────────── */
     .pbt-wrap {
       margin-top: 20px;
       border: 1.5px solid var(--gray-200);
@@ -188,13 +188,6 @@
       color: var(--text-muted);
       padding: 1px 5px;
       border-radius: 4px;
-    }
-    .pbt-extra-price {
-      font-size: .83rem;
-      font-weight: 700;
-      color: #b36b00;
-      white-space: nowrap;
-      flex-shrink: 0;
     }
     /* Notes hidden by default — appear on hover/check */
     .pbt-extra-note {
@@ -392,7 +385,7 @@
             </div>
           </div>
 
-          <!-- ── PRICE BREAKDOWN TABS ──────────────────────────────────────── -->
+          <!-- ── INCLUDED / EXTRAS TABS ──────────────────────────────────────── -->
           <div class="pbt-wrap">
 
             <!-- Tab buttons -->
@@ -427,7 +420,6 @@
                 <!-- Loaded dynamically from admin add-ons settings -->
               </div>
 
-                            <!-- Running total -->
               <a href="contact.html" class="btn btn-gold" style="width:100%;justify-content:center;margin-top:14px;display:flex;">Contact Us for Pricing →</a>
             </div>
 
@@ -738,17 +730,6 @@
   }
 
   window._currentHome = home; // expose for Place-a-Home tool
-  window._currentHomePrice = home.price || 0; // expose for price breakdown tab total
-
-  // Re-apply price when CRM inventory loads (API arrives after initial render)
-  document.addEventListener('crmInventoryLoaded', function(e) {
-    var live = e.detail && e.detail[slug];
-    if (live && live.websitePrice) {
-      home.price = live.websitePrice;
-      window._currentHomePrice = live.websitePrice;
-    }
-  });
-
   // ── Meta / Title ──────────────────────────────────────────────────────────
   document.title = home.name + ' — Southern Mobile Home Center';
   document.getElementById('bc-name').textContent = home.name;
@@ -757,7 +738,6 @@
   document.getElementById('sb-type').textContent  = home.type;
   document.getElementById('sb-name').textContent  = home.name;
   document.getElementById('sb-mfg').textContent   = 'by ' + home.manufacturer;
-  const mo = 0;
   document.getElementById('sb-beds').textContent  = home.beds + ' Bed';
   document.getElementById('sb-baths').textContent = home.baths + ' Bath';
   document.getElementById('sb-sqft').textContent  = home.sqft.toLocaleString() + ' sq ft';
@@ -822,10 +802,12 @@
 
   // ── Interior Photo Grids ──────────────────────────────────────────────────
   // ── Similar Homes ─────────────────────────────────────────────────────────
+  // Same type, closest in square footage
   const similar = homes.filter(h =>
     h.slug !== home.slug &&
-    h.type === home.type &&
-    Math.abs(h.price - home.price) < 20000
+    h.type === home.type
+  ).sort((a, b) =>
+    Math.abs((a.sqft || 0) - (home.sqft || 0)) - Math.abs((b.sqft || 0) - (home.sqft || 0))
   ).slice(0, 3);
 
   document.getElementById('similar-homes-row').innerHTML = similar.map(h =>
@@ -1043,12 +1025,12 @@
   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBvwwZBf6GgomdeGKHOxznKs0pDpuouRdE&libraries=places&callback=_pahInitDetail">
 </script>
 
-<!-- ── Price Breakdown Tabs JS ─────────────────────────────────────── -->
+<!-- ── Included / Extras Tabs JS ─────────────────────────────────────── -->
 <script>
 
   // ── Dynamic Add-ons Loader ──────────────────────────────────────
   // Primary source: CRM API (GET /api/public/addons)
-  // Fallback 1: localStorage (smhcAddons) — set by admin price manager
+  // Fallback 1: localStorage (smhcAddons)
   // Fallback 2: built-in defaults below
   (function() {
     var CRM_ADDONS_URL = 'https://southern-mhc-crm-production.up.railway.app/api/public/addons';
@@ -1057,42 +1039,42 @@
       {
         group: '📍 Land & Site Prep',
         items: [
-          { id: 'site-clear-light',  label: 'Site Clearing (Light)',       price: 3500, note: 'Light brush & vegetation removal. Heavily wooded sites will be more.' },
-          { id: 'site-clear-heavy',  label: 'Land Clearing (Wooded)',       price: 8000, note: 'Tree removal, stump grinding, and grading. Varies widely by lot size and density.' },
-          { id: 'gravel-pad',        label: 'Gravel Pad',                   price: 2500, note: 'Compacted gravel base for the home. Size-dependent.' },
-          { id: 'concrete-runners',  label: 'Concrete Runners / Piers',     price: 4500, note: 'Permanent concrete foundation option. Increases loan eligibility in some programs.' },
+          { id: 'site-clear-light',  label: 'Site Clearing (Light)', note: 'Light brush & vegetation removal. Heavily wooded sites will be more.' },
+          { id: 'site-clear-heavy',  label: 'Land Clearing (Wooded)', note: 'Tree removal, stump grinding, and grading. Varies widely by lot size and density.' },
+          { id: 'gravel-pad',        label: 'Gravel Pad', note: 'Compacted gravel base for the home. Size-dependent.' },
+          { id: 'concrete-runners',  label: 'Concrete Runners / Piers', note: 'Permanent concrete foundation option. Increases loan eligibility in some programs.' },
         ]
       },
       {
         group: '🚰 Utilities & Connections',
         items: [
-          { id: 'septic',            label: 'Septic System',                price: 6500, note: 'Conventional septic tank & drain field. Costs vary significantly by soil type and local regulations.' },
-          { id: 'water-well',        label: 'Water Well',                   price: 2000, note: 'Shallow well estimate. Depth and local conditions can significantly affect this price.' },
-          { id: 'electric-hookup',   label: 'Electric Hookup',              price: 1800, note: 'Meter base, service entrance, and connection. Utility company fees not included.' },
-          { id: 'light-pole',        label: 'Light Pole & Meter Loop',      price: 2800, note: 'Temporary or permanent pole with meter loop. Required in many rural locations.' },
-          { id: 'city-water-sewer',  label: 'City Water & Sewer Hookup',    price: 1200, note: 'Tap fee and connection to municipal water/sewer line. Fees vary by municipality.' },
+          { id: 'septic',            label: 'Septic System', note: 'Conventional septic tank & drain field. Costs vary significantly by soil type and local regulations.' },
+          { id: 'water-well',        label: 'Water Well', note: 'Shallow well estimate. Depth and local conditions can significantly affect this price.' },
+          { id: 'electric-hookup',   label: 'Electric Hookup', note: 'Meter base, service entrance, and connection. Utility company fees not included.' },
+          { id: 'light-pole',        label: 'Light Pole & Meter Loop', note: 'Temporary or permanent pole with meter loop. Required in many rural locations.' },
+          { id: 'city-water-sewer',  label: 'City Water & Sewer Hookup', note: 'Tap fee and connection to municipal water/sewer line. Fees vary by municipality.' },
         ]
       },
       {
         group: '🛫 Extended Delivery',
         items: [
-          { id: 'ext-delivery',      label: 'Extended Delivery (50–100 mi over standard)', price: 1500, note: 'For sites beyond our standard delivery radius. Exact fee confirmed based on your location.' },
+          { id: 'ext-delivery',      label: 'Extended Delivery (50–100 mi over standard)', note: 'For sites beyond our standard delivery radius. Exact fee confirmed based on your location.' },
         ]
       },
       {
         group: '🏠 Optional Home Upgrades',
         items: [
-          { id: 'porch-deck',        label: 'Covered Porch / Deck',         price: 3500, note: 'Basic covered entry porch or wood deck. Size and material choices affect pricing.' },
-          { id: 'carport',           label: 'Carport',                      price: 1500, note: 'Single-car metal carport. Double-car and enclosed options available.' },
-          { id: 'skirting-upgrade',  label: 'Upgraded Skirting',            price: 2000, note: 'Brick, stone veneer, or premium skirting instead of standard.' },
-          { id: 'storm-door',        label: 'Storm Door(s)',                 price: 500,  note: 'Per door estimate for exterior storm/screen door addition.' },
+          { id: 'porch-deck',        label: 'Covered Porch / Deck', note: 'Basic covered entry porch or wood deck. Size and material choices affect pricing.' },
+          { id: 'carport',           label: 'Carport', note: 'Single-car metal carport. Double-car and enclosed options available.' },
+          { id: 'skirting-upgrade',  label: 'Upgraded Skirting', note: 'Brick, stone veneer, or premium skirting instead of standard.' },
+          { id: 'storm-door',        label: 'Storm Door(s)', note: 'Per door estimate for exterior storm/screen door addition.' },
         ]
       },
       {
         group: '📜 Permits & Inspections',
         items: [
-          { id: 'building-permits',  label: 'Local Building Permits',        price: 800,  note: 'Varies by parish/county. Some areas are higher, some exempt rural placements.' },
-          { id: 'hud-inspection',    label: 'HUD Installation Inspection',   price: 350,  note: 'Required in some loan programs. Verifies proper installation per federal standards.' },
+          { id: 'building-permits',  label: 'Local Building Permits', note: 'Varies by parish/county. Some areas are higher, some exempt rural placements.' },
+          { id: 'hud-inspection',    label: 'HUD Installation Inspection', note: 'Required in some loan programs. Verifies proper installation per federal standards.' },
         ]
       },
     ];
@@ -1100,6 +1082,7 @@
     function buildAddonHTML(addons) {
       return addons.map(function(g) {
         var itemsHTML = g.items.map(function(item) {
+          // Only the label and note are shown. Every other field in the feed is ignored.
           return '<label class="pbt-extra-item">' +
             '<input type="checkbox" class="pbt-chk" data-label="' + (item.label || '').replace(/"/g, '&quot;') + '">' +
             '<div class="pbt-extra-body">' +
@@ -1166,7 +1149,7 @@
     if (tab === 'extras') updateExtrasTotal();
   };
 
-  // ── Checkbox counter (badge only — no pricing) ──────────────────
+  // ── Checkbox counter (badge only) ──────────────────
   window.updateExtrasTotal = function() {
     var checkboxes = document.querySelectorAll('.pbt-chk');
     var count = 0;
@@ -1184,10 +1167,8 @@
     }
   };
 
-  // Run once on load to initialize the base price display in the total box
-  // (waits for the detail script to have set window._currentHomePrice)
+  // Run once on load to initialize the badge
   document.addEventListener('DOMContentLoaded', function() {
-    // Small delay to ensure detail page script has finished setting _currentHomePrice
     setTimeout(updateExtrasTotal, 50);
   });
 

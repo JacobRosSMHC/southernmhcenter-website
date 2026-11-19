@@ -213,32 +213,6 @@
       cursor: pointer;
     }
 
-    /* Payment preview box */
-    .pq-payment-preview {
-      background: var(--navy);
-      border-radius: var(--radius);
-      padding: 20px 24px;
-      margin-top: 20px;
-      display: flex; align-items: center; justify-content: space-between;
-      flex-wrap: wrap; gap: 12px;
-    }
-    .pq-payment-preview .ppp-label {
-      font-size: 0.78rem; color: rgba(255,255,255,.6); font-weight: 600;
-      text-transform: uppercase; letter-spacing: .08em; margin-bottom: 2px;
-    }
-    .pq-payment-preview .ppp-amount {
-      font-size: 1.6rem; font-weight: 800; color: var(--gold); line-height: 1;
-    }
-    .pq-payment-preview .ppp-mo {
-      font-size: 0.8rem; color: rgba(255,255,255,.5); margin-top: 2px;
-    }
-    .pq-payment-preview .ppp-breakdown {
-      text-align: right;
-    }
-    .pq-payment-preview .ppp-breakdown p {
-      font-size: 0.78rem; color: rgba(255,255,255,.5); margin: 1px 0;
-    }
-
     /* ── Radio Group ── */
     .pq-radio-group {
       display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;
@@ -373,31 +347,6 @@
     .pq-success .pq-success-sub {
       font-size: 1rem; color: var(--text-muted); margin-bottom: 32px; max-width: 460px; margin-left: auto; margin-right: auto;
     }
-    .pq-success-payment {
-      background: var(--navy);
-      border-radius: var(--radius-lg);
-      padding: 28px 32px;
-      margin-bottom: 28px;
-      display: inline-flex; align-items: center; gap: 24px;
-      flex-wrap: wrap; justify-content: center;
-      min-width: 320px;
-    }
-    .pq-success-payment .sp-label {
-      font-size: 0.75rem; font-weight: 700; letter-spacing: .1em;
-      text-transform: uppercase; color: rgba(255,255,255,.55); margin-bottom: 4px;
-    }
-    .pq-success-payment .sp-amount {
-      font-size: 2.2rem; font-weight: 800; color: var(--gold); line-height: 1;
-    }
-    .pq-success-payment .sp-mo {
-      font-size: 0.82rem; color: rgba(255,255,255,.45); margin-top: 3px;
-    }
-    .pq-success-payment .sp-divider {
-      width: 1px; height: 48px; background: rgba(255,255,255,.15);
-    }
-    .pq-success-payment .sp-details p {
-      font-size: 0.8rem; color: rgba(255,255,255,.5); margin: 2px 0;
-    }
     .pq-success-notice {
       background: #f0f3f9;
       border: 1.5px solid rgba(26,39,68,.12);
@@ -502,7 +451,7 @@
       <div class="pq-card">
         <p class="pq-card-step-num">Step 2 of 5</p>
         <h2 class="display">What's your estimated budget?</h2>
-        <p class="pq-subtitle">Drag the sliders to set your price range and down payment.</p>
+        <p class="pq-subtitle">Drag the sliders to set your budget and money down.</p>
 
         <div class="pq-slider-group">
           <div class="pq-slider-header">
@@ -520,7 +469,7 @@
 
         <div class="pq-slider-group">
           <div class="pq-slider-header">
-            <span class="pq-slider-label">Down Payment</span>
+            <span class="pq-slider-label">Money Down</span>
             <span class="pq-slider-val" id="down-display">10%</span>
           </div>
           <input type="range" class="pq-slider" id="down-slider"
@@ -529,18 +478,6 @@
           <div style="display:flex;justify-content:space-between;margin-top:6px;">
             <span style="font-size:.72rem;color:var(--text-muted);">5%</span>
             <span style="font-size:.72rem;color:var(--text-muted);">30%</span>
-          </div>
-        </div>
-
-        <div class="pq-payment-preview" id="payment-preview">
-          <div>
-            <div class="ppp-label">Est. Monthly Payment</div>
-            <div class="ppp-amount" id="monthly-display">$1,040</div>
-            <div class="ppp-mo">at 9% APR, 25-year term</div>
-          </div>
-          <div class="ppp-breakdown">
-            <p id="breakdown-loan">Loan: $112,500</p>
-            <p id="breakdown-down">Down: $12,500</p>
           </div>
         </div>
 
@@ -701,22 +638,8 @@
         <div class="pq-success-icon">🎉</div>
         <h2 class="display" style="color:var(--navy);">You're Pre-Qualified!</h2>
         <p class="pq-success-sub">
-          Great news — based on your answers, here's your estimated monthly payment.
+          Great news — we received your answers.
         </p>
-
-        <div class="pq-success-payment" id="success-payment-card">
-          <div>
-            <div class="sp-label">Est. Monthly Payment</div>
-            <div class="sp-amount" id="success-monthly">—</div>
-            <div class="sp-mo">at 9% APR, 25-year term</div>
-          </div>
-          <div class="sp-divider"></div>
-          <div class="sp-details">
-            <p id="success-budget">Budget: —</p>
-            <p id="success-down">Down: —</p>
-            <p id="success-type">Type: —</p>
-          </div>
-        </div>
 
         <div class="pq-success-notice">
           <span class="notice-icon">📞</span>
@@ -725,7 +648,7 @@
 
         <div class="pq-success-btns">
           <a href="floor-plans.html" class="btn btn-gold btn-lg" id="success-browse-btn">
-            Browse Homes in Your Budget →
+            Browse Homes →
           </a>
           <a href="contact.html" class="btn btn-outline btn-lg">
             Contact Us
@@ -866,29 +789,8 @@ function updateBudget() {
   pqState.budget  = budgetK;
   pqState.downPct = downPctV;
 
-  const price     = budgetK * 1000;
-  const downAmt   = Math.round(price * downPctV / 100);
-  const loanAmt   = price - downAmt;
-  const monthly   = calcMonthlyLocal(price, downPctV / 100);
-
   document.getElementById('budget-display').textContent = '$' + budgetK.toLocaleString() + ',000';
   document.getElementById('down-display').textContent   = downPctV + '%';
-  document.getElementById('monthly-display').textContent = '$' + monthly.toLocaleString();
-  document.getElementById('breakdown-loan').textContent  = 'Loan: $' + loanAmt.toLocaleString();
-  document.getElementById('breakdown-down').textContent  = 'Down: $' + downAmt.toLocaleString();
-}
-
-// Use window.calcMonthly if available, else inline fallback
-function calcMonthlyLocal(price, downFrac, apr, years) {
-  apr   = apr   || 0.09;
-  years = years || 25;
-  if (typeof window.calcMonthly === 'function') {
-    return window.calcMonthly(price, downFrac, apr, years);
-  }
-  const principal = price * (1 - downFrac);
-  const r = apr / 12;
-  const n = years * 12;
-  return Math.round(principal * r * Math.pow(1+r,n) / (Math.pow(1+r,n) - 1));
 }
 
 updateBudget(); // init display
@@ -918,8 +820,6 @@ async function pqSubmit() {
 
   // Build lead data
   const { homeType, budget, downPct, landSituation, creditRange, timeline, contactPref } = pqState;
-  const price    = budget * 1000;
-  const monthly  = calcMonthlyLocal(price, downPct / 100);
 
   const leadData = {
     firstName,
@@ -950,16 +850,6 @@ async function pqSubmit() {
   // Show success screen
   document.getElementById('step-5').classList.remove('active');
   document.getElementById('pq-success').classList.add('active');
-
-  // Populate success screen
-  document.getElementById('success-monthly').textContent = '$' + monthly.toLocaleString();
-  document.getElementById('success-budget').textContent   = 'Budget: $' + budget + 'K';
-  document.getElementById('success-down').textContent     = 'Down: ' + downPct + '%';
-  document.getElementById('success-type').textContent     = 'Type: ' + (homeType || 'Any');
-
-  // Update browse link with price filter
-  const browseBtn = document.getElementById('success-browse-btn');
-  browseBtn.href = 'floor-plans.html?maxprice=' + (budget * 1000);
 
   // Hide progress bar during success
   document.querySelector('.pq-progress-wrap').style.opacity = '0';

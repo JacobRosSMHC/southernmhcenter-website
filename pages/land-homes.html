@@ -10,7 +10,7 @@
   <title>Land & Home Packages | Southern Mobile Home Center</title>
   <meta name="description" content="Browse homes already set up on land, or let us help you find the perfect lot for your new home. Southern Mobile Home Center — Tickfaw, LA.">
   <meta property="og:title" content="Land & Home Packages | Southern Mobile Home Center">
-  <meta property="og:description" content="Browse move-in ready homes on land, or let us place your chosen home on a new lot.">
+  <meta property="og:description" content="Browse homes already set up on land, or let us place your chosen home on a new lot.">
   <meta property="og:image" content="../images/og-image.jpg">
   <link rel="stylesheet" href="../css/style.css">
   <link rel="icon" href="../images/smhc-logo.jpg">
@@ -97,7 +97,6 @@
     .lh-card-meta { display: flex; flex-wrap: wrap; gap: 10px; margin: 10px 0 12px; }
     .lh-card-meta span { font-size: 0.8rem; color: var(--text-muted); display: flex; align-items: center; gap: 4px; }
     .lh-card-location { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 12px; }
-    .lh-card-price { font-size: 1.3rem; font-weight: 900; color: var(--navy); margin-bottom: 14px; }
     .lh-card-desc { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px; line-height: 1.5; }
     .lh-empty {
       grid-column: 1 / -1;
@@ -120,7 +119,7 @@
   </style>
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Land & Home Packages | Southern Mobile Home Center">
-  <meta name="twitter:description" content="Browse move-in ready homes on land, or let us place your chosen home on a new lot.">
+  <meta name="twitter:description" content="Browse homes already set up on land, or let us place your chosen home on a new lot.">
   <meta name="twitter:image" content="../images/og-image.jpg">
 </head>
 <body>
@@ -135,7 +134,7 @@
       <div class="lh-option-card">
         <div class="opt-icon">🏡</div>
         <h3>Already Set Up &amp; Ready</h3>
-        <p>Browse our selection of homes that are already placed on land and ready to move into.</p>
+        <p>Browse our selection of homes that are already placed on land.</p>
       </div>
       <div class="lh-option-card">
         <div class="opt-icon">📍</div>
@@ -156,7 +155,7 @@
   <div class="container">
     <div class="section-header">
       <h2>Available Land &amp; Home Packages</h2>
-      <p>Homes already set up on selected properties — move-in ready. Inventory updated regularly.</p>
+      <p>Homes already set up on selected properties. Inventory updated regularly.</p>
     </div>
     <div class="lh-grid" id="lh-grid">
       <div class="lh-empty"><p>Loading listings…</p></div>
@@ -195,15 +194,17 @@
           (l.sqft ? '<span>📐 ' + l.sqft.toLocaleString() + ' sq ft</span>' : '') +
         '</div>' +
         (l.description ? '<p class="lh-card-desc">' + l.description + '</p>' : '') +
-        (l.price ? '<div class="lh-card-price">$' + l.price.toLocaleString() + '</div>' : '<div class="lh-card-price">Call for Price</div>') +
         '<a href="../pages/contact.html" class="btn btn-navy btn-sm" style="width:100%;justify-content:center;">Inquire About This Home</a>' +
       '</div></div>';
   }
 
+  var EMPTY_HTML = '<div class="lh-empty"><p>Call 985-520-5012 for current land and home packages.</p><a href="tel:9855205012" class="btn btn-navy btn-sm">Call (985) 520-5012</a></div>';
+
+  // Only the fields rendered below are shown. Dollar figures in the feed are ignored.
   function render(listings) {
-    var available = listings.filter(function(l) { return l.status !== 'sold'; });
+    var available = (Array.isArray(listings) ? listings : []).filter(function(l) { return l && l.status !== 'sold'; });
     if (!available.length) {
-      grid.innerHTML = '<div class="lh-empty"><p>No listings available right now — check back soon or give us a call.</p><a href="contact.html" class="btn btn-navy btn-sm">Contact Us</a></div>';
+      grid.innerHTML = EMPTY_HTML;
       return;
     }
     grid.innerHTML = available.map(renderCard).join('');
@@ -218,7 +219,7 @@
     var fallback = await fetch('../data/land-homes.json');
     render(await fallback.json());
   } catch(e2) {
-    grid.innerHTML = '<div class="lh-empty"><p>No listings available right now. Give us a call to learn more.</p><a href="tel:9855205012" class="btn btn-navy btn-sm">Call (985) 520-5012</a></div>';
+    grid.innerHTML = EMPTY_HTML;
   }
 })();
 </script>

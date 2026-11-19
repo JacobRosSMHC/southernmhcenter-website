@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="canonical" href="https://www.southernmhcenter.com/pages/design.html">
   <title>Design Your Home — Southern Mobile Home Center</title>
-  <meta name="description" content="Customize your manufactured home with exterior colors, cabinet finishes, flooring, and more. Get a live price estimate.">
+  <meta name="description" content="Customize your manufactured home with exterior colors, cabinet finishes, flooring, and more.">
   <link rel="stylesheet" href="../css/style.css">
   <link rel="icon" href="../images/smhc-logo.jpg">
   <style>
@@ -26,7 +26,6 @@
     }
     .design-page-header .container { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
     .design-page-header h1 { font-size: 1.4rem; color: var(--navy); }
-    .design-page-header .base-price { font-size: 1.2rem; font-weight: 800; color: var(--gold); }
 
     .design-options-panel {
       background: var(--white);
@@ -62,7 +61,7 @@
       overflow: hidden;
     }
     .design-option:has(.opt-swatch-img) .opt-name,
-    .design-option:has(.opt-swatch-img) .opt-price {
+    .design-option:has(.opt-swatch-img) .opt-tag {
       padding: 0 8px;
     }
     /* Wider cards when showing photo swatches */
@@ -94,10 +93,6 @@
         <span id="header-home-name">Design Your Home</span>
       </div>
       <h1 class="display" id="header-title">Design Your Home</h1>
-    </div>
-    <div style="text-align:right;">
-      <div style="font-size:.75rem;color:var(--text-muted);">Starting at</div>
-      <div class="base-price" id="header-base-price">$67,700</div>
     </div>
   </div>
 </div>
@@ -190,28 +185,6 @@
         </div>
       </div>
 
-      <!-- Price Breakdown -->
-      <div class="design-price-breakdown">
-        <div class="design-price-row">
-          <span>Unit Base</span>
-          <span id="price-base">$67,700</span>
-        </div>
-        <div class="design-price-row">
-          <span>Upgrades</span>
-          <span id="price-upgrades">+$0</span>
-        </div>
-        <div class="design-price-row total">
-          <span>Unit Total</span>
-          <span id="price-total">$67,700</span>
-        </div>
-      </div>
-
-      <!-- Monthly -->
-      <div class="design-monthly">
-        <div class="mo-label">Est. Monthly</div>
-        <div class="mo-val" id="price-monthly">$—</div>
-      </div>
-
       <!-- CTAs -->
       <a id="btn-get-quote" href="contact.html" class="btn btn-gold">Get a Quote</a>
       <button class="btn btn-outline" onclick="window.print()" style="margin-top:8px;">Save / Print</button>
@@ -239,7 +212,6 @@
   document.title = 'Design ' + home.name + ' — Southern Mobile Home Center';
   document.getElementById('header-home-name').textContent = home.name;
   document.getElementById('header-title').textContent = 'Design Your ' + home.name;
-  document.getElementById('header-base-price').textContent = formatPrice(home.price);
   document.getElementById('summary-name').textContent = home.name;
   document.getElementById('summary-specs').textContent =
     home.beds + ' Bed | ' + home.baths + ' Bath | ' + (home.sqft ? home.sqft.toLocaleString() + ' Sq. Ft.' : 'Contact for Sq. Ft.') +
@@ -271,37 +243,29 @@
         </div>
       </div>
     `;
-    updatePricing();
     return;
   }
 
   const DO_init = home.designOptions || DEFAULT_DESIGN_OPTIONS;
   const sels = {
-    siding:     { name: DO_init.exterior.sidingColor[0].name,   price: 0 },
-    roof:       { name: DO_init.exterior.roofColor[0].name,     price: 0 },
-    cabinets:   { name: DO_init.kitchen.cabinetColor[0].name,   price: 0 },
-    countertop: { name: DO_init.kitchen.countertop[0].name,     price: 0 },
-    appliances: { name: DO_init.kitchen.appliances[0].name,     price: 0 },
-    'floor-kb': { name: DO_init.flooring.kitchenBath[0].name,   price: 0 },
-    'floor-bed':{ name: DO_init.flooring.bedroomLiving[0].name, price: 0 },
-    wall:       { name: DO_init.interior.wallColor[0].name,     price: 0 },
-    trim:       { name: DO_init.interior.trimColor[0].name,     price: 0 },
+    siding:     { name: DO_init.exterior.sidingColor[0].name },
+    roof:       { name: DO_init.exterior.roofColor[0].name },
+    cabinets:   { name: DO_init.kitchen.cabinetColor[0].name },
+    countertop: { name: DO_init.kitchen.countertop[0].name },
+    appliances: { name: DO_init.kitchen.appliances[0].name },
+    'floor-kb': { name: DO_init.flooring.kitchenBath[0].name },
+    'floor-bed':{ name: DO_init.flooring.bedroomLiving[0].name },
+    wall:       { name: DO_init.interior.wallColor[0].name },
+    trim:       { name: DO_init.interior.trimColor[0].name },
   };
 
-  function updatePricing() {
-    const upgrades = Object.values(sels).reduce((s, v) => s + (v.price || 0), 0);
-    const total = home.price + upgrades;
-    document.getElementById('price-base').textContent    = formatPrice(home.price);
-    document.getElementById('price-upgrades').textContent = (upgrades > 0 ? '+' : '') + formatPrice(upgrades);
-    document.getElementById('price-total').textContent   = formatPrice(total);
-    document.getElementById('price-monthly').textContent = '$' + estimateMonthly(total).toLocaleString() + '/mo';
-
+  function updateSelections() {
     // Update selections display
     document.getElementById('sel-siding').textContent     = sels.siding.name;
     document.getElementById('sel-roof').textContent       = sels.roof.name;
     document.getElementById('sel-cabinets').textContent   = sels.cabinets.name;
     document.getElementById('sel-countertop').textContent = sels.countertop.name;
-    document.getElementById('sel-appliances').textContent = sels.appliances.name + (sels.appliances.price > 0 ? ' (+$'+sels.appliances.price+')' : '');
+    document.getElementById('sel-appliances').textContent = sels.appliances.name;
     document.getElementById('sel-floor-kb').textContent   = sels['floor-kb'].name;
     document.getElementById('sel-floor-bed').textContent  = sels['floor-bed'].name;
     document.getElementById('sel-wall').textContent       = sels.wall.name;
@@ -316,24 +280,23 @@
   function makeColorSwatch(opt, key, defaultFirst) {
     const hasImg   = !!opt.img;
     const isColor  = !!opt.color;
-    const price    = opt.price || 0;
-    const priceLabel = price > 0 ? '+$' + price.toLocaleString() : 'Included';
+    const tagLabel = opt.included === false ? 'Upgrade' : 'Included';
     const colorStyle = isColor ? `style="background:${opt.color};border-color:rgba(0,0,0,${opt.color==='#ffffff'?'.2':'.1'});"` : '';
 
-    return `<div class="design-option${sels[key].name === opt.name ? ' selected' : ''}" onclick="selectOpt('${key}', this, '${opt.name.replace(/'/g,"\\'")}', ${price})">
+    return `<div class="design-option${sels[key].name === opt.name ? ' selected' : ''}" onclick="selectOpt('${key}', this, '${opt.name.replace(/'/g,"\\'")}')">
       ${hasImg  ? `<img class="opt-swatch-img" src="${opt.img}" alt="${opt.name}" loading="lazy">` : ''}
       ${isColor ? `<span class="opt-swatch" ${colorStyle}></span>` : ''}
       <span class="opt-name">${opt.name}</span>
-      <span class="opt-price">${priceLabel}</span>
+      <span class="opt-tag">${tagLabel}</span>
     </div>`;
   }
 
-  window.selectOpt = function(key, el, name, price) {
+  window.selectOpt = function(key, el, name) {
     const container = el.parentElement;
     container.querySelectorAll('.design-option').forEach(o => o.classList.remove('selected'));
     el.classList.add('selected');
-    sels[key] = { name, price };
-    updatePricing();
+    sels[key] = { name };
+    updateSelections();
   };
 
   function buildOpts(containerId, key, opts) {
@@ -359,8 +322,8 @@
   buildOpts('opts-wall', 'wall', DO.interior.wallColor);
   buildOpts('opts-trim', 'trim', DO.interior.trimColor);
 
-  // Initial pricing
-  updatePricing();
+  // Initial selections summary
+  updateSelections();
 
 })();
 </script>

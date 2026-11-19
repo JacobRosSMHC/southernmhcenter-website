@@ -163,15 +163,6 @@ forms.forEach(form => {
   });
 });
 
-// ── Monthly payment estimator ─────────────────────────────────────────────
-function calcMonthly(price, downPct = 0.10, apr = 0.09, years = 25) {
-  const principal = price * (1 - downPct);
-  const r = apr / 12;
-  const n = years * 12;
-  return Math.round(principal * r * Math.pow(1+r, n) / (Math.pow(1+r, n) - 1));
-}
-window.calcMonthly = calcMonthly;
-
 // ── View Count Tracking ───────────────────────────────────────────────────
 function trackHomeView(slug) {
   if (!slug) return;

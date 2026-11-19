@@ -5,62 +5,62 @@
 const DEFAULT_DESIGN_OPTIONS = {
   exterior: {
     sidingColor: [
-      { name: "Flint",        color: "#6b6b6b", price: 0 },
-      { name: "Wicker",       color: "#c4a882", price: 0 },
-      { name: "Praline",      color: "#8b6b4a", price: 0 },
-      { name: "Frost",        color: "#e8e8e8", price: 0 },
-      { name: "Coastal Blue", color: "#5b7fa6", price: 0 },
-      { name: "Sage",         color: "#7a9b7a", price: 0 },
-      { name: "Barn Red",     color: "#8b2020", price: 0 },
-      { name: "White",        color: "#ffffff", price: 0 },
+      { name: "Flint",        color: "#6b6b6b" },
+      { name: "Wicker",       color: "#c4a882" },
+      { name: "Praline",      color: "#8b6b4a" },
+      { name: "Frost",        color: "#e8e8e8" },
+      { name: "Coastal Blue", color: "#5b7fa6" },
+      { name: "Sage",         color: "#7a9b7a" },
+      { name: "Barn Red",     color: "#8b2020" },
+      { name: "White",        color: "#ffffff" },
     ],
     roofColor: [
-      { name: "Charcoal",      color: "#3a3a3a", price: 0 },
-      { name: "Weathered Wood",color: "#8b7355", price: 0 },
-      { name: "Desert Sand",   color: "#c4a882", price: 0 },
+      { name: "Charcoal",      color: "#3a3a3a" },
+      { name: "Weathered Wood",color: "#8b7355" },
+      { name: "Desert Sand",   color: "#c4a882" },
     ],
   },
   kitchen: {
     cabinetColor: [
-      { name: "Alabaster White", color: "#f5f0e8", price: 0 },
-      { name: "Driftwood",       color: "#b8a898", price: 0 },
-      { name: "Espresso",        color: "#3c2415", price: 0 },
-      { name: "Graphite",        color: "#4a4a4a", price: 0 },
+      { name: "Alabaster White", color: "#f5f0e8" },
+      { name: "Driftwood",       color: "#b8a898" },
+      { name: "Espresso",        color: "#3c2415" },
+      { name: "Graphite",        color: "#4a4a4a" },
     ],
     countertop: [
-      { name: "White Barn",     color: "#f0ece4", price: 0 },
-      { name: "Fossil Gray",    color: "#a0a0a0", price: 0 },
-      { name: "Midnight Black", color: "#1a1a1a", price: 0 },
-      { name: "Sandstone",      color: "#c4aa88", price: 0 },
+      { name: "White Barn",     color: "#f0ece4" },
+      { name: "Fossil Gray",    color: "#a0a0a0" },
+      { name: "Midnight Black", color: "#1a1a1a" },
+      { name: "Sandstone",      color: "#c4aa88" },
     ],
     appliances: [
-      { name: "Electric Standard", price: 0,   included: true },
-      { name: "Gas Range",         price: 400,  included: false },
-      { name: "Stainless Upgrade", price: 600,  included: false },
+      { name: "Electric Standard", included: true },
+      { name: "Gas Range",         included: false },
+      { name: "Stainless Upgrade", included: false },
     ],
   },
   flooring: {
     kitchenBath: [
-      { name: "Piedmont",       price: 0,   included: true },
-      { name: "Heritage Oak",   price: 300, included: false },
-      { name: "Coastal Slate",  price: 450, included: false },
+      { name: "Piedmont",       included: true },
+      { name: "Heritage Oak",   included: false },
+      { name: "Coastal Slate",  included: false },
     ],
     bedroomLiving: [
-      { name: "Carpet",             price: 0,    included: true },
-      { name: "Luxury Vinyl Plank", price: 700,  included: false },
-      { name: "Hardwood Look",      price: 1200, included: false },
+      { name: "Carpet",             included: true },
+      { name: "Luxury Vinyl Plank", included: false },
+      { name: "Hardwood Look",      included: false },
     ],
   },
   interior: {
     wallColor: [
-      { name: "First Light",    color: "#f8f4ee", price: 0 },
-      { name: "Coastal Breeze", color: "#e8eef4", price: 0 },
-      { name: "Warm Sand",      color: "#f4ede0", price: 0 },
-      { name: "Slate Gray",     color: "#e0e4e8", price: 0 },
+      { name: "First Light",    color: "#f8f4ee" },
+      { name: "Coastal Breeze", color: "#e8eef4" },
+      { name: "Warm Sand",      color: "#f4ede0" },
+      { name: "Slate Gray",     color: "#e0e4e8" },
     ],
     trimColor: [
-      { name: "Bright White",  color: "#ffffff", price: 0 },
-      { name: "Antique Cream", color: "#f5eedd", price: 0 },
+      { name: "Bright White",  color: "#ffffff" },
+      { name: "Antique Cream", color: "#f5eedd" },
     ],
   },
 };
@@ -70,76 +70,76 @@ const DEER_VALLEY_DESIGN_OPTIONS = {
   callForCustomization: true, // Too many options — show call CTA instead of option panels
   exterior: {
     sidingColor: [
-      { name: "Aspen White",   img: "https://www.deervalleyhb.com/wp-content/uploads/2023/09/Aspen-White-Standard.jpg",    price: 0 },
-      { name: "Canyon",        img: "https://www.deervalleyhb.com/wp-content/uploads/2023/09/Canyon-Standard.jpg",         price: 0 },
-      { name: "Country Beige", img: "https://www.deervalleyhb.com/wp-content/uploads/2023/09/Country-Beige-Standard.jpg",  price: 0 },
-      { name: "Clay",          img: "https://www.deervalleyhb.com/wp-content/uploads/2023/09/Clay-Standard.jpg",           price: 0 },
-      { name: "Cypress",       img: "https://www.deervalleyhb.com/wp-content/uploads/2023/09/Cypress-Standard.jpg",        price: 0 },
-      { name: "Greystone",     img: "https://www.deervalleyhb.com/wp-content/uploads/2023/09/Greystone-Standard.jpg",      price: 0 },
-      { name: "Driftwood",     img: "https://www.deervalleyhb.com/wp-content/uploads/2023/09/Driftwood-Standard.jpg",      price: 0 },
-      { name: "Regatta Blue",  img: "https://www.deervalleyhb.com/wp-content/uploads/2021/04/siding-Regatta-Blue-768x509.jpg", price: 0 },
-      { name: "Carbon",        img: "https://www.deervalleyhb.com/wp-content/uploads/2023/05/carbon-768x509.jpg",           price: 0 },
+      { name: "Aspen White",   img: "https://www.deervalleyhb.com/wp-content/uploads/2023/09/Aspen-White-Standard.jpg" },
+      { name: "Canyon",        img: "https://www.deervalleyhb.com/wp-content/uploads/2023/09/Canyon-Standard.jpg" },
+      { name: "Country Beige", img: "https://www.deervalleyhb.com/wp-content/uploads/2023/09/Country-Beige-Standard.jpg" },
+      { name: "Clay",          img: "https://www.deervalleyhb.com/wp-content/uploads/2023/09/Clay-Standard.jpg" },
+      { name: "Cypress",       img: "https://www.deervalleyhb.com/wp-content/uploads/2023/09/Cypress-Standard.jpg" },
+      { name: "Greystone",     img: "https://www.deervalleyhb.com/wp-content/uploads/2023/09/Greystone-Standard.jpg" },
+      { name: "Driftwood",     img: "https://www.deervalleyhb.com/wp-content/uploads/2023/09/Driftwood-Standard.jpg" },
+      { name: "Regatta Blue",  img: "https://www.deervalleyhb.com/wp-content/uploads/2021/04/siding-Regatta-Blue-768x509.jpg" },
+      { name: "Carbon",        img: "https://www.deervalleyhb.com/wp-content/uploads/2023/05/carbon-768x509.jpg" },
     ],
     roofColor: [
-      { name: "Weathered Wood",  img: "https://www.deervalleyhb.com/wp-content/uploads/2023/09/Weathered-Wood-Standard.jpg",   price: 0 },
-      { name: "Charcoal Black",  img: "https://www.deervalleyhb.com/wp-content/uploads/2023/09/Charcoal-Black-Upgarde.jpg",    price: 0 },
-      { name: "Silver Birch",    img: "https://www.deervalleyhb.com/wp-content/uploads/2023/09/Silver-Birch-Upgrade.jpg",       price: 0 },
-      { name: "Resawn Shake",    img: "https://www.deervalleyhb.com/wp-content/uploads/2023/09/Resawn-Shake-Upgrade.jpg",       price: 0 },
+      { name: "Weathered Wood",  img: "https://www.deervalleyhb.com/wp-content/uploads/2023/09/Weathered-Wood-Standard.jpg" },
+      { name: "Charcoal Black",  img: "https://www.deervalleyhb.com/wp-content/uploads/2023/09/Charcoal-Black-Upgarde.jpg" },
+      { name: "Silver Birch",    img: "https://www.deervalleyhb.com/wp-content/uploads/2023/09/Silver-Birch-Upgrade.jpg" },
+      { name: "Resawn Shake",    img: "https://www.deervalleyhb.com/wp-content/uploads/2023/09/Resawn-Shake-Upgrade.jpg" },
     ],
   },
   kitchen: {
     cabinetColor: [
-      { name: "Shaker Alabaster", img: "https://www.deervalleyhb.com/wp-content/uploads/2023/05/SHAKER-ALABASTER-1.jpg",    price: 0 },
-      { name: "Shaker Ash",       img: "https://www.deervalleyhb.com/wp-content/uploads/2023/05/SHAKER-ASH.jpg",            price: 0 },
-      { name: "Shaker Storm",     img: "https://www.deervalleyhb.com/wp-content/uploads/2023/05/SHAKER-GRAY-1.jpg",         price: 0 },
-      { name: "Shaker Pecan",     img: "https://www.deervalleyhb.com/wp-content/uploads/2023/05/SHAKER-PECAN-1.jpg",        price: 0 },
-      { name: "Shaker Ebony",     img: "https://www.deervalleyhb.com/wp-content/uploads/2023/05/SHAKER-EBONY.jpg",          price: 0 },
-      { name: "Maple Cognac",     img: "https://www.deervalleyhb.com/wp-content/uploads/2024/08/KITH-Colony-Maple-Cognac-300x300.jpg", price: 0 },
-      { name: "Maple Thunder",    img: "https://www.deervalleyhb.com/wp-content/uploads/2024/08/KITH-Colony-Maple-Thunder-295x300.jpg", price: 0 },
+      { name: "Shaker Alabaster", img: "https://www.deervalleyhb.com/wp-content/uploads/2023/05/SHAKER-ALABASTER-1.jpg" },
+      { name: "Shaker Ash",       img: "https://www.deervalleyhb.com/wp-content/uploads/2023/05/SHAKER-ASH.jpg" },
+      { name: "Shaker Storm",     img: "https://www.deervalleyhb.com/wp-content/uploads/2023/05/SHAKER-GRAY-1.jpg" },
+      { name: "Shaker Pecan",     img: "https://www.deervalleyhb.com/wp-content/uploads/2023/05/SHAKER-PECAN-1.jpg" },
+      { name: "Shaker Ebony",     img: "https://www.deervalleyhb.com/wp-content/uploads/2023/05/SHAKER-EBONY.jpg" },
+      { name: "Maple Cognac",     img: "https://www.deervalleyhb.com/wp-content/uploads/2024/08/KITH-Colony-Maple-Cognac-300x300.jpg" },
+      { name: "Maple Thunder",    img: "https://www.deervalleyhb.com/wp-content/uploads/2024/08/KITH-Colony-Maple-Thunder-295x300.jpg" },
     ],
     countertop: [
-      { name: "Silver Quartzite",  img: "https://www.deervalleyhb.com/wp-content/uploads/2025/10/SILVER-QUARTZITE-1-768x768.jpg",   price: 0 },
-      { name: "Classic Crystal",   img: "https://www.deervalleyhb.com/wp-content/uploads/2025/10/CLASSIC-CRYSTAL-GRANITE-768x768.jpg", price: 0 },
-      { name: "Aluma Marble",      img: "https://www.deervalleyhb.com/wp-content/uploads/2025/10/ALUMA-MARBLE-768x768.jpg",         price: 0 },
-      { name: "Calcutta Marble",   img: "https://www.deervalleyhb.com/wp-content/uploads/2025/10/CALCUTTA-MARBLE-768x768.jpg",      price: 0 },
-      { name: "Antique Limed Pine",img: "https://www.deervalleyhb.com/wp-content/uploads/2025/10/ANTIQUE-LIMED-PINE-768x768.jpg",  price: 0 },
-      { name: "Oxidized Beamwood", img: "https://www.deervalleyhb.com/wp-content/uploads/2025/10/OXIDIZED-BEAMWOOD-768x768.jpg",   price: 0 },
+      { name: "Silver Quartzite",  img: "https://www.deervalleyhb.com/wp-content/uploads/2025/10/SILVER-QUARTZITE-1-768x768.jpg" },
+      { name: "Classic Crystal",   img: "https://www.deervalleyhb.com/wp-content/uploads/2025/10/CLASSIC-CRYSTAL-GRANITE-768x768.jpg" },
+      { name: "Aluma Marble",      img: "https://www.deervalleyhb.com/wp-content/uploads/2025/10/ALUMA-MARBLE-768x768.jpg" },
+      { name: "Calcutta Marble",   img: "https://www.deervalleyhb.com/wp-content/uploads/2025/10/CALCUTTA-MARBLE-768x768.jpg" },
+      { name: "Antique Limed Pine",img: "https://www.deervalleyhb.com/wp-content/uploads/2025/10/ANTIQUE-LIMED-PINE-768x768.jpg" },
+      { name: "Oxidized Beamwood", img: "https://www.deervalleyhb.com/wp-content/uploads/2025/10/OXIDIZED-BEAMWOOD-768x768.jpg" },
     ],
     appliances: [
-      { name: "Electric Standard", price: 0,   included: true },
-      { name: "Gas Range",         price: 400,  included: false },
-      { name: "Stainless Upgrade", price: 600,  included: false },
+      { name: "Electric Standard", included: true },
+      { name: "Gas Range",         included: false },
+      { name: "Stainless Upgrade", included: false },
     ],
   },
   flooring: {
     kitchenBath: [
-      { name: "Barnwood Hickory",  img: "https://www.deervalleyhb.com/wp-content/uploads/2024/08/flooring-LVT-Barnwood-Hickory-768x509.jpg", price: 0 },
-      { name: "Rustic Timber",     img: "https://www.deervalleyhb.com/wp-content/uploads/2025/10/Rustic-Timber-9x24-1-768x509.jpg",          price: 0 },
-      { name: "Milan Essential",   img: "https://www.deervalleyhb.com/wp-content/uploads/2025/10/Milan-Essential-Elements-9x24-1-768x509.jpg", price: 0 },
-      { name: "Blooming Orchard",  img: "https://www.deervalleyhb.com/wp-content/uploads/2025/10/Blooming-Orchard-768x509.jpg",              price: 0 },
-      { name: "Early Morning",     img: "https://www.deervalleyhb.com/wp-content/uploads/2025/10/Early-Morning-768x509.jpg",                price: 0 },
-      { name: "Cabin Wood",        img: "https://www.deervalleyhb.com/wp-content/uploads/2025/10/Cabin-Wood-768x509.jpg",                   price: 0 },
-      { name: "Arbor Cove",        img: "https://www.deervalleyhb.com/wp-content/uploads/2025/10/Arbor-Cove-768x509.jpg",                   price: 0 },
+      { name: "Barnwood Hickory",  img: "https://www.deervalleyhb.com/wp-content/uploads/2024/08/flooring-LVT-Barnwood-Hickory-768x509.jpg" },
+      { name: "Rustic Timber",     img: "https://www.deervalleyhb.com/wp-content/uploads/2025/10/Rustic-Timber-9x24-1-768x509.jpg" },
+      { name: "Milan Essential",   img: "https://www.deervalleyhb.com/wp-content/uploads/2025/10/Milan-Essential-Elements-9x24-1-768x509.jpg" },
+      { name: "Blooming Orchard",  img: "https://www.deervalleyhb.com/wp-content/uploads/2025/10/Blooming-Orchard-768x509.jpg" },
+      { name: "Early Morning",     img: "https://www.deervalleyhb.com/wp-content/uploads/2025/10/Early-Morning-768x509.jpg" },
+      { name: "Cabin Wood",        img: "https://www.deervalleyhb.com/wp-content/uploads/2025/10/Cabin-Wood-768x509.jpg" },
+      { name: "Arbor Cove",        img: "https://www.deervalleyhb.com/wp-content/uploads/2025/10/Arbor-Cove-768x509.jpg" },
     ],
     bedroomLiving: [
-      { name: "Carpet — Revive",   img: "https://www.deervalleyhb.com/wp-content/uploads/2025/05/Mohawk-Revive-.jpg",  price: 0 },
-      { name: "LVP — Chestnut",    img: "https://www.deervalleyhb.com/wp-content/uploads/2025/12/Chestnut-768x512.jpg", price: 0 },
-      { name: "LVP — Siena",       img: "https://www.deervalleyhb.com/wp-content/uploads/2025/12/Siena--768x512.jpg",   price: 0 },
+      { name: "Carpet — Revive",   img: "https://www.deervalleyhb.com/wp-content/uploads/2025/05/Mohawk-Revive-.jpg" },
+      { name: "LVP — Chestnut",    img: "https://www.deervalleyhb.com/wp-content/uploads/2025/12/Chestnut-768x512.jpg" },
+      { name: "LVP — Siena",       img: "https://www.deervalleyhb.com/wp-content/uploads/2025/12/Siena--768x512.jpg" },
     ],
   },
   interior: {
     wallColor: [
-      { name: "Sea Salt",       img: "https://www.deervalleyhb.com/wp-content/uploads/2025/10/SW-6204-Sea-Salt-.jpg",       price: 0 },
-      { name: "Pearly White",   img: "https://www.deervalleyhb.com/wp-content/uploads/2025/10/SW-7009-Pearly-White-.jpg",   price: 0 },
-      { name: "Agreeable Gray", img: "https://www.deervalleyhb.com/wp-content/uploads/2025/10/SW-7029-Agreeable-Gray.jpg", price: 0 },
-      { name: "Moth Wing",      img: "https://www.deervalleyhb.com/wp-content/uploads/2025/10/SW-9174-Moth-Wing-.jpg",     price: 0 },
-      { name: "Accessible Beige",img: "https://www.deervalleyhb.com/wp-content/uploads/2025/10/SW-7036-Accessible-Beige-.jpg", price: 0 },
-      { name: "Pure White",     img: "https://www.deervalleyhb.com/wp-content/uploads/2025/10/SW-7005-Pure-White.jpg",     price: 0 },
-      { name: "Mindful Gray",   img: "https://www.deervalleyhb.com/wp-content/uploads/2025/10/Mindful-Gray.jpg",           price: 0 },
+      { name: "Sea Salt",       img: "https://www.deervalleyhb.com/wp-content/uploads/2025/10/SW-6204-Sea-Salt-.jpg" },
+      { name: "Pearly White",   img: "https://www.deervalleyhb.com/wp-content/uploads/2025/10/SW-7009-Pearly-White-.jpg" },
+      { name: "Agreeable Gray", img: "https://www.deervalleyhb.com/wp-content/uploads/2025/10/SW-7029-Agreeable-Gray.jpg" },
+      { name: "Moth Wing",      img: "https://www.deervalleyhb.com/wp-content/uploads/2025/10/SW-9174-Moth-Wing-.jpg" },
+      { name: "Accessible Beige",img: "https://www.deervalleyhb.com/wp-content/uploads/2025/10/SW-7036-Accessible-Beige-.jpg" },
+      { name: "Pure White",     img: "https://www.deervalleyhb.com/wp-content/uploads/2025/10/SW-7005-Pure-White.jpg" },
+      { name: "Mindful Gray",   img: "https://www.deervalleyhb.com/wp-content/uploads/2025/10/Mindful-Gray.jpg" },
     ],
     trimColor: [
-      { name: "Bright White",  color: "#ffffff", price: 0 },
-      { name: "Antique Cream", color: "#f5eedd", price: 0 },
+      { name: "Bright White",  color: "#ffffff" },
+      { name: "Antique Cream", color: "#f5eedd" },
     ],
   },
 };
@@ -150,49 +150,49 @@ const DEER_VALLEY_DESIGN_OPTIONS = {
 const CLAYTON_EPIC_EXPERIENCE_DESIGN_OPTIONS = {
   exterior: {
     sidingColor: [
-      { name: "Clay",  color: "#b5997a", price: 0 },
-      { name: "Flint", color: "#6b6b6b", price: 0 },
-      { name: "White", color: "#f0eeea", price: 0 },
+      { name: "Clay",  color: "#b5997a" },
+      { name: "Flint", color: "#6b6b6b" },
+      { name: "White", color: "#f0eeea" },
     ],
     roofColor: [
-      { name: "Charcoal", color: "#3a3a3a", price: 0 },
+      { name: "Charcoal", color: "#3a3a3a" },
     ],
   },
   kitchen: {
     // Each option is a full interior color package — selecting one sets everything below
     cabinetColor: [
-      { name: "Cottage Stone",  color: "#e8e0d4", price: 0 },
-      { name: "Hearthstone",    color: "#7a6050", price: 0 },
-      { name: "Sugi Ban",       color: "#4a3c34", price: 0 },
-      { name: "Oakley II",      color: "#b08850", price: 0 },
+      { name: "Cottage Stone",  color: "#e8e0d4" },
+      { name: "Hearthstone",    color: "#7a6050" },
+      { name: "Sugi Ban",       color: "#4a3c34" },
+      { name: "Oakley II",      color: "#b08850" },
     ],
     countertop: [
       // Countertop is determined by color package chosen above
-      { name: "Coulter Pine",       color: "#c8b090", price: 0 },
-      { name: "Calacatta Lincoln",  color: "#e8e4de", price: 0 },
-      { name: "Lisola",             color: "#d0c8bc", price: 0 },
+      { name: "Coulter Pine",       color: "#c8b090" },
+      { name: "Calacatta Lincoln",  color: "#e8e4de" },
+      { name: "Lisola",             color: "#d0c8bc" },
     ],
     appliances: [
-      { name: "Standard Included", price: 0, included: true },
+      { name: "Standard Included", included: true },
     ],
   },
   flooring: {
     kitchenBath: [
-      { name: "Shaw Driftwood Latte", color: "#c8b898", price: 0 },
+      { name: "Shaw Driftwood Latte", color: "#c8b898" },
     ],
     bedroomLiving: [
-      { name: "Shaw Driftwood Latte", color: "#c8b898", price: 0 },
+      { name: "Shaw Driftwood Latte", color: "#c8b898" },
     ],
   },
   interior: {
     wallColor: [
-      { name: "Lillian",       color: "#f0ece4", price: 0 },
-      { name: "Cottage Stone", color: "#d4c8b8", price: 0 },
-      { name: "Charwood",      color: "#6a5c50", price: 0 },
+      { name: "Lillian",       color: "#f0ece4" },
+      { name: "Cottage Stone", color: "#d4c8b8" },
+      { name: "Charwood",      color: "#6a5c50" },
     ],
     trimColor: [
-      { name: "Rustic Alder", color: "#c8a878", price: 0 },
-      { name: "Oakley",       color: "#b08850", price: 0 },
+      { name: "Rustic Alder", color: "#c8a878" },
+      { name: "Oakley",       color: "#b08850" },
     ],
   },
 };
@@ -202,47 +202,47 @@ const CLAYTON_EPIC_EXPERIENCE_DESIGN_OPTIONS = {
 const CLAYTON_EPIC_JOURNEY_DESIGN_OPTIONS = {
   exterior: {
     sidingColor: [
-      { name: "Clay",  color: "#b5997a", price: 0 },
-      { name: "Flint", color: "#6b6b6b", price: 0 },
-      { name: "White", color: "#f0eeea", price: 0 },
+      { name: "Clay",  color: "#b5997a" },
+      { name: "Flint", color: "#6b6b6b" },
+      { name: "White", color: "#f0eeea" },
     ],
     roofColor: [
-      { name: "Charcoal", color: "#3a3a3a", price: 0 },
+      { name: "Charcoal", color: "#3a3a3a" },
     ],
   },
   kitchen: {
     cabinetColor: [
-      { name: "Cottage Stone", color: "#e8e0d4", price: 0 },
-      { name: "Hearthstone",   color: "#7a6050", price: 0 },
-      { name: "Sugi Ban",      color: "#4a3c34", price: 0 },
-      { name: "Oakley II",     color: "#b08850", price: 0 },
+      { name: "Cottage Stone", color: "#e8e0d4" },
+      { name: "Hearthstone",   color: "#7a6050" },
+      { name: "Sugi Ban",      color: "#4a3c34" },
+      { name: "Oakley II",     color: "#b08850" },
     ],
     countertop: [
-      { name: "Coulter Pine",      color: "#c8b090", price: 0 },
-      { name: "Calacatta Lincoln", color: "#e8e4de", price: 0 },
-      { name: "Lisola",            color: "#d0c8bc", price: 0 },
+      { name: "Coulter Pine",      color: "#c8b090" },
+      { name: "Calacatta Lincoln", color: "#e8e4de" },
+      { name: "Lisola",            color: "#d0c8bc" },
     ],
     appliances: [
-      { name: "Standard Included", price: 0, included: true },
+      { name: "Standard Included", included: true },
     ],
   },
   flooring: {
     kitchenBath: [
-      { name: "Shaw Driftwood Latte", color: "#c8b898", price: 0 },
+      { name: "Shaw Driftwood Latte", color: "#c8b898" },
     ],
     bedroomLiving: [
-      { name: "Shaw Driftwood Latte", color: "#c8b898", price: 0 },
+      { name: "Shaw Driftwood Latte", color: "#c8b898" },
     ],
   },
   interior: {
     wallColor: [
-      { name: "Lillian",       color: "#f0ece4", price: 0 },
-      { name: "Cottage Stone", color: "#d4c8b8", price: 0 },
-      { name: "Charwood",      color: "#6a5c50", price: 0 },
+      { name: "Lillian",       color: "#f0ece4" },
+      { name: "Cottage Stone", color: "#d4c8b8" },
+      { name: "Charwood",      color: "#6a5c50" },
     ],
     trimColor: [
-      { name: "Rustic Alder", color: "#c8a878", price: 0 },
-      { name: "Oakley",       color: "#b08850", price: 0 },
+      { name: "Rustic Alder", color: "#c8a878" },
+      { name: "Oakley",       color: "#b08850" },
     ],
   },
 };
@@ -253,48 +253,48 @@ const CLAYTON_MIYO_DESIGN_OPTIONS = {
   exterior: {
     sidingColor: [
       // Vinyl
-      { name: "Clay",         color: "#b5997a", price: 0 },
-      { name: "Flint",        color: "#6b6b6b", price: 0 },
-      { name: "Mist",         color: "#a8a09a", price: 0 },
-      { name: "Olive",        color: "#8a9068", price: 0 },
+      { name: "Clay",         color: "#b5997a" },
+      { name: "Flint",        color: "#6b6b6b" },
+      { name: "Mist",         color: "#a8a09a" },
+      { name: "Olive",        color: "#8a9068" },
       // Smartpanel
-      { name: "MIYO Grey",    color: "#9ba0a0", price: 0 },
-      { name: "MIYO Cypress", color: "#6b8060", price: 0 },
-      { name: "MIYO Mist",    color: "#b8b0a8", price: 0 },
-      { name: "MIYO Oyster",  color: "#b0aa98", price: 0 },
+      { name: "MIYO Grey",    color: "#9ba0a0" },
+      { name: "MIYO Cypress", color: "#6b8060" },
+      { name: "MIYO Mist",    color: "#b8b0a8" },
+      { name: "MIYO Oyster",  color: "#b0aa98" },
     ],
     roofColor: [
-      { name: "Charcoal", color: "#3a3a3a", price: 0 },
+      { name: "Charcoal", color: "#3a3a3a" },
     ],
   },
   kitchen: {
     cabinetColor: [
-      { name: "Alabaster White", color: "#f5f0e8", price: 0 },
-      { name: "Emberwood",       color: "#5a3e28", price: 0 },
+      { name: "Alabaster White", color: "#f5f0e8" },
+      { name: "Emberwood",       color: "#5a3e28" },
     ],
     countertop: [
-      { name: "White Barn",   color: "#f0ece4", price: 0 },
-      { name: "Forged Steel", color: "#4a4848", price: 0 },
+      { name: "White Barn",   color: "#f0ece4" },
+      { name: "Forged Steel", color: "#4a4848" },
     ],
     appliances: [
-      { name: "Standard Included", price: 0, included: true },
+      { name: "Standard Included", included: true },
     ],
   },
   flooring: {
     kitchenBath: [
-      { name: "Piedmont", color: "#b8aa90", price: 0 },
+      { name: "Piedmont", color: "#b8aa90" },
     ],
     bedroomLiving: [
-      { name: "Piedmont (Linoleum)", color: "#b8aa90", price: 0 },
-      { name: "Canyon Cove (Carpet)", color: "#9a9080", price: 0 },
+      { name: "Piedmont (Linoleum)", color: "#b8aa90" },
+      { name: "Canyon Cove (Carpet)", color: "#9a9080" },
     ],
   },
   interior: {
     wallColor: [
-      { name: "First Light",  color: "#e8e4d8", price: 0 },
+      { name: "First Light",  color: "#e8e4d8" },
     ],
     trimColor: [
-      { name: "Castle Rock", color: "#9a9898", price: 0 },
+      { name: "Castle Rock", color: "#9a9898" },
     ],
   },
 };
@@ -305,47 +305,47 @@ const CLAYTON_MIYO_DESIGN_OPTIONS = {
 const CLAYTON_HORIZON_DESIGN_OPTIONS = {
   exterior: {
     sidingColor: [
-      { name: "Flint",     color: "#6b6b6b", price: 0 },
-      { name: "Clay",      color: "#b5997a", price: 0 },
-      { name: "White",     color: "#f0eeea", price: 0 },
-      { name: "Olive",     color: "#8a9068", price: 0 },
-      { name: "Shadow",    color: "#5a5a58", price: 0 },
-      { name: "Bayou Blue",color: "#3a4f62", price: 0 },
+      { name: "Flint",     color: "#6b6b6b" },
+      { name: "Clay",      color: "#b5997a" },
+      { name: "White",     color: "#f0eeea" },
+      { name: "Olive",     color: "#8a9068" },
+      { name: "Shadow",    color: "#5a5a58" },
+      { name: "Bayou Blue",color: "#3a4f62" },
     ],
     roofColor: [
-      { name: "Weathered Wood", color: "#8b7355", price: 0 },
+      { name: "Weathered Wood", color: "#8b7355" },
     ],
   },
   kitchen: {
     // Interior color packages — each sets cabinets, countertops, flooring & wall
     cabinetColor: [
-      { name: "Clayton Savannah",                color: "#f5f0e8", price: 0 },
-      { name: "Hope with Shadow Accent",         color: "#c8a878", price: 0 },
-      { name: "Opportunity",                     color: "#c8a060", price: 0 },
-      { name: "Opportunity with Shadow Accent",  color: "#9a7848", price: 0 },
+      { name: "Clayton Savannah",                color: "#f5f0e8" },
+      { name: "Hope with Shadow Accent",         color: "#c8a878" },
+      { name: "Opportunity",                     color: "#c8a060" },
+      { name: "Opportunity with Shadow Accent",  color: "#9a7848" },
     ],
     countertop: [
-      { name: "Burnished Iron", color: "#4a4848", price: 0 },
+      { name: "Burnished Iron", color: "#4a4848" },
     ],
     appliances: [
-      { name: "Standard Included", price: 0, included: true },
+      { name: "Standard Included", included: true },
     ],
   },
   flooring: {
     kitchenBath: [
-      { name: "Aged European Oak Natural", color: "#b8a880", price: 0 },
+      { name: "Aged European Oak Natural", color: "#b8a880" },
     ],
     bedroomLiving: [
-      { name: "Aged European Oak Natural", color: "#b8a880", price: 0 },
+      { name: "Aged European Oak Natural", color: "#b8a880" },
     ],
   },
   interior: {
     wallColor: [
-      { name: "First Light", color: "#e8e4d8", price: 0 },
+      { name: "First Light", color: "#e8e4d8" },
     ],
     trimColor: [
-      { name: "Iron Mountain", color: "#7a6a50", price: 0 },
-      { name: "Onyx",          color: "#2a2a28", price: 0 },
+      { name: "Iron Mountain", color: "#7a6a50" },
+      { name: "Onyx",          color: "#2a2a28" },
     ],
   },
 };
@@ -358,7 +358,6 @@ const HOMES = [
     beds: 2,
     baths: 1,
     sqft: 737,
-    price: 62499,
     manufacturer: "TRU Homes",
     status: "available",
     dimensions: "14' x 56'",
@@ -374,7 +373,6 @@ const HOMES = [
     beds: 2,
     baths: 2,
     sqft: 790,
-    price: 65499,
     manufacturer: "TRU Homes",
     status: "available",
     dimensions: "14' x 60'",
@@ -390,7 +388,6 @@ const HOMES = [
     beds: 2,
     baths: 2,
     sqft: 840,
-    price: 78499,
     manufacturer: "Clayton",
     line: "Clayton MiYO",
     status: "available",
@@ -407,7 +404,6 @@ const HOMES = [
     beds: 2,
     baths: 2,
     sqft: 900,
-    price: 0,
     manufacturer: "Clayton",
     line: "Clayton Horizon",
     status: "on-order",
@@ -424,7 +420,6 @@ const HOMES = [
     beds: 3,
     baths: 2,
     sqft: 869,
-    price: 67999,
     manufacturer: "TRU Homes",
     status: "available",
     dimensions: "14' x 62'",
@@ -440,7 +435,6 @@ const HOMES = [
     beds: 2,
     baths: 2,
     sqft: 825,
-    price: 0,
     manufacturer: "Clayton",
     line: "Clayton Epic",
     status: "available",
@@ -457,7 +451,6 @@ const HOMES = [
     beds: 3,
     baths: 2,
     sqft: 1080,
-    price: 0,
     manufacturer: "Clayton",
     line: "Clayton Horizon",
     status: "available",
@@ -474,7 +467,6 @@ const HOMES = [
     beds: 3,
     baths: 2,
     sqft: 1001,
-    price: 71499,
     manufacturer: "TRU Homes",
     status: "available",
     dimensions: "16' x 64'",
@@ -490,7 +482,6 @@ const HOMES = [
     beds: 3,
     baths: 2,
     sqft: 990,
-    price: 0,
     manufacturer: "Clayton",
     line: "Clayton Horizon",
     status: "on-lot",
@@ -507,7 +498,6 @@ const HOMES = [
     beds: 3,
     baths: 2,
     sqft: 990,
-    price: 84999,
     manufacturer: "Clayton",
     line: "Clayton MiYO",
     status: "available",
@@ -524,7 +514,6 @@ const HOMES = [
     beds: 4,
     baths: 2,
     sqft: 1064,
-    price: 71999,
     manufacturer: "TRU Homes",
     status: "available",
     dimensions: "14' x 76'",
@@ -540,7 +529,6 @@ const HOMES = [
     beds: 2,
     baths: 2,
     sqft: 1020,
-    price: 0,
     manufacturer: "Clayton",
     line: "Clayton Epic",
     status: "available",
@@ -557,7 +545,6 @@ const HOMES = [
     beds: 3,
     baths: 2,
     sqft: 1140,
-    price: 0,
     manufacturer: "Clayton",
     line: "Clayton Horizon",
     status: "available",
@@ -574,7 +561,6 @@ const HOMES = [
     beds: 3,
     baths: 2,
     sqft: 990,
-    price: 0,
     manufacturer: "Clayton",
     line: "Clayton Epic",
     status: "available",
@@ -591,7 +577,6 @@ const HOMES = [
     beds: 3,
     baths: 2,
     sqft: 1140,
-    price: 0,
     manufacturer: "TRU Homes",
     status: "available",
     dimensions: "16' x 72'",
@@ -607,7 +592,6 @@ const HOMES = [
     beds: 3,
     baths: 2,
     sqft: 1140,
-    price: 0,
     manufacturer: "Clayton",
     line: "Clayton Epic",
     status: "available",
@@ -624,7 +608,6 @@ const HOMES = [
     beds: 3,
     baths: 2,
     sqft: 1080,
-    price: 87999,
     manufacturer: "Clayton",
     line: "Clayton Epic",
     status: "on-order",
@@ -641,7 +624,6 @@ const HOMES = [
     beds: 3,
     baths: 2,
     sqft: 1140,
-    price: 89499,
     manufacturer: "Clayton",
     line: "Clayton Epic",
     status: "on-lot",
@@ -658,7 +640,6 @@ const HOMES = [
     beds: 3,
     baths: 2,
     sqft: 1140,
-    price: 88499,
     manufacturer: "Clayton",
     line: "Clayton MiYO",
     status: "available",
@@ -675,7 +656,6 @@ const HOMES = [
     beds: 3,
     baths: 2,
     sqft: 1140,
-    price: 88999,
     manufacturer: "Clayton",
     line: "Clayton MiYO",
     status: "available",
@@ -692,7 +672,6 @@ const HOMES = [
     beds: 3,
     baths: 2,
     sqft: 1140,
-    price: 77499,
     manufacturer: "TRU Homes",
     status: "available",
     dimensions: "16' x 72'",
@@ -708,7 +687,6 @@ const HOMES = [
     beds: 3,
     baths: 2,
     sqft: 1330,
-    price: 97499,
     manufacturer: "Clayton",
     line: "Clayton MiYO",
     status: "available",
@@ -725,7 +703,6 @@ const HOMES = [
     beds: 3,
     baths: 2,
     sqft: 1400,
-    price: 0,
     manufacturer: "Clayton",
     line: "Clayton MiYO",
     status: "available",
@@ -742,7 +719,6 @@ const HOMES = [
     beds: 3,
     baths: 2,
     sqft: 1400,
-    price: 99499,
     manufacturer: "Clayton",
     line: "Clayton MiYO",
     status: "on-order",
@@ -759,7 +735,6 @@ const HOMES = [
     beds: 2,
     baths: 2,
     sqft: 1056,
-    price: 94999,
     manufacturer: "BG Manufacturing",
     status: "available",
     dimensions: "16' x 66'",
@@ -775,7 +750,6 @@ const HOMES = [
     beds: 3,
     baths: 2,
     sqft: 1216,
-    price: 95999,
     manufacturer: "BG Manufacturing",
     status: "available",
     dimensions: "16' x 76'",
@@ -791,7 +765,6 @@ const HOMES = [
     beds: 4,
     baths: 2,
     sqft: 1200,
-    price: 98499,
     manufacturer: "BG Manufacturing",
     status: "available",
     dimensions: "16' x 76'",
@@ -807,7 +780,6 @@ const HOMES = [
     beds: 3,
     baths: 2,
     sqft: 1200,
-    price: 102499,
     manufacturer: "BG Manufacturing",
     status: "on-lot",
     dimensions: "16' x 76'",
@@ -823,7 +795,6 @@ const HOMES = [
     beds: 3,
     baths: 2,
     sqft: 1200,
-    price: 108499,
     manufacturer: "BG Manufacturing",
     status: "available",
     dimensions: "16' x 76'",
@@ -840,7 +811,6 @@ const HOMES = [
     beds: 3,
     baths: 2,
     sqft: 1140,
-    price: 94499,
     manufacturer: "Clayton",
     line: "Clayton Epic",
     status: "available",
@@ -857,7 +827,6 @@ const HOMES = [
     beds: 3,
     baths: 2,
     sqft: 1264,
-    price: 0,
     manufacturer: "Clayton",
     line: "Clayton Horizon",
     status: "available",
@@ -874,7 +843,6 @@ const HOMES = [
     beds: 3,
     baths: 2,
     sqft: 1475,
-    price: 0,
     manufacturer: "Clayton",
     line: "Clayton Horizon",
     status: "available",
@@ -891,7 +859,6 @@ const HOMES = [
     beds: 3,
     baths: 2,
     sqft: 1264,
-    price: 104999,
     manufacturer: "TRU Homes",
     status: "available",
     dimensions: "28' x 48'",
@@ -907,7 +874,6 @@ const HOMES = [
     beds: 3,
     baths: 2,
     sqft: 1264,
-    price: 117499,
     manufacturer: "Clayton",
     line: "Clayton Epic",
     status: "available",
@@ -924,7 +890,6 @@ const HOMES = [
     beds: 3,
     baths: 2,
     sqft: 1369,
-    price: 119999,
     manufacturer: "Clayton",
     line: "Clayton Epic",
     status: "on-order",
@@ -941,7 +906,6 @@ const HOMES = [
     beds: 4,
     baths: 2,
     sqft: 1475,
-    price: 121999,
     manufacturer: "Clayton",
     line: "Clayton Epic",
     status: "available",
@@ -958,7 +922,6 @@ const HOMES = [
     beds: 3,
     baths: 2,
     sqft: 1475,
-    price: 0,
     manufacturer: "Clayton",
     line: "Clayton Epic",
     status: "available",
@@ -975,7 +938,6 @@ const HOMES = [
     beds: 3,
     baths: 2,
     sqft: 1580,
-    price: 0,
     manufacturer: "Clayton",
     line: "Clayton Horizon",
     status: "available",
@@ -992,7 +954,6 @@ const HOMES = [
     beds: 3,
     baths: 2,
     sqft: 1475,
-    price: 108499,
     manufacturer: "TRU Homes",
     status: "available",
     dimensions: "28' x 52'",
@@ -1008,7 +969,6 @@ const HOMES = [
     beds: 3,
     baths: 2,
     sqft: 1475,
-    price: 108999,
     manufacturer: "TRU Homes",
     status: "available",
     dimensions: "28' x 52'",
@@ -1024,7 +984,6 @@ const HOMES = [
     beds: 4,
     baths: 2,
     sqft: 1475,
-    price: 108999,
     manufacturer: "TRU Homes",
     status: "available",
     dimensions: "28' x 52'",
@@ -1040,7 +999,6 @@ const HOMES = [
     beds: 3,
     baths: 2,
     sqft: 1680,
-    price: 129999,
     manufacturer: "Clayton",
     line: "Clayton MiYO",
     status: "on-order",
@@ -1057,7 +1015,6 @@ const HOMES = [
     beds: 3,
     baths: 2,
     sqft: 1904,
-    price: 130999,
     manufacturer: "Clayton",
     line: "Clayton Epic",
     status: "on-lot",
@@ -1074,7 +1031,6 @@ const HOMES = [
     beds: 4,
     baths: 2,
     sqft: 1580,
-    price: 0,
     manufacturer: "Clayton",
     line: "Clayton Epic",
     status: "available",
@@ -1091,7 +1047,6 @@ const HOMES = [
     beds: 4,
     baths: 2,
     sqft: 1858,
-    price: 0,
     manufacturer: "Clayton",
     line: "Clayton Horizon",
     status: "available",
@@ -1108,7 +1063,6 @@ const HOMES = [
     beds: 4,
     baths: 2,
     sqft: 1791,
-    price: 116499,
     manufacturer: "TRU Homes",
     status: "available",
     dimensions: "28' x 64'",
@@ -1124,7 +1078,6 @@ const HOMES = [
     beds: 4,
     baths: 2,
     sqft: 2040,
-    price: 137499,
     manufacturer: "Clayton",
     line: "Clayton MiYO",
     status: "available",
@@ -1141,7 +1094,6 @@ const HOMES = [
     beds: 5,
     baths: 3,
     sqft: 2001,
-    price: 121999,
     manufacturer: "TRU Homes",
     status: "available",
     dimensions: "32' x 64'",
@@ -1157,7 +1109,6 @@ const HOMES = [
     beds: 4,
     baths: 3,
     sqft: 2001,
-    price: 144499,
     manufacturer: "Clayton",
     line: "Clayton Epic",
     status: "available",
@@ -1174,7 +1125,6 @@ const HOMES = [
     beds: 4,
     baths: 3,
     sqft: 2280,
-    price: 158999,
     manufacturer: "Clayton",
     line: "Clayton Epic",
     status: "available",
@@ -1191,7 +1141,6 @@ const HOMES = [
     beds: 4,
     baths: 2,
     sqft: 1740,
-    price: 0,
     manufacturer: "BG Manufacturing",
     status: "available",
     dimensions: "32' x 56'",
@@ -1207,7 +1156,6 @@ const HOMES = [
     beds: 3,
     baths: 2,
     sqft: 1800,
-    price: 178499,
     manufacturer: "BG Manufacturing",
     status: "available",
     dimensions: "32' x 56'",
@@ -1223,7 +1171,6 @@ const HOMES = [
     beds: 3,
     baths: 3,
     sqft: 1920,
-    price: 187499,
     manufacturer: "BG Manufacturing",
     status: "available",
     dimensions: "32' x 64'",
@@ -1239,7 +1186,6 @@ const HOMES = [
     beds: 4,
     baths: 2,
     sqft: 2280,
-    price: 193999,
     manufacturer: "BG Manufacturing",
     status: "available",
     dimensions: "32' x 76'",
@@ -1255,7 +1201,6 @@ const HOMES = [
     beds: 3,
     baths: 2,
     sqft: 1800,
-    price: 194999,
     manufacturer: "BG Manufacturing",
     status: "available",
     dimensions: "32' x 56'",
@@ -1271,7 +1216,6 @@ const HOMES = [
     beds: 4,
     baths: 2,
     sqft: 2400,
-    price: 213499,
     manufacturer: "BG Manufacturing",
     status: "available",
     dimensions: "32' x 80'",
@@ -1289,7 +1233,6 @@ const HOMES = [
     beds: 3,
     baths: 2,
     sqft: 2115,
-    price: 0,
     manufacturer: "Deer Valley Homebuilders",
     status: "available",
     dimensions: "47' x 66'",
@@ -1307,7 +1250,6 @@ const HOMES = [
     beds: 3,
     baths: 2,
     sqft: 2580,
-    price: null,
     manufacturer: "Deer Valley Homebuilders",
     status: "available",
     dimensions: "",
@@ -1354,7 +1296,6 @@ const HOMES = [
     beds: 4,
     baths: 3,
     sqft: 2580,
-    price: null,
     manufacturer: "Deer Valley Homebuilders",
     status: "available",
     dimensions: "",
@@ -1392,7 +1333,6 @@ const HOMES = [
     beds: 4,
     baths: 3.5,
     sqft: 3180,
-    price: null,
     manufacturer: "Deer Valley Homebuilders",
     status: "available",
     dimensions: "",
@@ -1439,7 +1379,6 @@ const HOMES = [
     beds: 3,
     baths: 2,
     sqft: 1140,
-    price: null,
     manufacturer: "Deer Valley Homebuilders",
     status: "available",
     dimensions: "",
@@ -1475,7 +1414,6 @@ const HOMES = [
     beds: 4,
     baths: 3,
     sqft: 2340,
-    price: 0,
     manufacturer: "Kabco",
     status: "available",
     dimensions: "32' x 82'",
@@ -1516,7 +1454,6 @@ const HOMES = [
     beds: 4,
     baths: 2,
     sqft: 2340,
-    price: 0,
     manufacturer: "Kabco",
     status: "available",
     dimensions: "32' x 82'",
@@ -1560,7 +1497,6 @@ const HOMES = [
     beds: 3,
     baths: 2,
     sqft: 1512,
-    price: 0,
     manufacturer: "Kabco",
     status: "available",
     dimensions: "28' x 60'",
@@ -1599,7 +1535,6 @@ const HOMES = [
     beds: 3,
     baths: 2,
     sqft: 1620,
-    price: 0,
     manufacturer: "Kabco",
     status: "available",
     dimensions: "28' x 64'",
@@ -1639,7 +1574,6 @@ const HOMES = [
     beds: 3,
     baths: 2,
     sqft: 1680,
-    price: 0,
     manufacturer: "Kabco",
     status: "available",
     dimensions: "32' x 60'",
@@ -1675,7 +1609,6 @@ const HOMES = [
     beds: 4,
     baths: 3,
     sqft: 2280,
-    price: 0,
     manufacturer: "Kabco",
     status: "available",
     dimensions: "32' x 80'",
@@ -1719,7 +1652,6 @@ const HOMES = [
     beds: 4,
     baths: 2,
     sqft: 2280,
-    price: 0,
     manufacturer: "Kabco",
     status: "available",
     dimensions: "32' x 80'",
@@ -1761,7 +1693,6 @@ const HOMES = [
     beds: 3,
     baths: 2,
     sqft: 1170,
-    price: 0,
     manufacturer: "Kabco",
     status: "available",
     dimensions: "16' x 82'",
@@ -1795,7 +1726,6 @@ const HOMES = [
     beds: 3,
     baths: 2,
     sqft: 1140,
-    price: 0,
     manufacturer: "Kabco",
     status: "available",
     dimensions: "16' x 80'",
@@ -1824,20 +1754,6 @@ const HOMES = [
 ];
 
 // ── Utility functions ────────────────────────────────────────────────────────
-
-function formatPrice(p) {
-  return '';
-}
-
-function estimateMonthly(price) {
-  if (!price) return 0;
-  // Rough estimate: 30yr @ ~7.5% with 5% down — subject to lender approval
-  const loan = price * 0.95;
-  const rate = 0.075 / 12;
-  const n = 360;
-  const mo = loan * (rate * Math.pow(1 + rate, n)) / (Math.pow(1 + rate, n) - 1);
-  return Math.round(mo);
-}
 
 function statusLabel(status) {
   const map = {
@@ -1897,7 +1813,7 @@ function homeTroveCardHTML(home, basePath) {
   const typeBadgeClass = home.type === 'Double-Wide' ? 'type-badge-double' : home.type === 'Triple-Wide' ? 'type-badge-triple' : 'type-badge-single';
 
   return `
-    <div class="home-card-trove" data-type="${home.type}" data-beds="${home.beds}" data-price="${home.price}" data-slug="${home.slug}">
+    <div class="home-card-trove" data-type="${home.type}" data-beds="${home.beds}" data-slug="${home.slug}">
       <div class="card-img-wrap">
         <img class="card-img" src="${imgSrc}" alt="${home.name}"
           loading="lazy"
@@ -1929,7 +1845,7 @@ function homeCardHTML(home) {
   const imgSrc = BASE_PATH + home.image;
   const placeholder = BASE_PATH + 'images/home-placeholder.jpg';
   return `
-    <a href="${detailHref}?home=${home.slug}" class="home-card" data-type="${home.type}" data-beds="${home.beds}" data-price="${home.price}">
+    <a href="${detailHref}?home=${home.slug}" class="home-card" data-type="${home.type}" data-beds="${home.beds}">
       <div class="home-card-img">
         <img src="${imgSrc}" alt="${home.name}" loading="lazy" onerror="this.src='${placeholder}'">
         ${badge}
@@ -1956,18 +1872,26 @@ function homeCardHTML(home) {
 if (typeof BASE_PATH === 'undefined') { var BASE_PATH = ''; }
 
 // ── Live CRM Inventory Loader ─────────────────────────────────────────────
-// Fetches live price + status from CRM at page load.
+// Fetches live status from the CRM at page load.
 // Non-breaking: if the API is down, static data is the fallback.
+// Only status and visibility are read. Every other field the feed supplies
+// is discarded and never reaches the page.
 (function() {
   var CRM_API = 'https://southern-mhc-crm-production.up.railway.app/api/public/inventory';
 
   function applyLiveData(liveList) {
     if (!Array.isArray(liveList) || liveList.length === 0) return;
 
-    // Build a map: slug → { websitePrice, websiteStatus, showOnWebsite }
+    // Build a map: slug → { websiteStatus, showOnWebsite } (nothing else is kept)
     var liveMap = {};
     liveList.forEach(function(item) {
-      if (item.slug) liveMap[item.slug] = item;
+      if (item && item.slug) {
+        liveMap[item.slug] = {
+          slug: item.slug,
+          websiteStatus: item.websiteStatus,
+          showOnWebsite: item.showOnWebsite
+        };
+      }
     });
 
     // Patch every home in the HOMES array
@@ -1975,10 +1899,6 @@ if (typeof BASE_PATH === 'undefined') { var BASE_PATH = ''; }
       HOMES.forEach(function(home) {
         var live = liveMap[home.slug];
         if (!live) return;
-        // Update price (null or 0 → shows "Call for Price" via formatPrice)
-        if (live.websitePrice !== undefined) {
-          home.price = live.websitePrice || 0;
-        }
         // Update on-lot badge
         if (live.websiteStatus) {
           home.status = live.websiteStatus; // 'available', 'on-lot', 'on-order', 'sold'

@@ -538,10 +538,6 @@
             <span class="spec-val" id="spec-sqft">—</span>
             <span class="spec-lbl">Sq Ft</span>
           </div>
-          <div class="spec-chip">
-            <span class="spec-val" id="spec-price">—</span>
-            <span class="spec-lbl">Starting Price</span>
-          </div>
         </div>
 
         <div class="footprint-statement" id="footprint-statement" style="display:none"></div>
@@ -653,7 +649,6 @@
   var specBeds           = document.getElementById('spec-beds');
   var specBaths          = document.getElementById('spec-baths');
   var specSqft           = document.getElementById('spec-sqft');
-  var specPrice          = document.getElementById('spec-price');
   var quoteBtn           = document.getElementById('quote-btn');
 
   /* ── Populate home dropdown ─────────────────────────────────────────────── */
@@ -808,7 +803,6 @@
     specsNameLine.textContent = home.name + ' — ' + home.manufacturer;
     specBeds.textContent = home.beds; specBaths.textContent = home.baths;
     specSqft.textContent = home.sqft.toLocaleString() + ' sq ft';
-    specPrice.textContent = formatPrice(home.price);
     footprintStatement.textContent = 'This home is ' + dim.w + '\' × ' + dim.l + '\' — ' + home.sqft.toLocaleString() + ' sq ft of living space.';
     specsGrid.style.display = 'grid'; footprintStatement.style.display = 'block'; ctaRow.style.display = 'flex';
     quoteBtn.href = 'contact.html?home=' + encodeURIComponent(home.slug);
