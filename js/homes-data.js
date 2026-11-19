@@ -1877,7 +1877,7 @@ if (typeof BASE_PATH === 'undefined') { var BASE_PATH = ''; }
 // Only status and visibility are read. Every other field the feed supplies
 // is discarded and never reaches the page.
 (function() {
-  var CRM_API = 'https://southern-mhc-crm-production.up.railway.app/api/public/inventory';
+  var CRM_API = 'https://crm.southernmhc.com/api/public/inventory';
 
   function applyLiveData(liveList) {
     if (!Array.isArray(liveList) || liveList.length === 0) return;
@@ -1922,5 +1922,5 @@ if (typeof BASE_PATH === 'undefined') { var BASE_PATH = ''; }
     .catch(function() { /* silently fail — static data remains */ });
 
   // Also expose as a global for pages that render cards after load
-  window.SMHC_CRM_URL = 'https://southern-mhc-crm-production.up.railway.app';
+  window.SMHC_CRM_URL = 'https://crm.southernmhc.com';
 })();

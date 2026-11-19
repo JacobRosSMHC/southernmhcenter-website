@@ -263,7 +263,7 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     try {
-      const res = await fetch('https://southern-mhc-crm-production.up.railway.app/api/leads/public', {
+      const res = await fetch('https://crm.southernmhc.com/api/leads/public', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(leadData),

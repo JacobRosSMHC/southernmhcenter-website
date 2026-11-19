@@ -838,7 +838,7 @@ async function pqSubmit() {
   // Submit to CRM public endpoint (no auth required)
   (async () => {
     try {
-      const CRM = 'https://southern-mhc-crm-production.up.railway.app';
+      const CRM = 'https://crm.southernmhc.com';
       await fetch(CRM + '/api/leads/public', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

@@ -51,7 +51,7 @@ fadeEls.forEach(el => observer.observe(el));
     document.body.insertBefore(bar, document.body.firstChild);
   }
   // Try CRM first, fall back to localStorage
-  fetch('https://southern-mhc-crm-production.up.railway.app/api/public/settings')
+  fetch('https://crm.southernmhc.com/api/public/settings')
     .then(function(r) { return r.ok ? r.json() : null; })
     .then(function(s) {
       if (s && s.announcementOn && s.announcementText) {
@@ -66,7 +66,7 @@ fadeEls.forEach(el => observer.observe(el));
 })();
 
 // ── CRM Lead Submission ───────────────────────────────────────────────────
-const CRM_URL = 'https://southern-mhc-crm-production.up.railway.app';
+const CRM_URL = 'https://crm.southernmhc.com';
 
 async function submitLeadToCRM(data) {
   try {
