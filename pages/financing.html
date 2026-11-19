@@ -500,14 +500,6 @@
             <input type="text" id="last-name" name="last-name" placeholder="Smith" required>
           </div>
           <div class="form-group">
-            <label for="dob">Date of Birth <span style="color:var(--gold)">*</span></label>
-            <input type="date" id="dob" name="dob" required>
-          </div>
-          <div class="form-group">
-            <label for="ssn">Social Security # <span class="optional">(optional — for pre-qualification only)</span></label>
-            <input type="text" id="ssn" name="ssn" placeholder="XXX-XX-XXXX" maxlength="11" autocomplete="off">
-          </div>
-          <div class="form-group">
             <label for="phone">Phone Number <span style="color:var(--gold)">*</span></label>
             <input type="tel" id="phone" name="phone" placeholder="(225) 555-0100" required>
           </div>
@@ -797,14 +789,6 @@
     el.classList.toggle('visible', show);
   }
 
-  /* ── SSN auto-format ── */
-  document.getElementById('ssn').addEventListener('input', function() {
-    let v = this.value.replace(/\D/g,'');
-    if (v.length > 3 && v.length <= 5) v = v.slice(0,3) + '-' + v.slice(3);
-    else if (v.length > 5) v = v.slice(0,3) + '-' + v.slice(3,5) + '-' + v.slice(5,9);
-    this.value = v;
-  });
-
   /* ── CRM Submission ── */
   async function submitApplication(data) {
     const CRM = 'https://crm.southernmhc.com';
@@ -838,7 +822,6 @@
       return;
     }
 
-    const dob          = document.getElementById('dob').value;
     const homeModel    = document.getElementById('home-model').value.trim();
     const homeType     = document.querySelector('input[name="home-type"]:checked')?.value || '';
     const homeCondition= document.querySelector('input[name="home-condition"]:checked')?.value || '';
@@ -859,7 +842,6 @@
 
     // Build structured notes from the detailed form fields
     const detailNotes = [
-      dob           ? `DOB: ${dob}` : '',
       homeModel     ? `Home of Interest: ${homeModel}` : '',
       homeType      ? `Home Type: ${homeType}${homeCondition ? ' — ' + homeCondition : ''}` : '',
       employment    ? `Employment: ${employment}${employerName ? ' at ' + employerName : ''}` : '',
