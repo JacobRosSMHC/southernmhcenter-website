@@ -1684,6 +1684,10 @@ input[type="range"]::-moz-range-thumb {
 @media (max-width: 600px) {
   .reviews-grid { grid-template-columns: 1fr; }
 }
+/* Three review cards: fill the desktop row instead of leaving a fourth column empty */
+@media (min-width: 1025px) {
+  .reviews-grid.reviews-grid--three { grid-template-columns: repeat(3, 1fr); }
+}
 
 /* ── SMS Opt-In ──────────────────────────────────────────────────────────── */
 .sms-optin {
